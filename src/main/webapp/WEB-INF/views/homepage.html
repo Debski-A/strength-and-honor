@@ -3,21 +3,24 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script th:src="@{/resources/js/bootstrap.min.js}"></script>
 
 <title th:text="#{homepage.title}">Title</title>
 
 <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 
 		<h2 th:text="#{homepage.content}">Content</h2>
 
+		<img th:src="@{/resources/images/aligator.png}" />
+
 	</div>
-	<!-- /container -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

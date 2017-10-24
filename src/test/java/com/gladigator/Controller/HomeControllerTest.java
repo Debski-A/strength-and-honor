@@ -1,4 +1,4 @@
-package com.gladigator;
+package com.gladigator.Controller;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.gladigator.Controller.HomeController;
+import com.gladigator.ControllerAdvice.ExceptionController;
 
 public class HomeControllerTest {
 	
@@ -18,7 +19,7 @@ public class HomeControllerTest {
 	@Before
 	public void before() {
 		controller = new HomeController();
-		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new ExceptionController()).build();
 	}
 	
 	@Test 
@@ -27,10 +28,9 @@ public class HomeControllerTest {
 	}
 	
 	@Test
-	public void whenInvalidUrlThenPageNotFound() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/invalidURL")).andExpect(MockMvcResultMatchers.view().name("pageNotFound"));
+	public void whenInvalidUrlThen404() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/invalidURL"))
+			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
 	
-	
-
 }
