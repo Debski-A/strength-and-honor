@@ -6,19 +6,49 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+	src="../../resources/js/jquery-3.2.1.slim.min.js"
+	th:src="@{/resources/js/jquery-3.2.1.slim.min.js}"></script>
+	
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
+
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
 
 <title th:text="#{homepage.title}">Title</title>
 
-<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
 </head>
 <body>
 	<div class="container-fluid">
+		<div class="jumbotron">
+			<div class="row">
+				<h1 th:text="#{homepage.content}">Content</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<img src="../../resources/images/aligator.png"
+						th:src="@{/resources/images/aligator.png}" class="img-circle"
+						alt="Cinque Terre" width="304" height="236" />
+				</div>
+				<div class="col-md-4 container">
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="collapse navbar-collapse"
+							id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li>Link1</li>
+								<li>Link2</li>
+								<li>Link3</li>
+							</ul>
+						</div>
+					</nav>
 
-		<h2 th:text="#{homepage.content}">Content</h2>
+				</div>
+			</div>
+		</div>
 
-		<img th:src="@{/resources/images/aligator.png}" />
 
 	</div>
 

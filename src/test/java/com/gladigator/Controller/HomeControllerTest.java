@@ -7,9 +7,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.gladigator.Controller.HomeController;
-import com.gladigator.ControllerAdvice.ExceptionController;
-
 public class HomeControllerTest {
 	
 	private HomeController controller;
@@ -19,7 +16,7 @@ public class HomeControllerTest {
 	@Before
 	public void before() {
 		controller = new HomeController();
-		mockMvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new ExceptionController()).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 	
 	@Test 
@@ -31,6 +28,8 @@ public class HomeControllerTest {
 	public void whenInvalidUrlThen404() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/invalidURL"))
 			.andExpect(MockMvcResultMatchers.status().is(404));
+		
 	}
+	
 	
 }
