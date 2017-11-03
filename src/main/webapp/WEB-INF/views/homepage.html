@@ -2,13 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head th:replace="fragments/head :: head (pageTitle=#{homepage.title})">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script
-	src="../../resources/js/jquery-3.2.1.slim.min.js"
+<script src="../../resources/js/jquery-3.2.1.slim.min.js"
 	th:src="@{/resources/js/jquery-3.2.1.slim.min.js}"></script>
-	
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	th:src="@{/resources/js/bootstrap.min.js}"></script>
@@ -18,39 +17,103 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
 
-<title th:text="#{homepage.title}">Title</title>
+<link href="../../resources/css/custom.css"
+	th:href="@{/resources/css/custom.css}" rel="stylesheet" />
+
+<title>Page title</title>
 
 </head>
 <body>
+	<!-- navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+			th:replace="fragments/header :: navbar">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Link1 z headera</a></li>
+					<li><a href="#">Link2 z headera</a></li>
+					<li><a href="#">Link3</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+							Profil</a></li>
+					<li><a href="#"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		</nav>
+	<!-- jumbotron -->
 	<div class="container-fluid">
 		<div class="jumbotron">
-			<div class="row">
-				<h1 th:text="#{homepage.content}">Content</h1>
-			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<img src="../../resources/images/aligator.png"
 						th:src="@{/resources/images/aligator.png}" class="img-circle"
 						alt="Cinque Terre" width="304" height="236" />
 				</div>
-				<div class="col-md-4 container">
-					<nav class="navbar navbar-default" role="navigation">
-						<div class="collapse navbar-collapse"
-							id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li>Link1</li>
-								<li>Link2</li>
-								<li>Link3</li>
-							</ul>
-						</div>
-					</nav>
-
+				<div class="col-md-8">
+					<h1 th:text="#{homepage.content}">Content</h1>
 				</div>
 			</div>
 		</div>
-
-
+		<!-- content -->
+		<div class="container-fluid">
+			<div class="content">Lorem ipsum dolor sit amet, consectetur
+				adipiscing elit. Phasellus vel felis turpis. Nullam nec blandit
+				lectus, at congue quam. Nulla facilisi. Vestibulum varius venenatis
+				nibh, quis auctor eros iaculis non. Quisque augue tortor, convallis
+				at augue eu, pellentesque iaculis sapien. Suspendisse neque turpis,
+				ullamcorper a velit et, scelerisque commodo nisl. Etiam malesuada
+				euismod lacus sit amet scelerisque. Mauris tempor pulvinar mauris
+				non efficitur. Fusce sit amet ligula nunc. Nunc lacinia tincidunt
+				nunc non bibendum. Nam congue tortor a orci consequat, in viverra
+				dolor euismod. Nulla facilisi. Proin varius condimentum dui, non
+				ullamcorper dui scelerisque eget. Aenean rutrum tellus egestas
+				eleifend euismod. Proin nibh justo, commodo at varius sit amet,
+				congue a ante. Sed vel felis congue, congue sapien vitae, posuere
+				mauris. Praesent maximus eu neque sit amet semper. Nunc turpis est,
+				vestibulum in semper eget, eleifend eu libero. Ut fermentum
+				condimentum lorem eget congue. Suspendisse condimentum fringilla
+				velit at elementum. Quisque rhoncus varius ipsum. Phasellus et
+				vulputate tellus. Nam id elit quis massa tempus commodo id eget
+				lacus. Integer aliquet feugiat vestibulum. Sed molestie tortor a
+				sollicitudin pharetra. Sed luctus, erat ut suscipit scelerisque,
+				diam arcu tempus nisl, nec dignissim ante erat vel eros. Vivamus
+				vestibulum fermentum dui, ac pellentesque risus feugiat interdum. In
+				semper pretium enim eu elementum. Cras congue sit amet nulla et
+				vehicula. Morbi egestas imperdiet magna, sit amet ullamcorper orci
+				vehicula in. Aliquam eu velit sed purus sodales viverra eget et sem.
+				Sed tempor ipsum mauris, sed aliquet nibh laoreet a. In auctor
+				hendrerit velit ac commodo. Vestibulum non maximus ipsum. In hac
+				habitasse platea dictumst. Aenean eu dapibus augue. Nam faucibus
+				malesuada turpis, nec pretium leo pretium et. Nam metus sem, posuere
+				vel turpis eu, porta feugiat elit. Sed fermentum eget lorem sed
+				scelerisque. Nunc tincidunt fermentum mi, nec pulvinar nisl pharetra
+				id. Donec sollicitudin maximus enim in volutpat. Integer sem nisi,
+				efficitur at gravida a, egestas sit amet odio. Morbi sed ligula in
+				nunc ultrices dignissim. Phasellus rhoncus nibh ac cursus gravida.
+				Mauris ut porta diam. Cras mollis nulla velit, vel lobortis sem
+				tempor nec. Donec auctor ante vel tortor congue, eget dapibus metus
+				rutrum. Mauris dapibus velit eu purus porta vehicula. Donec varius
+				semper quam, vitae placerat massa tincidunt eleifend. Donec lacinia
+				tempus purus sit amet faucibus. Phasellus ullamcorper, lorem et
+				volutpat ullamcorper, dolor odio efficitur lorem, at hendrerit felis
+				massa tempor ligula. Mauris eu turpis enim. Integer lorem justo,
+				vulputate lobortis mattis vel, ultrices nec dui. Integer laoreet,
+				orci a feugiat tristique, leo lorem lobortis risus, vitae molestie
+				justo nisi a velit. Vivamus fringilla, dui in luctus faucibus, orci
+				enim fermentum ipsum, nec lacinia massa metus eget purus. Cras
+				ornare leo non augue eleifend, tempor imperdiet nisl ultrices.
+				Integer tempus turpis ut orci convallis, ut interdum nulla
+				vestibulum. Phasellus bibendum dignissim tellus, vel commodo enim
+				fermentum eu.</div>
+		</div>
 	</div>
+	<!-- footer -->
+	<footer class="footer" th:replace="fragments/footer :: footer">
+		<div class="container-fluid">
+			<span class="text-muted">Place sticky footer content here.</span>
+		</div>
+	</footer>
 
 </body>
 </html>
