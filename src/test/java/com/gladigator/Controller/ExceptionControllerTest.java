@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.gladigator.ControllerAdvice.ExceptionController;
+import com.gladigator.ControllerAdvices.ExceptionController;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExceptionControllerTest {

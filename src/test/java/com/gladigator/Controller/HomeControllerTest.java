@@ -7,6 +7,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.gladigator.Controllers.HomeController;
+
 public class HomeControllerTest {
 	
 	private HomeController controller;

@@ -22,7 +22,12 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/appconfig-root.xml</param-value>
+		<param-value>
+		/WEB-INF/appconfig-root.xml
+		classpath:com/gladigator/Configs/dao-context.xml
+		classpath:com/gladigator/Configs/security-context.xml
+		classpath:com/gladigator/Configs/service-context.xml
+		</param-value>
 	</context-param>
 
 	<servlet>

@@ -1,4 +1,4 @@
-package com.gladigator.ControllerAdvice;
+package com.gladigator.ControllerAdvices;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
