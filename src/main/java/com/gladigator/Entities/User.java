@@ -1,11 +1,21 @@
-package com.gladigator.Domains;
+package com.gladigator.Entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 
 @Entity
@@ -15,19 +25,43 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_user")
-	private Integer id_user;
+	private Integer userId;
 	
-	@Column(name="username")
+	@NotBlank
+	@Column(name="username", unique = true)
 	private String username;
 	
+	@NotBlank
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="email")
+	@NotBlank
+	@Column(name="email", unique = true)
 	private String email;
 	
+	@NotBlank
 	@Column(name="enabled")
 	private Boolean enabled;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL) //Zaladowane dopiero przy odwolaniu, zmapowane jako user w encji UserDetails,
+	private UserDetails userDetails;												//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH beda rowniez wykonane na powiazanych encjach
+																					//w tym przypadku na UserDetails
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "users_has_roles",
+	            joinColumns = @JoinColumn(name = "id_user"),
+	            inverseJoinColumns = @JoinColumn(name = "id_role"))
+	private List<Role> roles;
+	 
+	
+	
+	public UserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(UserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
 
 	public String getUsername() {
 		return username;
@@ -61,8 +95,8 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Integer getId_user() {
-		return id_user;
+	public Integer getUserId() {
+		return userId;
 	}
 
 	@Override
@@ -71,7 +105,7 @@ public class User {
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
-		result = prime * result + ((id_user == null) ? 0 : id_user.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -96,10 +130,10 @@ public class User {
 				return false;
 		} else if (!enabled.equals(other.enabled))
 			return false;
-		if (id_user == null) {
-			if (other.id_user != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!id_user.equals(other.id_user))
+		} else if (!userId.equals(other.userId))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -116,9 +150,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id_user=" + id_user + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", enabled=" + enabled + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", enabled=" + enabled + ", userDetails=" + userDetails + ", roles=" + roles + "]";
 	}
+
 	
 	
 }
