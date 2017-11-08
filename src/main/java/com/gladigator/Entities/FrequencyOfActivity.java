@@ -37,5 +37,13 @@ public class FrequencyOfActivity {
 		return "FrequencyOfActivity [frequency=" + frequency + "]";
 	}
 
+	public FrequencyOfActivity() {}
+	
+	public FrequencyOfActivity(Integer frequencyOfActivityId) {
+		this.frequencyOfActivityId = frequencyOfActivityId;
+	}
+	
+	
+
 	
 }

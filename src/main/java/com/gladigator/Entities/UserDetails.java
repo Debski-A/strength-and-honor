@@ -18,44 +18,54 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "users_details")
 public class UserDetails {
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = {@Parameter(name = "property", value = "user")}) //Konieczne aby pobierac ID z tabeli users
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = {
+			@Parameter(name = "property", value = "user") }) // Konieczne aby pobierac ID z tabeli users
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "id_user", unique = true, nullable = false)
+	@Column(name = "id_user")
 	private Integer userId;
 
-	
 	@Column(name = "height")
 	private Integer height;
-	
+
 	@Column(name = "weight")
 	private Integer weight;
-	
+
 	@Column(name = "age")
 	private Integer age;
-	
+
 	@Column(name = "BMI")
-	private Integer bmi; //Body Mass Index
-	
+	private Integer bmi; // Body Mass Index
+
 	@Column(name = "BMR")
-	private Integer bmr; //Basal Metabolic Rate
-	
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-	@PrimaryKeyJoinColumn
-	private User user;
-	
-	@OneToOne(fetch = FetchType.LAZY,  cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	private Integer bmr; // Basal Metabolic Rate
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_foa")
 	private FrequencyOfActivity frequencyOfActivity;
-	
-	@OneToOne(fetch = FetchType.LAZY,  cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_bt")
 	private BodyType bodyType;
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_sex")
 	private Sex sex;
+
+	public UserDetails() {
+	}
+
+	public UserDetails(UserDetailsBuilder builder) {
+		this.userId = builder.userId;
+		this.height = builder.height;
+		this.weight = builder.weight;
+		this.age = builder.age;
+		this.bmi = builder.bmi;
+		this.bmr = builder.bmr;
+		this.frequencyOfActivity = builder.frequencyOfActivity;
+		this.bodyType = builder.bodyType;
+		this.sex = builder.sex;
+	}
 
 	public Integer getHeight() {
 		return height;
@@ -101,10 +111,6 @@ public class UserDetails {
 		return userId;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
 	public FrequencyOfActivity getFrequencyOfActivity() {
 		return frequencyOfActivity;
 	}
@@ -116,7 +122,7 @@ public class UserDetails {
 	public Sex getSex() {
 		return sex;
 	}
-	
+
 	public void setFrequencyOfActivity(FrequencyOfActivity frequencyOfActivity) {
 		this.frequencyOfActivity = frequencyOfActivity;
 	}
@@ -135,7 +141,67 @@ public class UserDetails {
 				+ ", frequencyOfActivity=" + frequencyOfActivity + ", bodyType=" + bodyType + ", sex=" + sex + "]";
 	}
 
-	
-	
- 
+	public static class UserDetailsBuilder {
+
+		private Integer userId;
+		private Integer height;
+		private Integer weight;
+		private Integer age;
+		private Integer bmi;
+		private Integer bmr;
+		private FrequencyOfActivity frequencyOfActivity;
+		private BodyType bodyType;
+		private Sex sex;
+
+		public UserDetailsBuilder setUserId(Integer userId) {
+			this.userId = userId;
+			return this;
+		}
+
+		public UserDetailsBuilder setHeight(Integer height) {
+			this.height = height;
+			return this;
+		}
+
+		public UserDetailsBuilder setWeight(Integer weight) {
+			this.weight = weight;
+			return this;
+		}
+
+		public UserDetailsBuilder setAge(Integer age) {
+			this.age = age;
+			return this;
+		}
+
+		public UserDetailsBuilder setBmi(Integer bmi) {
+			this.bmi = bmi;
+			return this;
+		}
+
+		public UserDetailsBuilder setBmr(Integer bmr) {
+			this.bmr = bmr;
+			return this;
+		}
+
+		public UserDetailsBuilder setFrequencyOfActivity(FrequencyOfActivity frequencyOfActivity) {
+			this.frequencyOfActivity = frequencyOfActivity;
+			return this;
+		}
+
+		public UserDetailsBuilder setBodyType(BodyType bodyType) {
+			this.bodyType = bodyType;
+			return this;
+		}
+
+		public UserDetailsBuilder setSex(Sex sex) {
+			this.sex = sex;
+			return this;
+		}
+
+		public UserDetails build() {
+			return new UserDetails(this);
+		}
+
+	}
+
 }

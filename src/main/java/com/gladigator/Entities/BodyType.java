@@ -36,6 +36,10 @@ public class BodyType {
 		return "BodyType [type=" + type + "]";
 	}
 	
+	public BodyType() {}
 	
+	public BodyType(Integer bodyTypeId) {
+		this.bodyTypeId = bodyTypeId;
+	}
 
 }

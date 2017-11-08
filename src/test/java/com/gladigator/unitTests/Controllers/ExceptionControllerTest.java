@@ -1,4 +1,4 @@
-package com.gladigator.Controller;
+package com.gladigator.unitTests.Controllers;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;

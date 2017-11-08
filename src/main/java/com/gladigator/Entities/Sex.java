@@ -36,7 +36,12 @@ public class Sex {
 		return "Sex [type=" + type + "]";
 	}
 	
-	
+	public Sex() {}
+
+	public Sex(Integer sexId) {
+		super();
+		this.sexId = sexId;
+	}
 	
 	
 }

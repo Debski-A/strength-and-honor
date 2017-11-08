@@ -2,6 +2,7 @@ package com.gladigator.Entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,7 @@ public class Role {
 	@Column(name = "role")
 	private String role;
 
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<User> users;
 
 	public String getRole() {
@@ -45,6 +46,12 @@ public class Role {
 	@Override
 	public String toString() {
 		return "Role [role=" + role + "]";
+	}
+	
+	public Role() {}
+	
+	public Role(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	

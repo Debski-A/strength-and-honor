@@ -1,4 +1,4 @@
-package com.gladigator.Controller;
+package com.gladigator.unitTests.Controllers;
 
 import org.junit.Before;
 import org.junit.Test;

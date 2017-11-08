@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -43,18 +44,34 @@ public class User {
 	@Column(name="enabled")
 	private Boolean enabled;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL) //Zaladowane dopiero przy odwolaniu, zmapowane jako user w encji UserDetails,
-	private UserDetails userDetails;												//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH beda rowniez wykonane na powiazanych encjach
-																					//w tym przypadku na UserDetails
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@PrimaryKeyJoinColumn																//Zaladowane dopiero przy odwolaniu,
+	private UserDetails userDetails;													//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH (DML - data manipulation language) 
+																						//beda rowniez wykonane na powiazanych encjach
+																						//w tym przypadku na UserDetails
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_has_roles",
 	            joinColumns = @JoinColumn(name = "id_user"),
 	            inverseJoinColumns = @JoinColumn(name = "id_role"))
 	private List<Role> roles;
-	 
 	
 	
+	public User() { }
+	
+	public User(Integer userId, String username, String password, String email, Boolean enabled,
+			UserDetails userDetails, List<Role> roles) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.userDetails = userDetails;
+		this.roles = roles;
+	}
+
+
 	public UserDetails getUserDetails() {
 		return userDetails;
 	}
@@ -154,6 +171,4 @@ public class User {
 				+ ", enabled=" + enabled + ", userDetails=" + userDetails + ", roles=" + roles + "]";
 	}
 
-	
-	
 }
