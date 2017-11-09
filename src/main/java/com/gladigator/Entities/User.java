@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -40,7 +41,7 @@ public class User {
 	@Column(name="email", unique = true)
 	private String email;
 	
-	@NotBlank
+	@NotNull
 	@Column(name="enabled")
 	private Boolean enabled;
 	
