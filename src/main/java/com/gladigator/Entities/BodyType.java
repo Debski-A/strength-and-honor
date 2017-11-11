@@ -19,27 +19,18 @@ public class BodyType {
 	@Column(name = "type")
 	private String type;
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public Integer getBodyTypeId() {
 		return bodyTypeId;
 	}
 
-	@Override
-	public String toString() {
-		return "BodyType [type=" + type + "]";
-	}
-	
-	public BodyType() {}
-	
-	public BodyType(Integer bodyTypeId) {
-		this.bodyTypeId = bodyTypeId;
+	public String getType() {
+		return type;
 	}
 
+	@Override
+	public String toString() {
+		return "BodyType [bodyTypeId=" + bodyTypeId + ", type=" + type + "]";
+	}
+
+	
 }

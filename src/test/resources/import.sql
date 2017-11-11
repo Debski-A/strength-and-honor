@@ -14,3 +14,7 @@ INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (5, 'very high');
 INSERT INTO sex (id_sex, type) VALUES (1, 'male');
 INSERT INTO sex (id_sex, type) VALUES (2, 'female');
 
+INSERT INTO users (id_user, username, password, email, enabled) VALUES (1, 'adam', 'test', 'adam@gmail.com', true);
+INSERT INTO users_details (id_user, height, weight, age, BMI, BMR, id_foa, id_bt, id_sex) VALUES (1, 193, 97, 27, 666, 666, 5, 2, 1);
+INSERT INTO users_has_roles (id_user, id_role) VALUES (1, 1);
+INSERT INTO users_has_roles (id_user, id_role) VALUES (1, 2);

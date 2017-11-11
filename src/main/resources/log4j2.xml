@@ -8,35 +8,37 @@
     </Console>
 
     <!-- File Appender -->
-    <File name="File" fileName="c:/log/app.log">
+    <File name="File" fileName="target/log/app.log">
       <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
     </File>
 
   </Appenders>
   <Loggers>
-    <!-- Log everything in hibernate -->
+    <!-- Log everything in hibernate  LOGGER Z TEGO PAKIETU BEDZIE LOGOWAL WSZYSTKO NA POZIOMIE INFO -->
     <Logger name="org.hibernate" level="info" additivity="false">
       <AppenderRef ref="Console" />
     </Logger>
 
-    <!-- Log SQL statements -->
+    <!-- Log SQL statements  LOGGER Z TEGO PAKIETU BEDZIE LOGOWAL WSZYSTKO NA POZIOMIE DEBUG -->
     <Logger name="org.hibernate.SQL" level="debug" additivity="false">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Logger>
 
-    <!-- Log JDBC bind parameters -->
+    <!-- Log JDBC bind parameters  LOGGER Z TEGO PAKIETU BEDZIE LOGOWAL WSZYSTKO NA POZIOMIE TRACE -->
     <Logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Logger>
-
+    
     <!-- Log custom packages -->
     <Logger name="com.boraji.tutorial.hibernate" level="debug" additivity="false">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Logger>
+    
 
+	<!-- LEVEL DZIALANIA ROOT LOGGERA TO ERROR -->
     <Root level="error">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />

@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -45,9 +44,9 @@ public class User {
 	@Column(name="enabled")
 	private Boolean enabled;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@PrimaryKeyJoinColumn																//Zaladowane dopiero przy odwolaniu,
-	private UserDetails userDetails;													//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH (DML - data manipulation language) 
+	@OneToOne(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private UserDetails userDetails;													//Zaladowane od razu bo - EAGER, 
+																						//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH (DML - data manipulation language) 
 																						//beda rowniez wykonane na powiazanych encjach
 																						//w tym przypadku na UserDetails
 
@@ -58,28 +57,6 @@ public class User {
 	private List<Role> roles;
 	
 	
-	public User() { }
-	
-	public User(Integer userId, String username, String password, String email, Boolean enabled,
-			UserDetails userDetails, List<Role> roles) {
-		super();
-		this.userId = userId;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.enabled = enabled;
-		this.userDetails = userDetails;
-		this.roles = roles;
-	}
-
-
-	public UserDetails getUserDetails() {
-		return userDetails;
-	}
-
-	public void setUserDetails(UserDetails userDetails) {
-		this.userDetails = userDetails;
-	}
 
 	public String getUsername() {
 		return username;
@@ -113,18 +90,34 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	public UserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(UserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	public Integer getUserId() {
 		return userId;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -143,20 +136,10 @@ public class User {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (enabled == null) {
-			if (other.enabled != null)
-				return false;
-		} else if (!enabled.equals(other.enabled))
-			return false;
 		if (userId == null) {
 			if (other.userId != null)
 				return false;
 		} else if (!userId.equals(other.userId))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -171,5 +154,7 @@ public class User {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", email=" + email
 				+ ", enabled=" + enabled + ", userDetails=" + userDetails + ", roles=" + roles + "]";
 	}
-
+	
+	
+	
 }

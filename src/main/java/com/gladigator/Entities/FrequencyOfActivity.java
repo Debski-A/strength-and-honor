@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,31 +18,20 @@ public class FrequencyOfActivity {
 	
 	@Column(name = "frequency")
 	private String frequency;
-	
-	public String getFrequency() {
-		return frequency;
-	}
-
-	public void setFrequency(String frequency) {
-		this.frequency = frequency;
-	}
 
 	public Integer getFrequencyOfActivityId() {
 		return frequencyOfActivityId;
 	}
 
+	public String getFrequency() {
+		return frequency;
+	}
+
 	@Override
 	public String toString() {
-		return "FrequencyOfActivity [frequency=" + frequency + "]";
-	}
-
-	public FrequencyOfActivity() {}
-	
-	public FrequencyOfActivity(Integer frequencyOfActivityId) {
-		this.frequencyOfActivityId = frequencyOfActivityId;
+		return "FrequencyOfActivity [frequencyOfActivityId=" + frequencyOfActivityId + ", frequency=" + frequency + "]";
 	}
 	
 	
-
 	
 }

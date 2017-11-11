@@ -34,7 +34,8 @@
 					<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- TWORZY NOWY SCHEMAT DB (NA PODSTAWIE ADNOTACJI W KLASACH ENCJI) PODCZAS TWORZENIA SESSION FACTORY-->
 						
 						<!-- HIBERNATE PO STWORZENIU SCHEMATU DB (NA PODSTAWIE ADNOTACJI W KLASACH ENCJI) WYKONUJE SKRYPT Z PLIKU import.sql ZNAJDUJACEGO SIE NA SCIEZCE DLA KLAS-->
-					<prop key="hibernate.show_sql">true</prop>
+					<prop key="hibernate.show_sql">false</prop>
+					<prop key="hibernate.format_sql">false</prop>
 				</props>
 			</property>
 		</bean>

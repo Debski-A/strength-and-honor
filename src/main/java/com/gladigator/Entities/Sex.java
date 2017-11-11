@@ -19,29 +19,19 @@ public class Sex {
 	@Column(name = "type")
 	private String type;
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public Integer getSexId() {
 		return sexId;
 	}
 
+	public String getType() {
+		return type;
+	}
+
 	@Override
 	public String toString() {
-		return "Sex [type=" + type + "]";
+		return "Sex [sexId=" + sexId + ", type=" + type + "]";
 	}
-	
-	public Sex() {}
 
-	public Sex(Integer sexId) {
-		super();
-		this.sexId = sexId;
-	}
 	
 	
 }

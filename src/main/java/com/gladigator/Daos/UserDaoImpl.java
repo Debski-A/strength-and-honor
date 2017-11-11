@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,8 +43,10 @@ public class UserDaoImpl implements UserDao{
 	
 	@Transactional
 	public void deleteUser(Integer id) {
-		getSession().createQuery("delete from User where id=:userId")
+		Query<User> query = getSession().createNamedQuery("delete from User where id=:userId", User.class)
 			.setParameter("userId", id);
+		
+		query.executeUpdate();
 	}
 
 	@Transactional
