@@ -8,9 +8,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gladigator.Entities.User;
+import com.gladigator.Exceptions.UserNotFound;
 
 
 @Repository
@@ -18,41 +18,37 @@ public class UserDaoImpl implements UserDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
-
 	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	@Transactional
-	public void printAllUsers() {
-		
-		List<User> allUsers = getSession().createQuery("from User", User.class).list();
-		System.out.println(allUsers.get(0).toString());
-	}
+//	public void printAllUsers() {
+//		
+//		List<User> allUsers = getSession().createQuery("from User", User.class).list();
+//		System.out.println(allUsers.get(0).toString());
+//	}
 	
-	@Transactional
 	public void saveOrUpdateUser(User user) {
 		getSession().saveOrUpdate(user);
 	}
 
-	@Transactional
-	public User getUser(Integer id) {
-		return getSession().get(User.class, id);
+	public User getUserById(Integer id) {
+		User user = getSession().get(User.class, id);
+		if (user == null) throw new UserNotFound();
+		return user;
 	}
 	
-	@Transactional
-	public void deleteUser(Integer id) {
-		Query<User> query = getSession().createNamedQuery("delete from User where id=:userId", User.class)
+	@SuppressWarnings("rawtypes")
+	public void deleteUserById(Integer id) {
+		Query query = getSession().createQuery("delete from User where userId = :userId")
 			.setParameter("userId", id);
 		
-		query.executeUpdate();
+		if (query.executeUpdate() == 0) throw new UserNotFound(); 
 	}
 
-	@Transactional
 	public List<User> getAllUsers() {
 		return getSession().createQuery("from User", User.class).list();
-		
 	}
 	
 	

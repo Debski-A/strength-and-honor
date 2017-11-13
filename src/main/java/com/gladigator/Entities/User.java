@@ -57,6 +57,15 @@ public class User {
 	private List<Role> roles;
 	
 	
+	public User() { }
+	
+	public User(String username, String password, String email, Boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+	}
+
 
 	public String getUsername() {
 		return username;
