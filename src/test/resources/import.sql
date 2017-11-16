@@ -2,7 +2,7 @@ INSERT INTO roles (id_role, role) VALUES (1, 'ROLE_USER');
 INSERT INTO roles (id_role, role) VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO body_type (id_bt, type) VALUES (1, 'ectomorphic');
-INSERT INTO body_type (id_bt, type) VALUES (2, 'mezomorphic');
+INSERT INTO body_type (id_bt, type) VALUES (2, 'mesomorphic');
 INSERT INTO body_type (id_bt, type) VALUES (3, 'endomorphic');
 
 INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (1, 'very low');

@@ -27,6 +27,7 @@ import javax.validation.ConstraintViolationException;
 		"classpath:com/gladigator/Configs/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 //@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // koteksty sa tworzone na nowo, a dataSource jest reinicjalizowane dla kazdej z testowych metod
+@Transactional
 public class UserDaoTest {
 	
 	@Autowired
@@ -44,7 +45,6 @@ public class UserDaoTest {
 	}
 	
 	////////////// saveOrUpdateUser(User user)
-	@Transactional
 	@Test
 	public void givenNewUser_WhenSaveOrUpdate_ThenNumberOfUsersIncreases() {
 		int size = userDao.getAllUsers().size();
@@ -52,22 +52,19 @@ public class UserDaoTest {
 		assertThat(userDao.getAllUsers(), hasSize(size + 1));
 	}
 	
-	@Transactional
 	@Test
 	public void givenNewUser_WhenSaveOrUpdate_ThenNewUserIsUpdated() {
 		userDao.saveOrUpdateUser(newUser);
 		newUser.setUsername("Alberto");
-		assertThat(userDao.getAllUsers().get(0).getUsername(), equalTo("Alberto"));
+		assertThat(userDao.getAllUsers().get(0).getUsername(), equalTo("Alberto")); //executing a query will trigger a flush if required --getAllUsers uzywa HQL--
 	}
 	
-	@Transactional
 	@Test(expected = IllegalArgumentException.class)
 	public void givenUserIsNull_WhenSaveOrUpdate_ThenThrowException() {
 		newUser = null;
 		userDao.saveOrUpdateUser(newUser);
 	}
 	
-	@Transactional
 	@Test(expected = ConstraintViolationException.class)
 	public void givenUserWithNullField_WhenSaveOrUpdate_ThenThrowException() {
 		newUser.setPassword(null);;
@@ -75,29 +72,25 @@ public class UserDaoTest {
 	}
 	
 	////////////// getUserById(Integer id)
-	@Transactional
 	@Test
 	public void givenUser_WhenGetUserById_ThenReturnUserFromDB() {
 		userDao.saveOrUpdateUser(newUser);
-		detachUserEntity(newUser);
+		sessionFactory.getCurrentSession().detach(newUser); //czemu detach? Patrz na podobna metode testowa w UserDetailsDaoTest
 		User userFromDB = userDao.getUserById(1);
 		assertThat(userFromDB, equalTo(newUser));
 	}
 	
-	@Transactional
 	@Test(expected = UserNotFound.class)
 	public void whenGetUserById_AndNoUserInDB_ThenThrowException() {
 		userDao.getUserById(1);
 	}
 	
-	@Transactional
 	@Test(expected = IllegalArgumentException.class)
 	public void whenGetUserByIdParameterIsNull_ThenThrowException() {
 		userDao.getUserById(null);
 	}
 	
 	////////////// deleteUserById(Integer id)
-	@Transactional
 	@Test
 	public void givenUser_WhenDeleteUserById_ThenNumberOfUsersDecreases() {
 		userDao.saveOrUpdateUser(newUser);
@@ -106,24 +99,18 @@ public class UserDaoTest {
 		assertThat(userDao.getAllUsers(), hasSize(size - 1));
 	}
 	
-	@Transactional
 	@Test(expected = UserNotFound.class)
 	public void whenDeleteUserById_AndNoUserInDB_ThenThrowException() {
 		userDao.deleteUserById(1);
 	}
 	
 	////////////// getAllUsers()
-	@Transactional
 	@Test
 	public void givenTwoUsers_WhenGetAllUsers_ThenNumberOfUsersIsTwo() {
 		userDao.saveOrUpdateUser(newUser);
 		User secondUser = new User("Bolo", "kung-fu", "enterthedragon@gmail.com", true);
 		userDao.saveOrUpdateUser(secondUser);
 		assertThat(userDao.getAllUsers(), hasSize(2));
-	}
-	
-	private void detachUserEntity(User user) {
-		sessionFactory.getCurrentSession().detach(user);
 	}
 	
 
