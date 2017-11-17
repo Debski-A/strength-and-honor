@@ -8,6 +8,14 @@
     </Console>
 
     <!-- File Appender -->
+    <!-- WSZYSTKO LOGOWANE JEST DO JEDNEGO PLIKU = BAD PRACTICE  -->
+    <!-- 
+    
+    	TODO
+    	TODO
+    	TODO
+    
+     -->
     <File name="File" fileName="target/log/app.log">
       <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
     </File>

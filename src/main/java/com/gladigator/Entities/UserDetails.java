@@ -71,6 +71,10 @@ public class UserDetails {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public Integer getHeight() {
 		return height;

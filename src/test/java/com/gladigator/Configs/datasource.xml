@@ -9,10 +9,10 @@
 
 
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="com.gladigator.integrationTests">
+	<context:component-scan base-package="com.gladigator.Daos">
 	</context:component-scan>
 
-	<beans profile="test">
+	<beans profile="test"> <!-- W SUMIE TEN PROFIL NIE JEST POTRZEBNY BO I TAK PODCZAS TESTOW DAO TEN KONTEKST LADOWANY JEST JAKO JEDYNY. ZOSTAWIAM NA PRZYSZLOSC -->
 
 		<context:property-placeholder
 			location="com/gladigator/Configs/datasource.properties" />

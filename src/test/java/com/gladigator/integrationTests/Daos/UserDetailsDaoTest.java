@@ -1,12 +1,15 @@
 package com.gladigator.integrationTests.Daos;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
+
+import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.id.IdentifierGenerationException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,10 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gladigator.Daos.UserDetailsDao;
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
+import com.gladigator.Exceptions.RepositoryException;
 
 @ActiveProfiles("test")
-@ContextConfiguration(locations = { "classpath:com/gladigator/Configs/dao-context.xml",
-		"classpath:com/gladigator/Configs/security-context.xml", "classpath:com/gladigator/Configs/datasource.xml" })
+@ContextConfiguration(locations = "classpath:com/gladigator/Configs/datasource.xml" )
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class UserDetailsDaoTest {
@@ -30,11 +33,15 @@ public class UserDetailsDaoTest {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
 
 	private UserDetails userDetails;
 
 	@Before
 	public void before() {
+		sessionFactory.getCurrentSession().createNativeQuery("ALTER TABLE users ALTER COLUMN id_user RESTART WITH 1").executeUpdate(); //RESETUJE ID AUTOINCREMENT
 		User user = new User("Roger", "rogeiro", "roger@gmail.com", true);
 		userDetails = new UserDetails.UserDetailsBuilder()
 				.setAge(27)
@@ -43,15 +50,12 @@ public class UserDetailsDaoTest {
 				.setBmi(333)
 				.setBmr(444)
 				.build();
-		userDetails.setUser(user);
+		userDetails.setUser(user); // musze dodac zaleznosc od User poniewaz ID w UserDetails pobierane jest z pola User. Jesli ustawie id recznie to saveOrUpdate bedzie zawsze wywolywac update
 	}
 
 	// public void saveOrUpdateUserDetails(UserDetails user);
-	// public UserDetails getUserDetailsById(Integer id);
-	// public void deleteUserDetailsById(Integer id);
-
 	@Test
-	public void givenUserDetails_WhenSaveOrUpdateUserDetails_ThenUserDetailsArePersisted() {
+	public void givenUserDetails_WhenSaveOrUpdateUserDetails_ThenUserDetailsArePersisted() throws Exception {
 		userDetailsDao.saveOrUpdateUserDetails(userDetails);
 		sessionFactory.getCurrentSession().flush(); //flush aby zapelnic tabele danymi. Bez tego INSERT bedzie tylko w tabeli users. NIE WIEM CZEMU TAK JEST TODO
 		sessionFactory.getCurrentSession().detach(userDetails); //detach aby "odlaczyc" userDetails od Persistence context. clear odlacza wszystkie encje bedace w kontekscie
@@ -59,17 +63,69 @@ public class UserDetailsDaoTest {
 		assertThat(userDetailsFromDB, equalTo(userDetails));
 	}
 	
-	@Test(expected = IdentifierGenerationException.class)
-	public void givenUserDetailsWithUserFieldSettedToNull_WhenSaveOrUpdateDetails_ThenThrowException() {
+	@Test
+	public void givenUserDetailsWithUserFieldSettedToNull_WhenSaveOrUpdateDetails_ThenThrowRepositoryException() throws Exception {
 		userDetails.setUser(null);
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("Could not save UserDetails");
 		userDetailsDao.saveOrUpdateUserDetails(userDetails);
 	}
 	
 	@Test
-	public void givenUserDetailsIsNull_WhenSaveOrUpdate_ThenThrowException() {
+	public void givenUserDetailsIsNull_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("Could not save UserDetails");
 		userDetailsDao.saveOrUpdateUserDetails(null);
 	}	
 	
+	@Test
+	public void givenUserDetailsWithId_WhenSaveOrUpdate_ThenUserDetailsAreUpdated() throws Exception {
+		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().detach(userDetails);
+		userDetails.setAge(99);
+		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().detach(userDetails);
+		assertThat(userDetailsDao.getUserDetailsById(1).getAge(), equalTo(99));
+	}
 	
+	
+	// public UserDetails getUserDetailsById(Integer id);
+	@Test
+	public void givenEmptyDB_WhenGetUserDetailsById_ThenThrowRepositoryException() throws Exception {
+		Integer id = 1;
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("There is no UserDetails entity with such ID = " + id);
+		userDetailsDao.getUserDetailsById(id);
+	}
+	
+	@Test
+	public void givenIdIsNull_getUserDetailsById_ThenThrowRepositoryException() throws Exception {
+		Integer id = null;
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("There is no UserDetails entity with such ID = " + id);
+		userDetailsDao.getUserDetailsById(id);
+	}
+	
+	
+	// public void deleteUserDetailsById(Integer id);
+	@Test
+	public void givenUserDetailsWithId1_WhenDeleteUserDetailsById_ThenUserDetailsWithId1AreDeleted() throws Exception {
+		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		sessionFactory.getCurrentSession().flush();
+		userDetailsDao.deleteUserDetailsById(1);
+		@SuppressWarnings("unchecked")
+		List<UserDetails> allUserDetailsFromDB = sessionFactory.getCurrentSession().createQuery("from UserDetails").list();
+		assertThat(allUserDetailsFromDB, hasSize(0));
+	}
+	
+	@Test
+	public void whenDeleteUserDetailsById_AndNoSuchUserDetails_ThenThrowRepositoryException() throws Exception {
+		Integer id = 1;
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("Couldn't delete UserDetails with ID = " + id + ". No such Entity");
+		userDetailsDao.deleteUserDetailsById(id);
+	}
 
 }
