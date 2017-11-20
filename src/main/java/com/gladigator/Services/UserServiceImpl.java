@@ -10,35 +10,65 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gladigator.Daos.UserDao;
 import com.gladigator.Entities.User;
+import com.gladigator.Exceptions.RepositoryException;
+import com.gladigator.Exceptions.ServiceException;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
-	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
-	
+
+	private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
+
 	@Autowired
 	private UserDao userDao;
 
 	@Transactional
 	public User getUserById(Integer id) {
-		return userDao.getUserById(id);
+		User user = null;
+		LOG.debug("Id parameter = {}", id);
+		try {
+			user = userDao.getUserById(id);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		LOG.debug("User from userDao: " + user);
+		return user;
 	}
 
 	@Transactional
 	public void saveOrUpdateUser(User user) {
-		userDao.saveOrUpdateUser(user);
+		LOG.debug("User parameter = {}", user);
+		try {
+			userDao.saveOrUpdateUser(user);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
 	}
 
 	@Transactional
 	public void deleteUserById(Integer id) {
-		// TODO Auto-generated method stub
-
+		LOG.debug("ID parameter = " + id);
+		try {
+			userDao.deleteUserById(id);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
 	}
 
 	@Transactional
 	public List<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users = null;
+		try {
+			users = userDao.getAllUsers();
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		return users;
 	}
 
 }

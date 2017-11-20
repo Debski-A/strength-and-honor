@@ -17,7 +17,7 @@ import com.gladigator.Exceptions.RepositoryException;
 @Repository
 public class UserDaoImpl implements UserDao{
 	
-	private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
+	private static final Logger LOG = LogManager.getLogger(UserDaoImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -27,17 +27,20 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	public void saveOrUpdateUser(User user) throws RepositoryException {
-		logger.debug("User transient Entity: " + user);
+		LOG.info("UserDao.saveOrUpdate(User user) START"); //TODO Zamienic logowanie START oraz END metod na aspect
+		LOG.debug("User transient Entity = {}", user);
 		try {
 			getSession().saveOrUpdate(user);
 		} catch (Exception ex) {
 			throw new RepositoryException("Could not save User. User = " + user, ex);
 		}
-		logger.info("User has been saved or update");
+		LOG.info("User has been saved or update");
+		LOG.info("UserDao.saveOrUpdate(User user) END");
 	}
 
 	public User getUserById(Integer id) throws RepositoryException {
-		logger.debug("Id parameter: " + id);
+		LOG.info("UserDao.getUserById(Integer id) START");
+		LOG.debug("Id parameter = {}", id);
 		User user = null;
 		try {
 			user = getSession().get(User.class, id);
@@ -46,22 +49,29 @@ public class UserDaoImpl implements UserDao{
 			throw new RepositoryException("There is no User with ID = " + id, ex);
 		}
 		
-		logger.info("User retrieved from database");
+		LOG.debug("User from DB = {}", user);
+		LOG.info("UserDao.getUserById(Integer id) END");
 		return user;
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public void deleteUserById(Integer id) throws RepositoryException {
-		logger.debug("Id parameter: " + id);
+		LOG.info("UserDao.deleteUserById(Integer id) START");
+		LOG.debug("Id parameter = {} ", id);
 		Query query = getSession().createQuery("delete from User where userId = :userId")
 			.setParameter("userId", id);
 		
 		if (query.executeUpdate() == 0) throw new RepositoryException("Couldn't delete User with ID = " + id + ". No such Entity");
-		logger.info("Deleted User from database");
+		LOG.info("Deleted User from database");
+		LOG.info("UserDao.deleteUserById(Integer id) END");
 	}
 
 	public List<User> getAllUsers() {
-		return getSession().createQuery("from User", User.class).list();
+		LOG.info("UserDao.getAllUsers() START");
+		List<User> users = getSession().createQuery("from User", User.class).list();
+		LOG.debug("List of all Users = {}", users);
+		LOG.info("UserDao.getAllUsers() END");
+		return users;
 	}
 	
 	

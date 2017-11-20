@@ -14,7 +14,7 @@ import com.gladigator.Exceptions.RepositoryException;
 @Repository
 public class UserDetailsDaoImpl implements UserDetailsDao {
 	
-	private static final Logger logger = LogManager.getLogger(UserDetailsDaoImpl.class);
+	private static final Logger LOG = LogManager.getLogger(UserDetailsDaoImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -24,17 +24,21 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 	}
 
 	public void saveOrUpdateUserDetails(UserDetails userDetails) throws RepositoryException {
+		LOG.info("UserDaoDetails.saveOrUpdate(UserDetails userDetails) START");
+		LOG.debug("UserDetails transient Entity = {}", userDetails);
 		try {
-			logger.debug("UserDetails transient Entity: " + userDetails);
 			getSession().saveOrUpdate(userDetails);
-			logger.info("UserDetails has been saved into database");
+			LOG.info("UserDetails has been saved into database");
 		} catch (Exception ex) {
 			throw new RepositoryException("Could not save UserDetails", ex);
 		}
+		LOG.info("UserDetails has been saved or update");
+		LOG.info("UserDaoDetails.saveOrUpdate(UserDetails userDetails) END");
 	}
 
 	public UserDetails getUserDetailsById(Integer id) throws RepositoryException {
-		logger.debug("ID parameter = " + id);
+		LOG.info("UserDaoDetails.getUserDetailsById(Integer id) START");
+		LOG.debug("ID parameter = {}", id);
 		UserDetails userDetails = null;
 		try {
 			userDetails = getSession().get(UserDetails.class, id);
@@ -42,18 +46,21 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 			throw new RepositoryException("There is no UserDetails entity with such ID = " + id);
 		}
 		if (userDetails == null) throw new RepositoryException("There is no UserDetails entity with such ID = " + id);
-		logger.info("Received UserDetails Entity from database");
+		LOG.debug("UserDetails from DB = {}", userDetails);
+		LOG.info("UserDaoDetails.getUserDetailsById(Integer id) END");
 		return userDetails;
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void deleteUserDetailsById(Integer id) {
-		logger.debug("ID parameter = " + id);
+		LOG.info("UserDaoDetails.deleteUserDetailsById(Integer id) START");
+		LOG.debug("ID parameter = {}",  id);
 		Query query = getSession().createQuery("delete from UserDetails where userId = :userId")
 			.setParameter("userId", id);
 		
 		if (query.executeUpdate() == 0) throw new RepositoryException("Couldn't delete UserDetails with ID = " + id + ". No such Entity");
-		logger.info("Deleted UserDetails Entity from database");
+		LOG.info("Deleted UserDetails Entity from database");
+		LOG.info("UserDaoDetails.deleteUserDetailsById(Integer id) END");
 	}
 
 }
