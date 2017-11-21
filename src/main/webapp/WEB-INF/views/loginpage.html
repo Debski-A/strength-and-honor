@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head (pageTitle=#{homepage.title})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../resources/js/jquery-3.2.1.slim.min.js"
+	th:src="@{/resources/js/jquery-3.2.1.slim.min.js}"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
+
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
+
+<title th:text="#{loginpage.title}">Log In</title>
+
+</head>
+<body>
+	<div class="container">
+
+		<form class="form-signin" name="f" method="POST">
+			<h2 class="form-signin-heading" th:text="#{loginpage.heading}">Hello my Friend!</h2>
+			<label for="inputUsername" class="sr-only" th:text="#{loginpage.username}">Username</label> 
+			<input
+				type="text" id="inputUsername" name="username" class="form-control" 
+				th:placeholder="#{loginpage.username}" required autofocus> 
+			<label
+				for="inputPassword" class="sr-only" th:text="#{loginpage.password}">Password</label> 
+			<input
+				type="password" id="inputPassword" name="password" class="form-control"
+				th:placeholder="#{loginpage.password}" required>
+			<!--  <div class="checkbox">
+				<label> <input type="checkbox" value="remember-me" th:text="#{loginpage.remember-me}">
+				</label>
+			</div> -->
+			<button class="btn btn-lg btn-primary btn-block" name="submit" type="submit" th:text="#{loginpage.submit}">Sign
+				in</button>
+			<input type="hidden" name="${_csrf}" value="${_csrf.token}"/>
+		</form>
+
+	</div>
+	<!-- /container -->
+	<!-- footer -->
+	<footer class="footer" th:replace="fragments/footer :: footer">
+		<div class="container-fluid">
+			<span class="text-muted">Place sticky footer content here.</span>
+		</div>
+	</footer>
+
+</body>
+</html>

@@ -22,12 +22,12 @@ public class HomeControllerTest {
 	}
 	
 	@Test 
-	public void whenHomeIsCalledThenReturnHomepage() throws Exception {
+	public void whenHomeIsCalled_ThenReturnHomepage() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.view().name("homepage"));
 	}
 	
 	@Test
-	public void whenInvalidUrlThen404() throws Exception {
+	public void whenInvalidUrl_Then404() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/invalidURL"))
 			.andExpect(MockMvcResultMatchers.status().is(404));
 		

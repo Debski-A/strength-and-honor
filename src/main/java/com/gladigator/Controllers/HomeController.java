@@ -11,9 +11,6 @@ import com.gladigator.Daos.UserDaoImpl;
 @Controller
 public class HomeController {
 	
-	@Autowired
-	private UserDao userDao;
-	
 	@GetMapping("/")
 	public String home() {
 		
