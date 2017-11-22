@@ -21,5 +21,6 @@
 		<security:intercept-url pattern="/login" access="permitAll" />
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login" default-target-url="/" authentication-failure-url="/login?error=true"/>
+		<security:csrf  />
 	</security:http>
 </beans>

@@ -1,5 +1,4 @@
 .jumbotron {
-	margin-top:  50px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding: 10px;
@@ -14,6 +13,8 @@ html {
   min-height: 100%;
 }
 body {
+	 /* Margin top by navbar height */
+  margin-top: 50px;
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }

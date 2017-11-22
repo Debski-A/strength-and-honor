@@ -16,14 +16,21 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
+	
+<link href="../../resources/css/custom.css"
+	th:href="@{/resources/css/custom.css}" rel="stylesheet" />
 
-<title th:text="#{loginpage.title}">Log In</title>
+<title th:text="#{loginpage.title}">Log In</title>  <!-- to NIE ZMIENIA tytulu strony. Tytul strony przetwarzany jest przez fragment head zaladowany dynamicznie podczas dzialania aplikacji wraz z wywolaniem. To w sumie nie robi nic bo silnik obslugujacy znaczniki z atrybutami z prefixem th: dziala gdy aplikacja jest uruchomiona.-->
 
 </head>
 <body>
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+			th:replace="fragments/header :: navbar"></nav>
+	
 	<div class="container">
 
-		<form class="form-signin" name="f" method="POST">
+		<form class="form-signin" name="f" th:action='@{/login}' method="POST">
 			<h2 class="form-signin-heading" th:text="#{loginpage.heading}">Hello my Friend!</h2>
 			<label for="inputUsername" class="sr-only" th:text="#{loginpage.username}">Username</label> 
 			<input
@@ -40,7 +47,7 @@
 			</div> -->
 			<button class="btn btn-lg btn-primary btn-block" name="submit" type="submit" th:text="#{loginpage.submit}">Sign
 				in</button>
-			<input type="hidden" name="${_csrf}" value="${_csrf.token}"/>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 		</form>
 
 	</div>
