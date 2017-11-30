@@ -27,15 +27,25 @@
 			th:fragment="navbar">
 			<div class="container">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Link1 z headera</a></li>
+					<li><a href="#" th:href="@{/}"
+						th:text="#{homepage.homepageLink}">Homepage</a></li>
 					<li><a href="#">Link2 z headera</a></li>
 					<li><a href="#">Link3</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							Profil</a></li>
-					<li><a href="#" th:href="@{/login}"><span
-							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> <span th:text="#{loginpage.profileLink}">Profile</span>
+							</a></li>
+
+					<li sec:authorize="!isAuthenticated()"><a href="#"
+						th:href="@{/login}" ><span class="glyphicon glyphicon-log-in"></span> <span th:text="#{loginpage.loginLink}">Login</span></a></li>
+					<li sec:authorize="isAuthenticated()">
+						<form th:action="@{/logout}" id="logout" method="post">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+						</form> 
+						<a href="#" onclick="document.getElementById('logout').submit();">
+						<span class="glyphicon glyphicon-log-out"></span> <span th:text="#{loginpage.logoutLink}">Logout</span></a>
+					</li>
 				</ul>
 			</div>
 		</nav>

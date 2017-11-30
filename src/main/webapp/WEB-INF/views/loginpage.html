@@ -29,7 +29,7 @@
 			th:replace="fragments/header :: navbar"></nav>
 	
 	<div class="container">
-
+		<div class="alert alert-danger"  th:if="${param.error}" th:text="#{loginpage.loginError}">Wrong user or password</div>
 		<form class="form-signin" name="f" th:action='@{/login}' method="POST">
 			<h2 class="form-signin-heading" th:text="#{loginpage.heading}">Hello my Friend!</h2>
 			<label for="inputUsername" class="sr-only" th:text="#{loginpage.username}">Username</label> 

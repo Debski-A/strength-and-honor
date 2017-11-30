@@ -8,21 +8,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.gladigator.ControllerAdvices.ExceptionController;
+import com.gladigator.Controllers.Advices.ControllerExceptionHandler;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ExceptionControllerTest {
+public class ControllerExceptionHandlerTest {
 	
-	private ExceptionController exceptionController;
+	private ControllerExceptionHandler exceptionController;
 	
 	@Before
 	public void before() {
-		exceptionController = new ExceptionController();
+		exceptionController = new ControllerExceptionHandler();
 	}
 	
 	@Test
 	public void whenHandleError404ThenReturnPageNotFound() throws Exception {
-		assertThat(exceptionController.handleError404(new Exception()), equalTo("pageNotFound"));
+		assertThat(exceptionController.handleError404(new Exception()), equalTo("pagenotfound"));
 		
 	}
 

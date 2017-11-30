@@ -1,8 +1,10 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/beans
- http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <mvc:annotation-driven/>
 
@@ -21,6 +23,12 @@
     <bean id="templateEngine"
           class="org.thymeleaf.spring4.SpringTemplateEngine">
         <property name="templateResolver" ref="templateResolver" />
+        <property name="additionalDialects">
+        <set>
+            <!-- Note the package would change to 'springsecurity3' if you are using that version -->
+            <bean class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect"/>
+        </set>
+    </property>
     </bean>
 
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
@@ -39,4 +47,5 @@
 		<!-- <property name="defaultLocale" value="en_UK"/> FOR ENGLISH -->
 	</bean> 
 
+	<context:component-scan base-package="com.gladigator.Controllers"></context:component-scan>
 </beans>
