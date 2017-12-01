@@ -18,7 +18,7 @@ import com.gladigator.Controllers.Advices.ControllerExceptionHandler;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/appconfig-mvc.xml")
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/sah-servlet.xml")
 public class HomeControllerTest {
 
 	@Autowired

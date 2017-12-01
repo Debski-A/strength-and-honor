@@ -17,5 +17,9 @@ public class LoginController {
 		return "pagenotfound";
 	}
 	
+	@GetMapping("/createUser")
+	public String createUser() {
+		return "registerpage";
+	}
 
 }
