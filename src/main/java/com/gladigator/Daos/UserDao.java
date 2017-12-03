@@ -10,6 +10,8 @@ public interface UserDao {
 	public User getUserById(Integer id);
 	public void deleteUserById(Integer id);
 	public List<User> getAllUsers();
+	public User getUserByEmail(String email);
+	public User getUserByToken(String token);
 	
 
 }

@@ -18,6 +18,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/login"
 			access="permitAll" />
+		<security:intercept-url pattern="/createUser"
+			access="permitAll" />
 		<security:intercept-url pattern="/logout"
 			access="permitAll" />
 		<security:intercept-url pattern="/**" access="denyAll" />

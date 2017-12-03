@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -40,7 +41,8 @@ public class UserServiceTest {
 	
 	@Before
 	public void before() {
-		testUser = new User("adam", "adam1234", "adam@gmail.com", true);
+		String token = UUID.randomUUID().toString();
+		testUser = new User("adam", "adam1234", "adam@gmail.com", token, true);
 	}
 	
 	
@@ -117,7 +119,8 @@ public class UserServiceTest {
 //	public List<User> getAllUsers();
 	@Test
 	public void givenTwoUsers_WhenGetAllUsers_ThenSizeOfReturnedListIs2() throws Exception {
-		User testUser2 = new User("Mario", "mario1234", "mario@gmail.com", true);
+		String token = UUID.randomUUID().toString();
+		User testUser2 = new User("Mario", "mario1234", "mario@gmail.com", token, true);
 		List<User> users = new ArrayList<>(Arrays.asList(testUser, testUser2));
 		Mockito.when(userDao.getAllUsers()).thenReturn(users);
 		assertThat(userService.getAllUsers(), hasSize(2));

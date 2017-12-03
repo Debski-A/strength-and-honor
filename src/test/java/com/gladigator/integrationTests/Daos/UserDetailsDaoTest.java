@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.SessionFactory;
 import org.junit.Before;
@@ -42,7 +43,8 @@ public class UserDetailsDaoTest {
 	@Before
 	public void before() {
 		sessionFactory.getCurrentSession().createNativeQuery("ALTER TABLE users ALTER COLUMN id_user RESTART WITH 1").executeUpdate(); //RESETUJE ID AUTOINCREMENT
-		User user = new User("Roger", "rogeiro", "roger@gmail.com", true);
+		String token = UUID.randomUUID().toString();
+		User user = new User("Roger", "rogeiro", "roger@gmail.com", token, true);
 		userDetails = new UserDetails.UserDetailsBuilder()
 				.setAge(27)
 				.setHeight(193)

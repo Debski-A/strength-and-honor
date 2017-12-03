@@ -15,7 +15,6 @@ import com.gladigator.Controllers.LoginController;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.util.Objects;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +28,6 @@ public class LoginControllerTest {
 	
 	@Before
 	public void before() {
-		System.out.println("LoginController = " + Objects.isNull(controller));
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 	

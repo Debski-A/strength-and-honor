@@ -40,6 +40,9 @@ public class User {
 	@Column(name="email", unique = true)
 	private String email;
 	
+	@Column(name ="confirmation_token")
+	private String confirmationToken;
+	
 	@NotNull
 	@Column(name="enabled")
 	private Boolean enabled;
@@ -59,11 +62,12 @@ public class User {
 	
 	public User() { }
 	
-	public User(String username, String password, String email, Boolean enabled) {
+	public User(String username, String password, String email, String token, Boolean enabled) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.enabled = enabled;
+		this.confirmationToken = token;
 	}
 
 
@@ -119,7 +123,13 @@ public class User {
 		return userId;
 	}
 	
-	
+	public String getConfirmationToken() {
+		return confirmationToken;
+	}
+
+	public void setConfirmationToken(String confirmationToken) {
+		this.confirmationToken = confirmationToken;
+	}
 
 	@Override
 	public int hashCode() {

@@ -2,6 +2,8 @@ package com.gladigator.Daos;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -72,6 +74,42 @@ public class UserDaoImpl implements UserDao{
 		LOG.debug("List of all Users = {}", users);
 		LOG.info("UserDao.getAllUsers() END");
 		return users;
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		LOG.info("UserDao.getUserByEmail(String email) START");
+		LOG.debug("Email parameter = {}", email);
+		User user = null;
+		try {
+			user = getSession().createQuery("from User where email = :email", User.class).setParameter("email", email).getSingleResult();
+		} catch (NoResultException ex) {
+			throw new RepositoryException("There is no User with Email = " + email, ex);
+		} catch (IllegalArgumentException ex) {
+			throw new RepositoryException("There is no User with Email = " + email, ex);
+		}
+		
+		LOG.debug("User from DB = {}", user);
+		LOG.info("UserDao.getUserByEmail(String email) END");
+		return user;
+	}
+
+	@Override
+	public User getUserByToken(String token) {
+		LOG.info("UserDao.getUserByToken(String email) START");
+		LOG.debug("Token parameter = {}", token);
+		User user = null;
+		try {
+			user = getSession().createQuery("from User where confirmationToken = :token", User.class).setParameter("token", token).getSingleResult();
+		} catch (NoResultException ex) {
+			throw new RepositoryException("There is no User with Token = " + token, ex);
+		} catch (IllegalArgumentException ex) {
+			throw new RepositoryException("There is no User with Token = " + token, ex);
+		}
+		
+		LOG.debug("User from DB = {}", user);
+		LOG.info("UserDao.getUserByToken(String token) END");
+		return user;
 	}
 	
 	
