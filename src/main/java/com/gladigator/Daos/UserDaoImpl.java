@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	public void saveOrUpdateUser(User user) throws RepositoryException {
-		LOG.info("UserDao.saveOrUpdate(User user) START"); //TODO Zamienic logowanie START oraz END metod na aspect
+		LOG.info("UserDao.saveOrUpdate(User user) START"); //TODO Zamienic logowanie metod START oraz END na aspect
 		LOG.debug("User transient Entity = {}", user);
 		try {
 			getSession().saveOrUpdate(user);
@@ -78,16 +78,10 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public User getUserByEmail(String email) {
+		if (email == null) throw new RepositoryException("Email field is null");
 		LOG.info("UserDao.getUserByEmail(String email) START");
 		LOG.debug("Email parameter = {}", email);
-		User user = null;
-		try {
-			user = getSession().createQuery("from User where email = :email", User.class).setParameter("email", email).getSingleResult();
-		} catch (NoResultException ex) {
-			throw new RepositoryException("There is no User with Email = " + email, ex);
-		} catch (IllegalArgumentException ex) {
-			throw new RepositoryException("There is no User with Email = " + email, ex);
-		}
+		User user = getSession().createQuery("from User where email = :email", User.class).setParameter("email", email).uniqueResult();
 		
 		LOG.debug("User from DB = {}", user);
 		LOG.info("UserDao.getUserByEmail(String email) END");
@@ -96,20 +90,21 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public User getUserByToken(String token) {
+		if (token == null) throw new RepositoryException("Token field is null");
 		LOG.info("UserDao.getUserByToken(String email) START");
 		LOG.debug("Token parameter = {}", token);
-		User user = null;
-		try {
-			user = getSession().createQuery("from User where confirmationToken = :token", User.class).setParameter("token", token).getSingleResult();
-		} catch (NoResultException ex) {
-			throw new RepositoryException("There is no User with Token = " + token, ex);
-		} catch (IllegalArgumentException ex) {
-			throw new RepositoryException("There is no User with Token = " + token, ex);
-		}
+		User user = getSession().createQuery("from User where confirmationToken = :token", User.class).setParameter("token", token).uniqueResult();
 		
 		LOG.debug("User from DB = {}", user);
 		LOG.info("UserDao.getUserByToken(String token) END");
 		return user;
+	}
+
+	@Override
+	public boolean checkIfUsernameOrEmailAreTaken(String username, String email) {
+		QUERY KTORE SPRAWDZA CZY EMAIL LUB USERNAME WIDNIEJE JUZ W BAZIE
+		
+		return false;
 	}
 	
 	

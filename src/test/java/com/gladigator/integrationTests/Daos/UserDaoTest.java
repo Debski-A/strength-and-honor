@@ -76,9 +76,8 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void givenUserWithNullField_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
-		newUser.setPassword(null);
-		;
+	public void givenUserWithNullForbiddenField_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
+		newUser.setUsername(null);
 		exception.expect(RepositoryException.class);
 		exception.expectMessage("Could not save User. User = " + newUser);
 		userDao.saveOrUpdateUser(newUser);
@@ -145,18 +144,15 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void whenGetUserByEmail_AndNoUserInDB_ThenThrowRepositoryException() throws Exception {
-		String email = "email@gmail.com";
-		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no User with Email = " + email);
-		userDao.getUserByEmail(email);
+	public void whenGetUserByEmail_AndNoUserInDB_ThenReturnNull() throws Exception {
+		assertThat(userDao.getUserByEmail("email@gmail.com"), equalTo(null));
 	}
 
 	@Test
 	public void whenGetUserByEmailParameterIsNull_ThenThrowRepositoryException() throws Exception {
 		String email = null;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no User with Email = " + email);
+		exception.expectMessage("Email field is null");
 		userDao.getUserByEmail(email);
 	}
 
@@ -169,18 +165,27 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void whenGetUserByToken_AndNoUserInDB_ThenThrowRepositoryException() throws Exception {
-		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no User with Token = " + newUserToken);
-		userDao.getUserByToken(newUserToken);
+	public void whenGetUserByToken_AndNoUserInDB_ThenReturnNull() throws Exception {
+		assertThat(userDao.getUserByToken("xyz"), equalTo(null));
 	}
 
 	@Test
 	public void whenGetUserByTokenParameterIsNull_ThenThrowRepositoryException() throws Exception {
 		String token = null;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no User with Token = " + token);
+		exception.expectMessage("Token field is null");
 		userDao.getUserByToken(token);
+	}
+	
+	@Test
+	public void whenCheckIfUsernameOrEmailAreTaken_AndStillAvailable_ThenReturnFalse() throws Exception {
+		assertThat(userDao.checkIfUsernameOrEmailAreTaken("user44", "user44@gmail.com"), is(false));
+	}
+	
+	@Test
+	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndOneOfThemIsTaken_ThenReturnTrue() throws Exception {
+		userDao.saveOrUpdateUser(newUser);
+		assertThat(userDao.checkIfUsernameOrEmailAreTaken("user44", "roger@gmail.com"), is(true));
 	}
 
 }

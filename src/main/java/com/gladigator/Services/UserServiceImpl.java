@@ -71,4 +71,34 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 
+	@Transactional
+	public User getUserByEmail(String email) {
+		User user = null;
+		LOG.debug("Email parameter = {}", email);
+		try {
+			user = userDao.getUserByEmail(email);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		LOG.debug("User from userDao: " + user);
+		return user;
+	}
+
+	@Transactional
+	public User getUserByToken(String token) {
+		User user = null;
+		LOG.debug("Token parameter = {}", token);
+		try {
+			user = userDao.getUserByToken(token);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		LOG.debug("User from userDao: " + user);
+		return user;
+	}
+
 }

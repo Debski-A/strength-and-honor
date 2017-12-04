@@ -35,13 +35,14 @@ public class UserServiceTest {
 	private UserDao userDao;
 	
 	private User testUser;
+	private String token;
 	
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 	
 	@Before
 	public void before() {
-		String token = UUID.randomUUID().toString();
+		token = UUID.randomUUID().toString();
 		testUser = new User("adam", "adam1234", "adam@gmail.com", token, true);
 	}
 	
@@ -133,6 +134,54 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.getAllUsers();
+	}
+	
+//	public User getUserByEmail(String email);
+	@Test
+	public void whenGetUserByEmail_ThenReturnTestUser() throws Exception {
+		Mockito.when(userDao.getUserByEmail("adam@gmail.com")).thenReturn(testUser);
+		assertThat(userService.getUserByEmail("adam@gmail.com"), equalTo(testUser));
+		Mockito.verify(userDao, Mockito.times(1)).getUserByEmail("adam@gmail.com");
+	}
+	
+	@Test
+	public void whenGetUserByEmail_AndUserDaoIsNull_ThenThrowServiceException() throws Exception {
+		Mockito.doThrow(NullPointerException.class).when(userDao).getUserByEmail("adam@gmail.com");
+		exception.expect(ServiceException.class);
+		exception.expectMessage("Exception occured");
+		userService.getUserByEmail("adam@gmail.com");
+	}
+	
+	@Test
+	public void whenGetUserByEmail_AndRepositroyExceptionOccured_ThenThrowServiceException() throws Exception {
+		Mockito.when(userDao.getUserByEmail(Mockito.any(String.class))).thenThrow(RepositoryException.class);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("RepositoryException occured");
+		userService.getUserByEmail("xyz");
+	}
+	
+//	public User getUserByToken(String token);
+	@Test
+	public void whenGetUserByToken_ThenReturnTestUser() throws Exception {
+		Mockito.when(userDao.getUserByToken(token)).thenReturn(testUser);
+		assertThat(userService.getUserByToken(token), equalTo(testUser));
+		Mockito.verify(userDao, Mockito.times(1)).getUserByToken(token);
+	}
+	
+	@Test
+	public void whenGetUserByToken_AndUserDaoIsNull_ThenThrowServiceException() throws Exception {
+		Mockito.doThrow(NullPointerException.class).when(userDao).getUserByToken(token);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("Exception occured");
+		userService.getUserByToken(token);
+	}
+	
+	@Test
+	public void whenGetUserByToken_AndRepositroyExceptionOccured_ThenThrowServiceException() throws Exception {
+		Mockito.when(userDao.getUserByToken(Mockito.any(String.class))).thenThrow(RepositoryException.class);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("RepositoryException occured");
+		userService.getUserByToken("xyz");
 	}
 	
 }

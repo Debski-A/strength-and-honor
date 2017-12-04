@@ -16,13 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
-@WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/sah-servlet.xml")
 public class LoginControllerTest {
 	
-	@Autowired
-	private LoginController controller;
+	private LoginController controller = new LoginController();
 	
 	private MockMvc mockMvc;
 	

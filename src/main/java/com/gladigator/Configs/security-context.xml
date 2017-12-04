@@ -20,6 +20,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/createUser"
 			access="permitAll" />
+		<security:intercept-url pattern="/confirm"
+			access="permitAll" />
 		<security:intercept-url pattern="/logout"
 			access="permitAll" />
 		<security:intercept-url pattern="/**" access="denyAll" />
@@ -31,5 +33,8 @@
 		<security:access-denied-handler error-page="/accessDenied"/>
 	</security:http>
 
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	</bean>
 
 </beans>

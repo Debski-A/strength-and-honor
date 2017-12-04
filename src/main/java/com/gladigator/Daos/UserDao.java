@@ -12,6 +12,7 @@ public interface UserDao {
 	public List<User> getAllUsers();
 	public User getUserByEmail(String email);
 	public User getUserByToken(String token);
+	public boolean checkIfUsernameOrEmailAreTaken(String username, String Email);
 	
 
 }

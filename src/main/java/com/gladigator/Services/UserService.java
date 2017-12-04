@@ -10,4 +10,6 @@ public interface UserService {
 	public void saveOrUpdateUser(User user);
 	public void deleteUserById(Integer id);
 	public List<User> getAllUsers();
+	public User getUserByEmail(String email);
+	public User getUserByToken(String token);
 }

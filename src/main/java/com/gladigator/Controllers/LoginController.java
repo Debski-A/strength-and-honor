@@ -7,19 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
 	
 	@GetMapping("/login")
-	public String login() {
+	public String showLoginPage() {
 		
 		return "loginpage";
 	}
 	
 	@GetMapping("/accessDenied")
-	public String accessDenied() {
+	public String showPageNotFound() {
 		return "pagenotfound";
 	}
 	
-	@GetMapping("/createUser")
-	public String createUser() {
-		return "registerpage";
-	}
 
 }
