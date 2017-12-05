@@ -101,4 +101,19 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Transactional
+	public boolean checkIfUsernameOrEmailAreTaken(String username, String email) {
+		boolean result = false;
+		LOG.debug("Username parameter = {}. Email parameter = {}", username, email);
+		try {
+			result = userDao.checkIfUsernameOrEmailAreTaken(username, email);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		LOG.debug("result of checking = {}", result);
+		return result;
+	}
+
 }

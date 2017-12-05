@@ -61,6 +61,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.getUserById(1);
+		Mockito.verify(userDao).getUserById(1);
 	}
 	
 	@Test
@@ -69,6 +70,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("RepositoryException occured");
 		userService.getUserById(3);
+		Mockito.verify(userDao).getUserById(3);
 	}
 	
 //	public void saveOrUpdateUser(User user);
@@ -84,6 +86,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("RepositoryException occured");
 		userService.saveOrUpdateUser(testUser);
+		Mockito.verify(userDao).saveOrUpdateUser(testUser);
 	}
 	
 	@Test
@@ -92,6 +95,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.saveOrUpdateUser(testUser);
+		Mockito.verify(userDao).saveOrUpdateUser(testUser);
 	}
 	
 //	public void deleteUserById(Integer id);
@@ -107,6 +111,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.deleteUserById(1);
+		Mockito.verify(userDao).deleteUserById(1);
 	}
 	
 	@Test
@@ -115,6 +120,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("RepositoryException occured");
 		userService.deleteUserById(45);
+		Mockito.verify(userDao).deleteUserById(45);
 	}
 	
 //	public List<User> getAllUsers();
@@ -134,6 +140,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.getAllUsers();
+		Mockito.verify(userDao).getAllUsers();
 	}
 	
 //	public User getUserByEmail(String email);
@@ -150,6 +157,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.getUserByEmail("adam@gmail.com");
+		Mockito.verify(userDao).getUserByEmail("adam@gmail.com");
 	}
 	
 	@Test
@@ -158,6 +166,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("RepositoryException occured");
 		userService.getUserByEmail("xyz");
+		Mockito.verify(userDao).getUserByEmail("xyz");
 	}
 	
 //	public User getUserByToken(String token);
@@ -174,6 +183,7 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		userService.getUserByToken(token);
+		Mockito.verify(userDao).getUserByToken(token);
 	}
 	
 	@Test
@@ -182,6 +192,39 @@ public class UserServiceTest {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("RepositoryException occured");
 		userService.getUserByToken("xyz");
+		Mockito.verify(userDao).getUserByToken("xyz");
 	}
 	
+// checkIfUsernameOrEmailAreTaken(String username, String email)
+	@Test
+	public void whenCheckIfUsernameOrEmailAreTaken_AndDaoMethodReturnsFalse_ReturnFalse() {
+		Mockito.when(userDao.checkIfUsernameOrEmailAreTaken(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
+		assertThat(userService.checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com"), is(false));
+		Mockito.verify(userDao).checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
+	}
+	
+	@Test
+	public void whenCheckIfUsernameOrEmailAreTaken_AndDaoMethodReturnsTrue_ReturnTrue() {
+		Mockito.when(userDao.checkIfUsernameOrEmailAreTaken(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
+		assertThat(userService.checkIfUsernameOrEmailAreTaken("pablo", "pablo@gmail.com"), is(true));
+		Mockito.verify(userDao).checkIfUsernameOrEmailAreTaken(Mockito.anyString(), Mockito.anyString());
+	}
+	
+	@Test
+	public void whenCheckIfUsernameOrEmailAreTaken_AndUserDaoIsNull_ThenThrowServiceException() throws Exception {
+		Mockito.doThrow(NullPointerException.class).when(userDao).checkIfUsernameOrEmailAreTaken(Mockito.anyString(), Mockito.anyString());
+		exception.expect(ServiceException.class);
+		exception.expectMessage("Exception occured");
+		userService.checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
+		Mockito.verify(userDao).checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
+	}
+	
+	@Test
+	public void whenCheckIfUsernameOrEmailAreTaken_AndRepositroyExceptionOccursed_ThenThrowServiceException() throws Exception {
+		Mockito.when(userDao.checkIfUsernameOrEmailAreTaken(Mockito.anyString(), Mockito.anyString())).thenThrow(RepositoryException.class);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("RepositoryException occured");
+		userService.checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
+		Mockito.verify(userDao).checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
+	}
 }

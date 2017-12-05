@@ -100,10 +100,17 @@ public class UserDaoImpl implements UserDao{
 		return user;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean checkIfUsernameOrEmailAreTaken(String username, String email) {
-		QUERY KTORE SPRAWDZA CZY EMAIL LUB USERNAME WIDNIEJE JUZ W BAZIE
-		
+		LOG.info("UserDao.checkIfUsernameOrEmailAreTaken(String username, String email) START");
+		LOG.debug("Username parameter = {}, Email parameter = {}", username, email);
+		if (username == null || email == null) throw new RepositoryException("Username or Email cannot be null");
+		Query query = getSession().createQuery("select count(*) from User user where user.username = :username or user.email = :email").setParameter("username", username).setParameter("email", email);
+		Long result = (Long)query.uniqueResult();
+		LOG.debug("Number of counted rows = {}", result);
+		LOG.info("UserDao.checkIfUsernameOrEmailAreTaken(String username, String email) END");
+		if (result == 1) return true;
 		return false;
 	}
 	

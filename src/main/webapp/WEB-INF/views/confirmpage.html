@@ -20,7 +20,7 @@
 <link href="../../resources/css/custom.css"
 	th:href="@{/resources/css/custom.css}" rel="stylesheet" />
 
-<title th:text="#{registerpage.title}">Register</title>
+<title th:text="#{confirmpage.title}">Register</title>
 <!-- to NIE ZMIENIA tytulu strony. Tytul strony przetwarzany jest przez fragment head zaladowany dynamicznie podczas dzialania aplikacji wraz z wywolaniem. To w sumie nie robi nic bo silnik obslugujacy znaczniki z atrybutami z prefixem th: dziala gdy aplikacja jest uruchomiona.-->
 
 </head>
@@ -30,43 +30,32 @@
 		th:replace="fragments/header :: navbar"></nav>
 
 	<div class="container">
-		<form class="form-signin" name="f" action="#"
-			th:action='@{/createUser}' method="POST" th:object="${user}">
 
-			<div th:if="${confirmationMessage}" class="alert alert-success"
-				 th:text=${confirmationMessage}></div>
+		<div th:if="${successMessage}" class="alert alert-success"
+			th:text="${successMessage}"></div>
 
-			<div th:if="${errorMessage}" class="alert alert-danger" 
-				th:text="${errorMessage}"></div>
+		<div th:if="${errorMessage}" class="alert alert-danger"
+			th:text="${errorMessage}"></div>
 
+		<div th:if="${invalidToken}" class="alert alert-danger"
+			th:text="${invalidToken}"></div>
 
-			<div th:if="${#fields.hasErrors('username')}"
-				th:errors="*{username}"
-				class="alert alert-danger"></div>
+		<h2 class="form-signin-heading" th:text="#{confirmpage.heading}">Set
+			Your Password</h2>
 
-			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-				class="alert alert-danger" ></div>
+		<form th:if="!${invalidToken}" class="form-signin" id="passwordForm"
+			action="#" th:action="@{/confirm}"
+			method="post">
 
+			<input type="hidden" name="token" th:value="${confirmationToken}">
 
-			<h2 class="form-signin-heading" th:text="#{registerpage.heading}">Hello
-				my Friend!</h2>
-			<label for="inputUsername" class="sr-only"
-				th:text="#{registerpage.username}">Username</label> 
-			<input
-				type="text" id="inputUsername" name="username" class="form-control"
-				th:placeholder="#{registerpage.username}" required autofocus th:field="*{username}">
-			<label for="inputEmail" class="sr-only"
-				th:text="Email">Email</label>
-			<input
-				type="text" id="inputEmail" name="email"
-				class="form-control" th:placeholder="Email"
-				required>
-			<button class="btn btn-lg btn-primary btn-block" name="submit"
-				type="submit" th:text="#{registerpage.submit}">Sign in</button>
-			<input type="hidden" th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}" />
+			<input name="password" type="password" id="password"
+				th:placeholder="#{confirmpage.password}" th:value="${password}" class="form-control" required autofocus />
+
+			<button type="submit" class="btn btn-primary block full-width m-b" th:text="#{confirmpage.submit}">Save
+			</button>
+
 		</form>
-
 	</div>
 	<!-- /container -->
 	<!-- footer -->

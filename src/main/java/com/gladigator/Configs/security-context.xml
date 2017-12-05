@@ -6,9 +6,11 @@
 
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource"
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
 				authorities-by-username-query="SELECT username, role FROM users u LEFT JOIN users_has_roles ur ON u.id_user = ur.id_user LEFT JOIN roles r ON ur.id_role = r.id_role WHERE BINARY username = ?"
 				users-by-username-query="SELECT username, password, enabled FROM users WHERE BINARY username = ?" />
+			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
 
@@ -30,7 +32,8 @@
 		<security:csrf />
 		<security:logout logout-success-url="/" logout-url="/logout"
 			delete-cookies="JSESSIONID" />
-		<security:access-denied-handler error-page="/accessDenied"/>
+		<security:access-denied-handler
+			error-page="/accessDenied" />
 	</security:http>
 
 	<bean id="passwordEncoder"

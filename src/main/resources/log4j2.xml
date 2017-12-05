@@ -47,7 +47,7 @@
     
 
 	<!-- LEVEL DZIALANIA ROOT LOGGERA TO ERROR -->
-    <Root level="error">
+    <Root level="info">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Root>

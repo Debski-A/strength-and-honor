@@ -35,8 +35,10 @@ public class User {
 	private String username;
 	
 	@Transient
-	@Column(name="password")
 	private String password;
+	
+	@Column(name="password")
+	private String encryptedPassword;
 	
 	@Email
 	@NotBlank
@@ -46,7 +48,6 @@ public class User {
 	@Column(name ="confirmation_token")
 	private String confirmationToken;
 	
-	@NotNull
 	@Column(name="enabled")
 	private Boolean enabled;
 	
@@ -132,6 +133,14 @@ public class User {
 
 	public void setConfirmationToken(String confirmationToken) {
 		this.confirmationToken = confirmationToken;
+	}
+	
+	public String getEncryptedPassword() {
+		return encryptedPassword;
+	}
+
+	public void setEncryptedPassword(String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
 	}
 
 	@Override

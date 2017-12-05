@@ -25,7 +25,7 @@ import java.util.UUID;
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/datasource.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 // @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // koteksty sa
-// tworzone na nowo, a dataSource jest reinicjalizowane dla kazdej z testowych
+// tworzone na nowo i dataSource jest reinicjalizowane dla kazdej z testowych
 // metod
 @Transactional
 public class UserDaoTest {
@@ -177,15 +177,35 @@ public class UserDaoTest {
 		userDao.getUserByToken(token);
 	}
 	
+	//////////////// checkIfUsernameOrEmailAreTaken(String username, String email)
 	@Test
 	public void whenCheckIfUsernameOrEmailAreTaken_AndStillAvailable_ThenReturnFalse() throws Exception {
 		assertThat(userDao.checkIfUsernameOrEmailAreTaken("user44", "user44@gmail.com"), is(false));
 	}
 	
 	@Test
-	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndOneOfThemIsTaken_ThenReturnTrue() throws Exception {
+	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndEmailIsTaken_ThenReturnTrue() throws Exception {
 		userDao.saveOrUpdateUser(newUser);
 		assertThat(userDao.checkIfUsernameOrEmailAreTaken("user44", "roger@gmail.com"), is(true));
+	}
+	
+	@Test
+	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndUsernameIsTaken_ThenReturnTrue() throws Exception {
+		userDao.saveOrUpdateUser(newUser);
+		assertThat(userDao.checkIfUsernameOrEmailAreTaken("Roger", "rxyz"), is(true));
+	}
+	
+	@Test
+	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndBothAreTaken_ThenReturnTrue() throws Exception {
+		userDao.saveOrUpdateUser(newUser);
+		assertThat(userDao.checkIfUsernameOrEmailAreTaken("Roger", "roger@gmail.com"), is(true));
+	}
+	
+	@Test
+	public void whenCheckIfUsernameOrEmailAreTaken_AndParamsAreNull_ThrowRepositoryException() throws Exception {
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("Username or Email cannot be null");
+		userDao.checkIfUsernameOrEmailAreTaken(null, null);
 	}
 
 }
