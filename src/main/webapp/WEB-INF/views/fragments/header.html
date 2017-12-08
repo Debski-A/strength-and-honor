@@ -33,20 +33,24 @@
 					<li><a href="#">Link3</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span> <span th:text="#{loginpage.profileLink}">Profile</span>
-							</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+							<span th:text="#{loginpage.profileLink}">Profile</span> </a></li>
 
 					<li sec:authorize="!isAuthenticated()"><a href="#"
-						th:href="@{/login}" ><span class="glyphicon glyphicon-log-in"></span> <span th:text="#{loginpage.loginLink}">Login</span></a></li>
+						th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span>
+							<span th:text="#{loginpage.loginLink}">Login</span></a></li>
 					<li sec:authorize="isAuthenticated()">
 						<form th:action="@{/logout}" id="logout" method="post">
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
-						</form> 
-						<a href="#" onclick="document.getElementById('logout').submit();">
-						<span class="glyphicon glyphicon-log-out"></span> <span th:text="#{loginpage.logoutLink}">Logout</span></a>
+						</form> <a href="#" onclick="document.getElementById('logout').submit();">
+							<span class="glyphicon glyphicon-log-out"></span> <span
+							th:text="#{loginpage.logoutLink}">Logout</span>
+					</a>
 					</li>
 				</ul>
+					<a href="?lang=pl_PL" ><span class="flag flag-pl"></span></a>
+					<a href="?lang=en_UK" ><span class="flag flag-uk"></span></a>
 			</div>
 		</nav>
 	</div>

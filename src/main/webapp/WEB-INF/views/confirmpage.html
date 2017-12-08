@@ -40,20 +40,26 @@
 		<div th:if="${invalidToken}" class="alert alert-danger"
 			th:text="${invalidToken}"></div>
 
-		<h2 class="form-signin-heading" th:text="#{confirmpage.heading}">Set
-			Your Password</h2>
+		<h2 th:if="!${invalidToken}" class="form-signin-heading"
+			th:text="#{confirmpage.heading}">Set Your Password</h2>
 
 		<form th:if="!${invalidToken}" class="form-signin" id="passwordForm"
-			action="#" th:action="@{/confirm}"
-			method="post">
+			action="#" th:action="@{/confirm}" method="post">
 
 			<input type="hidden" name="token" th:value="${confirmationToken}">
 
 			<input name="password" type="password" id="password"
-				th:placeholder="#{confirmpage.password}" th:value="${password}" class="form-control" required autofocus />
+				th:placeholder="#{confirmpage.password}" th:value="${password}"
+				class="form-control" required autofocus /> <input
+				name="confirmpassword" type="password" id="confirmpassword"
+				th:placeholder="#{confirmpage.confirmPassword}" class="form-control"
+				required />
+			<div class="alert alert-danger" id="passwordsMismatch"
+				th:text="#{confirmpage.passwordsMismatch}">Passwords mismatch
+			</div>
 
-			<button type="submit" class="btn btn-primary block full-width m-b" th:text="#{confirmpage.submit}">Save
-			</button>
+			<button type="submit" class="btn btn-primary block full-width m-b"
+				th:text="#{confirmpage.submit}">Save</button>
 
 		</form>
 	</div>
@@ -64,6 +70,27 @@
 			<span class="text-muted">Place sticky footer content here.</span>
 		</div>
 	</footer>
+
+	<script type="text/javascript">
+		function onLoad() {
+			$("#passwordsMismatch").hide();
+			$("#passwordForm").submit(canSubmit);
+		}
+
+		function canSubmit() {
+			var password = $("#password").val();
+			var confirmpass = $("#confirmpassword").val();
+
+			if (password != confirmpass) {
+				$("#passwordsMismatch").show();
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		$(document).ready(onLoad);
+	</script>
 
 </body>
 </html>

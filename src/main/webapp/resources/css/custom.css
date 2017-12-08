@@ -52,3 +52,22 @@ code {
 	font-size: 24px;
 	padding: 10px 10px 40px;
 }
+
+.flag {
+    display: inline-block;
+    background: url('flags.png') no-repeat;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+.flag.flag-gb {
+    background-position: 0 0;
+}
+
+.flag.flag-pl {
+    background-position: -48px 0;
+}

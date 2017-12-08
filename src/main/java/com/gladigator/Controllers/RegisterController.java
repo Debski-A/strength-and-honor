@@ -3,6 +3,7 @@ package com.gladigator.Controllers;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -123,22 +124,23 @@ public class RegisterController {
 	}
 
 	@PostMapping("/confirm")
-	public String processConfirmationForm(ModelAndView model, BindingResult bindingResult, @RequestParam Map<String,String> params, RedirectAttributes redir,  Locale locale) {
+	public String processConfirmationForm(@RequestParam Map<String,String> params, RedirectAttributes redir,  Locale locale) {
 
 		Zxcvbn passwordCheck = new Zxcvbn();
 		String password = params.get("password");
 		String token = params.get("token");
+		System.out.println("PASSWORD!!!!!! = " + password);
 		
 		LOG.debug("Password provided in confirmpage form = {}", password);
+		String regex  = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+		Pattern pattern = Pattern.compile(regex);
+		LOG.debug("Password regex = {}", regex);
 
-		Strength strength = passwordCheck.measure(password);
-		LOG.debug("Password strength = {}", strength);
-
-		if (strength.getScore() < 3) {
+		if (!pattern.matcher(password).matches()) {
 			LOG.info("Password was to weak");
-			bindingResult.reject("password");
 
 			String passwordToWeak = messageSource.getMessage("confirmpage.passwordToWeak", null, locale);
+			//Redirect dla errorMessage, aby mozna bylo je odczytac po redirect
 			redir.addFlashAttribute("errorMessage", passwordToWeak);
 
 			return "redirect:confirm?token=" + token;
@@ -156,7 +158,7 @@ public class RegisterController {
 		userService.saveOrUpdateUser(user);
 
 		String success = messageSource.getMessage("confirmpage.success", null, locale);
-		model.addObject("successMessage", success);
+		redir.addFlashAttribute("successMessage", success);
 		LOG.info("User has been registered and saved");
 		
 		return "redirect:login";
