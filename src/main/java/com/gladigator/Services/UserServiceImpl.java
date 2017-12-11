@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception ex) {
 			throw new ServiceException("Exception occured", ex);
 		}
-		LOG.debug("User from userDao: " + user);
 		return user;
 	}
 
@@ -82,7 +81,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception ex) {
 			throw new ServiceException("Exception occured", ex);
 		}
-		LOG.debug("User from userDao: " + user);
 		return user;
 	}
 
@@ -97,7 +95,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception ex) {
 			throw new ServiceException("Exception occured", ex);
 		}
-		LOG.debug("User from userDao: " + user);
 		return user;
 	}
 
@@ -112,7 +109,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception ex) {
 			throw new ServiceException("Exception occured", ex);
 		}
-		LOG.debug("result of checking = {}", result);
 		return result;
 	}
 

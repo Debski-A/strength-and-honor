@@ -2,7 +2,6 @@ package com.gladigator.Controllers;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,46 +11,33 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gladigator.Daos.UserDaoImpl;
 import com.gladigator.Entities.User;
-import com.gladigator.Services.EmailService;
 import com.gladigator.Services.UserService;
-import com.nulabinc.zxcvbn.Strength;
-import com.nulabinc.zxcvbn.Zxcvbn;
 
 @Controller
 public class RegisterController {
 	
 	private static final Logger LOG = LogManager.getLogger(RegisterController.class);
 
-	private StandardPasswordEncoder simplePasswordEncoder;
-	private UserService userService;
-	private EmailService emailService;
-	private MessageSource messageSource;
-
 	@Autowired
-	public RegisterController(StandardPasswordEncoder passwordEncoder, UserService userService,
-			EmailService emailService, MessageSource messageSource) {
-
-		this.simplePasswordEncoder = passwordEncoder;
-		this.userService = userService;
-		this.emailService = emailService;
-		this.messageSource = messageSource;
-	}
+	private StandardPasswordEncoder simplePasswordEncoder;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private MessageSource messageSource;
+	@Autowired
+	private RegisterUtils registerUtils;
+	@Autowired
+	private PasswordValidator passwordValidator;
 
 	@GetMapping("/createUser")
 	public String showRegistrationPage(Model model, User user) {
@@ -63,11 +49,8 @@ public class RegisterController {
 	public String processRegistrationForm(Model model, @Valid User user, BindingResult bindingResult,
 			HttpServletRequest request, Locale locale) {
 
-		boolean userExists = userService.checkIfUsernameOrEmailAreTaken(user.getUsername(), user.getEmail());
-		LOG.debug("userExists = {}", userExists);
-
 		//Jesli User juz istnieje
-		if (userExists) {
+		if (userService.checkIfUsernameOrEmailAreTaken(user.getUsername(), user.getEmail())) {
 			String message = messageSource.getMessage("registerpage.emailOrUsernameAlreadyTaken", null, locale);
 			model.addAttribute("errorMessage", message);
 			bindingResult.reject("email");
@@ -78,30 +61,18 @@ public class RegisterController {
 			LOG.debug("Binding results occured");
 		//Jesliu wszystko bylo ok - wysyla email
 		} else { 
-
 			user.setEnabled(false);
-
-			// Generate random 36-character string token for confirmation link
-			user.setConfirmationToken(UUID.randomUUID().toString());
+			
+			String token = registerUtils.generateToken();
+			user.setConfirmationToken(token);
 			LOG.debug("User from registerpage before DB save");
 			userService.saveOrUpdateUser(user);
 
-			String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort() + request.getContextPath();
-			appUrl += "/confirm?token=" + user.getConfirmationToken();
-			LOG.debug("Application URL with token param = {}", appUrl);
-
-			SimpleMailMessage registrationEmail = new SimpleMailMessage();
-			registrationEmail.setTo(user.getEmail());
-			String emailSubject = messageSource.getMessage("registerpage.emailSubject", null, locale);
-			String emailContent = messageSource.getMessage("registerpage.emailContent", null, locale);
-			registrationEmail.setSubject(emailSubject);
-			registrationEmail.setText(emailContent + appUrl);
-
-			emailService.sendEmail(registrationEmail);
+			String link = registerUtils.createLink(request, token);
+			registerUtils.sendRegistrationLink(link, user.getEmail(), locale);
 
 			String confirmationMessage = messageSource.getMessage("registerpage.confirmationMessage", new Object[] {user.getEmail()}, locale);
 			model.addAttribute("confirmationMessage", confirmationMessage);
-			
 		}
 
 		return "registerpage";
@@ -115,8 +86,10 @@ public class RegisterController {
 		if (user == null) { //Brak tokenu w DB
 			String invalidToken = messageSource.getMessage("confirmpage.invalidToken", null, locale);
 			model.addAttribute("invalidToken", invalidToken);
-		} else { // Token found
+		} else { 
+			//token bedzie w tagu hidden
 			model.addAttribute("confirmationToken", user.getConfirmationToken());
+			//password to pusty string
 			model.addAttribute("password", new String());
 		}
 
@@ -125,19 +98,15 @@ public class RegisterController {
 
 	@PostMapping("/confirm")
 	public String processConfirmationForm(@RequestParam Map<String,String> params, RedirectAttributes redir,  Locale locale) {
-
-		Zxcvbn passwordCheck = new Zxcvbn();
+		//password z tagu input
 		String password = params.get("password");
+		//token z hidden tagu input, czyli ten sam ktory byl dodany to modelu
 		String token = params.get("token");
-		System.out.println("PASSWORD!!!!!! = " + password);
 		
 		LOG.debug("Password provided in confirmpage form = {}", password);
-		String regex  = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
-		Pattern pattern = Pattern.compile(regex);
-		LOG.debug("Password regex = {}", regex);
 
-		if (!pattern.matcher(password).matches()) {
-			LOG.info("Password was to weak");
+		if (passwordValidator.isPasswordStrongEnough(password)) {
+			LOG.info("Password is to weak");
 
 			String passwordToWeak = messageSource.getMessage("confirmpage.passwordToWeak", null, locale);
 			//Redirect dla errorMessage, aby mozna bylo je odczytac po redirect
@@ -147,14 +116,12 @@ public class RegisterController {
 		}
 
 		User user = userService.getUserByToken(token);
-		LOG.debug("User retrieved form DB by token = {}", user);
-		LOG.info("Encoding password, enabling user, erasing token");
+		LOG.info("Encoding password, enabling user, erasing token and saving user to db");
 		user.setEncryptedPassword(simplePasswordEncoder.encode(password));
 
 		user.setEnabled(true);
 		user.setConfirmationToken(null);
 
-		LOG.debug("Saving user to DB. User = {}", user);
 		userService.saveOrUpdateUser(user);
 
 		String success = messageSource.getMessage("confirmpage.success", null, locale);

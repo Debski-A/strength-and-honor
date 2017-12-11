@@ -30,7 +30,7 @@
 		<security:form-login login-page="/login"
 			default-target-url="/" authentication-failure-url="/login?error=true" />
 		<security:csrf />
-		<security:logout logout-success-url="/" logout-url="/logout"
+		<security:logout logout-success-url="/" logout-url="/logout" 
 			delete-cookies="JSESSIONID" />
 		<security:access-denied-handler
 			error-page="/accessDenied" />

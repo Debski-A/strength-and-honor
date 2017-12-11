@@ -55,12 +55,10 @@ code {
 
 .flag {
     display: inline-block;
+    width: 24px;
+    height: 24px;
     background: url('flags.png') no-repeat;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
+    padding: initial;
 }
 
 
@@ -69,5 +67,5 @@ code {
 }
 
 .flag.flag-pl {
-    background-position: -48px 0;
+    background-position: -24px 0;
 }
