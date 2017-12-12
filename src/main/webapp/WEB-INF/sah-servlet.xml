@@ -64,5 +64,5 @@
 	<!-- Scans within the base package of the application for @Component classes 
 		to configure as beans -->
 	<context:annotation-config />
-
+	
 </beans>

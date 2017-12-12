@@ -2,7 +2,6 @@ package com.gladigator.Controllers;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -11,7 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +27,6 @@ public class RegisterController {
 	private static final Logger LOG = LogManager.getLogger(RegisterController.class);
 
 	@Autowired
-	private StandardPasswordEncoder simplePasswordEncoder;
-	@Autowired
 	private UserService userService;
 	@Autowired
 	private MessageSource messageSource;
@@ -38,6 +34,8 @@ public class RegisterController {
 	private RegisterUtils registerUtils;
 	@Autowired
 	private PasswordValidator passwordValidator;
+	@Autowired
+	private CustomPasswordEncoder encoder;
 
 	@GetMapping("/createUser")
 	public String showRegistrationPage(Model model, User user) {
@@ -105,7 +103,7 @@ public class RegisterController {
 		
 		LOG.debug("Password provided in confirmpage form = {}", password);
 
-		if (passwordValidator.isPasswordStrongEnough(password)) {
+		if (passwordValidator.isPasswordToWeak(password)) {
 			LOG.info("Password is to weak");
 
 			String passwordToWeak = messageSource.getMessage("confirmpage.passwordToWeak", null, locale);
@@ -117,7 +115,7 @@ public class RegisterController {
 
 		User user = userService.getUserByToken(token);
 		LOG.info("Encoding password, enabling user, erasing token and saving user to db");
-		user.setEncryptedPassword(simplePasswordEncoder.encode(password));
+		user.setEncryptedPassword(encoder.encodePassword(password));
 
 		user.setEnabled(true);
 		user.setConfirmationToken(null);
