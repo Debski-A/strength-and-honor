@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.UUID;
 
 @ActiveProfiles("test")
-@ContextConfiguration(locations = "classpath:com/gladigator/Configs/datasource.xml")
+@ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 // @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // koteksty sa
 // tworzone na nowo i dataSource jest reinicjalizowane dla kazdej z testowych

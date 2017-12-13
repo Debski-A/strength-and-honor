@@ -15,7 +15,7 @@
 	<beans profile="test"> <!-- W SUMIE TEN PROFIL NIE JEST POTRZEBNY BO I TAK PODCZAS TESTOW DAO TEN KONTEKST LADOWANY JEST JAKO JEDYNY. ZOSTAWIAM NA PRZYSZLOSC -->
 
 		<context:property-placeholder
-			location="com/gladigator/Configs/datasource.properties" />
+			location="classpath:com/gladigator/Configs/test-dao-datasource.properties" />
 
 		<bean id="dataSource"
 			class="org.springframework.jdbc.datasource.DriverManagerDataSource">

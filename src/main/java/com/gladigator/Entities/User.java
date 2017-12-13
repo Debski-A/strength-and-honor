@@ -61,6 +61,7 @@ public class User {
 	            joinColumns = @JoinColumn(name = "id_user"),
 	            inverseJoinColumns = @JoinColumn(name = "id_role"))
 	private List<Role> roles;
+	COS NIE DZIALA Z ROLES PRZY ZAPISYWANIU USERA DO BAZY
 	
 	
 	public User() { }

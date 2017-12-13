@@ -24,7 +24,7 @@ import com.gladigator.Entities.UserDetails;
 import com.gladigator.Exceptions.RepositoryException;
 
 @ActiveProfiles("test")
-@ContextConfiguration(locations = "classpath:com/gladigator/Configs/datasource.xml" )
+@ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml" )
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class UserDetailsDaoTest {

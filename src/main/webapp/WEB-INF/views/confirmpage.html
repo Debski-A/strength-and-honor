@@ -47,6 +47,7 @@
 			action="#" th:action="@{/confirm}" method="post">
 
 			<input type="hidden" name="token" th:value="${confirmationToken}">
+			<input type="hidden" name="role" th:object="${role}">
 
 			<input name="password" type="password" id="password"
 				th:placeholder="#{confirmpage.password}" th:value="${password}"

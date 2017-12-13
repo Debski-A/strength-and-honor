@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +29,9 @@ import com.gladigator.Controllers.CustomPasswordEncoder;
 import com.gladigator.Controllers.PasswordValidator;
 import com.gladigator.Controllers.RegisterController;
 import com.gladigator.Controllers.RegisterUtils;
+import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
+import com.gladigator.Entities.Enums.RoleTypes;
 import com.gladigator.Services.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -51,14 +53,14 @@ public class RegisterControllerTest {
 	
 	private User testUser;
 	private Model model;
-	private Locale locale;
 	private Map<String, String> params;
+	private Role role; 
 	
 	@Before
 	public void before() {
-		testUser = new User("adam", "password1", "adam@gmail.com", null, false);
+		testUser = mock(User.class);
+				new User("adam", "password1", "adam@gmail.com", null, false);
 		model = mock(Model.class);
-		locale = new Locale("pl");
 	}
 	
 	@Test
@@ -78,19 +80,19 @@ public class RegisterControllerTest {
 	
 	@Test
 	public void whenProcessRegistrationForm_ThenReturnRegisterPage() throws Exception {
-		assertThat(controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), locale), equalTo("registerpage"));
+		assertThat(controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), null), equalTo("registerpage"));
 	}
 	
 	@Test
 	public void whenProcessRegistrationForm_AndUsernameOrEmailAreTaken_ThenAddErrorMessageToModel_AndRejectEmail() throws Exception {
 		BindingResult bindingResult = mock(BindingResult.class);
-		when(userService.checkIfUsernameOrEmailAreTaken(anyString(), anyString())).thenReturn(true);
-		when(messageSource.getMessage("registerpage.emailOrUsernameAlreadyTaken", null, locale)).thenReturn("Username or Email already taken");
+		when(userService.checkIfUsernameOrEmailAreTaken(any(), any())).thenReturn(true);
+		when(messageSource.getMessage("registerpage.emailOrUsernameAlreadyTaken", null, null)).thenReturn("Username or Email already taken");
 		
-		controller.processRegistrationForm(model, testUser, bindingResult, mock(HttpServletRequest.class), locale);
+		controller.processRegistrationForm(model, testUser, bindingResult, mock(HttpServletRequest.class), null);
 		
 		verify(model).addAttribute("errorMessage", "Username or Email already taken");
-		verify(messageSource).getMessage("registerpage.emailOrUsernameAlreadyTaken", null, locale);
+		verify(messageSource).getMessage("registerpage.emailOrUsernameAlreadyTaken", null, null);
 		verify(bindingResult).reject("email");
 		
 	}
@@ -100,7 +102,7 @@ public class RegisterControllerTest {
 		BindingResult bindingResult = mock(BindingResult.class);
 		when(bindingResult.hasErrors()).thenReturn(true);
 		
-		controller.processRegistrationForm(model, testUser, bindingResult, mock(HttpServletRequest.class), locale);
+		controller.processRegistrationForm(model, testUser, bindingResult, mock(HttpServletRequest.class), null);
 		
 		verify(bindingResult).hasErrors();
 	}
@@ -109,9 +111,9 @@ public class RegisterControllerTest {
 	public void whenProcessRegistrationForm_ThenUserIsDisableddAndTokenIsGenerated() throws Exception {
 		BindingResult bindingResult = mock(BindingResult.class);
 		when(bindingResult.hasErrors()).thenReturn(false);
-		when(registerUtils.generateToken()).thenReturn("12345");
+		when(testUser.getConfirmationToken()).thenReturn("12345");
 		
-		controller.processRegistrationForm(model, testUser, bindingResult, mock(HttpServletRequest.class), locale);
+		controller.processRegistrationForm(model, testUser, bindingResult, mock(HttpServletRequest.class), null);
 		
 		assertThat(testUser.getConfirmationToken(), equalTo("12345"));
 		assertThat(testUser.getEnabled(), equalTo(false));
@@ -122,7 +124,7 @@ public class RegisterControllerTest {
 	@Test
 	public void whenProcessRegistrationForm_ThenUserServiceSaveOrUpdateIsInvoked() throws Exception {
 		
-		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), locale);
+		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), null);
 		
 		verify(userService).saveOrUpdateUser(testUser);
 	}
@@ -131,7 +133,7 @@ public class RegisterControllerTest {
 	public void whenProcessRegistrationForm_ThenLinkIsGenerated() throws Exception {
 		when(registerUtils.generateToken()).thenReturn("12345");
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), request, locale);
+		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), request, null);
 		
 		verify(registerUtils).createLink(request, "12345");
 	}
@@ -141,16 +143,16 @@ public class RegisterControllerTest {
 		when(registerUtils.generateToken()).thenReturn("12345");
 		when(registerUtils.createLink(any(HttpServletRequest.class), anyString())).thenReturn("registrationLink");
 		
-		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), locale);
+		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), null);
 		
-		verify(registerUtils).sendRegistrationLink("registrationLink", testUser.getEmail(), locale);
+		verify(registerUtils).sendRegistrationLink("registrationLink", testUser.getEmail(), null);
 	}
 	
 	@Test
 	public void whenProcessRegistrationForm_ThenAddConfirmationMessageToModel() throws Exception {
-		when(messageSource.getMessage(anyString(), any(Object[].class), any(Locale.class))).thenReturn("User is saved");
+		when(messageSource.getMessage(anyString(), any(Object[].class), any())).thenReturn("User is saved");
 		
-		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), locale);
+		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), null);
 		
 		verify(model).addAttribute("confirmationMessage", "User is saved");
 	}
@@ -159,26 +161,26 @@ public class RegisterControllerTest {
 	public void whenShowConfirmationPage_ThenReturnConfirmpage() throws Exception {
 		
 		
-		assertThat(controller.showConfirmationPage("xxx", model, "1234", locale), equalTo("confirmpage"));
+		assertThat(controller.showConfirmationPage("xxx", model, "1234", null), equalTo("confirmpage"));
 	}
 	
 	@Test
 	public void whenShowConfirmationPage_AndUserIsNull_ThenAddInvalidTokenToModel() throws Exception {
 		when(userService.getUserByToken(anyString())).thenReturn(null);
-		when(messageSource.getMessage("confirmpage.invalidToken", null, locale)).thenReturn("Token is invalid");
+		when(messageSource.getMessage("confirmpage.invalidToken", null, null)).thenReturn("Token is invalid");
 		
-		controller.showConfirmationPage("xxx", model, "1234", locale);
+		controller.showConfirmationPage("xxx", model, "1234", null);
 		
 		verify(model).addAttribute("invalidToken", "Token is invalid");
 	}
 	
 	@Test
-	public void whenShowConfirmationPage_ThenAddConfirmationTokenAndPasswordToModel() throws Exception {
-		User user = mock(User.class);
-		when(userService.getUserByToken("1234")).thenReturn(user);
-		when(user.getConfirmationToken()).thenReturn("1234");
+	public void whenShowConfirmationPage_ThenAddConfirmationToken_AndPassword_AndRole_ToModel() throws Exception {
+		prepareProcessConfirmationPageTests();
+		when(userService.getUserByToken("1234")).thenReturn(testUser);
+		when(testUser.getConfirmationToken()).thenReturn("1234");
 		
-		controller.showConfirmationPage("xxx", model, "1234", locale);
+		controller.showConfirmationPage("xxx", model, "1234", null);
 		
 		verify(model).addAttribute("confirmationToken", "1234");
 		verify(model).addAttribute("password", "");
@@ -189,7 +191,7 @@ public class RegisterControllerTest {
 		prepareProcessConfirmationPageTests();
 		when(userService.getUserByToken("1234")).thenReturn(mock(User.class));
 		
-		assertThat(controller.processConfirmationForm(params, mock(RedirectAttributes.class), locale), equalTo("redirect:login"));	
+		assertThat(controller.processConfirmationForm(params, mock(RedirectAttributes.class), null), equalTo("redirect:login"));	
 	}
 	
 	@Test
@@ -197,50 +199,52 @@ public class RegisterControllerTest {
 		prepareProcessConfirmationPageTests();
 		RedirectAttributes redirAttributes = mock(RedirectAttributes.class);
 		when(passwordValidator.isPasswordToWeak("xyz")).thenReturn(true);
-		when(messageSource.getMessage("confirmpage.passwordToWeak", null, locale)).thenReturn("Password to weak");
+		when(messageSource.getMessage("confirmpage.passwordToWeak", null, null)).thenReturn("Password to weak");
 		
-		assertThat(controller.processConfirmationForm(params, redirAttributes, locale), equalTo("redirect:confirm?token=1234"));
+		assertThat(controller.processConfirmationForm(params, redirAttributes, null), equalTo("redirect:confirm?token=1234"));
 		verify(passwordValidator).isPasswordToWeak("xyz");
-		verify(messageSource).getMessage("confirmpage.passwordToWeak", null, locale);
+		verify(messageSource).getMessage("confirmpage.passwordToWeak", null, null);
 		verify(redirAttributes).addFlashAttribute("errorMessage", "Password to weak");
 	}
 	
 
-	/*@Test
+	@Test
 	public void whenProcessConfirmationPage_ThenPasswordIsEncrypted() throws Exception {
 		prepareProcessConfirmationPageTests();
 		when(userService.getUserByToken("1234")).thenReturn(mock(User.class));
 		
-		controller.processConfirmationForm(params, mock(RedirectAttributes.class), locale);
+		controller.processConfirmationForm(params, mock(RedirectAttributes.class), null);
 		
 		verify(encoder).encodePassword(anyString());
-	}*/
+	}
 	
 	@Test
-	public void whenProcessConfirmationPage_ThenUserIsEnabled_AndConfirmationTokenIsErased_AndUserIsSaved() throws Exception {
+	public void whenProcessConfirmationPage_ThenUserIsEnabled_AndRoleIsSetToUser_AndConfirmationTokenIsErased_AndUserIsSaved() throws Exception {
+		
 		prepareProcessConfirmationPageTests();
-		User user = mock(User.class);
-		when(userService.getUserByToken("1234")).thenReturn(user);
+		when(userService.getUserByToken("1234")).thenReturn(testUser);
 		
-		controller.processConfirmationForm(params, mock(RedirectAttributes.class), locale);
+		controller.processConfirmationForm(params, mock(RedirectAttributes.class), null);
 		
-		verify(user).setEnabled(true);
-		verify(user).setConfirmationToken(null);
-		verify(userService).saveOrUpdateUser(user);
+		verify(testUser).setEnabled(true);
+		verify(testUser).setConfirmationToken(null);
+		verify(userService).saveOrUpdateUser(testUser);
 	}
 	
 	@Test
 	public void whenProcessConfirmationPage_ThenAddFlashAttributeSuccessMessageToModel() throws Exception {
 		prepareProcessConfirmationPageTests();
-		when(userService.getUserByToken("1234")).thenReturn(mock(User.class));
+		when(userService.getUserByToken("1234")).thenReturn(testUser);
 		RedirectAttributes redirAttributes = mock(RedirectAttributes.class);
 		
-		controller.processConfirmationForm(params, redirAttributes, locale);
+		controller.processConfirmationForm(params, redirAttributes, null);
 		
 		verify(redirAttributes).addFlashAttribute(anyString(), any());
+		verify(testUser).setRoles(any());
 	}
 	
 	private void prepareProcessConfirmationPageTests() {
+		role = mock(Role.class);
 		params = new HashMap<>();
 		params.put("password", "xyz");
 		params.put("token", "1234");

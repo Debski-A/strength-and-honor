@@ -1,13 +1,18 @@
 package com.gladigator.integrationTests.Controllers;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,21 +22,32 @@ import org.springframework.web.servlet.DispatcherServlet;
 import com.gladigator.Controllers.HomeController;
 import com.gladigator.Controllers.Advices.ControllerExceptionHandler;
 
-@RunWith(MockitoJUnitRunner.class)
+@ActiveProfiles("test")
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/sah-servlet.xml",
+		   "classpath:com/gladigator/Configs/test-dao-context.xml",
+		   "classpath:com/gladigator/Configs/security-context.xml",
+		   "classpath:com/gladigator/Configs/service-context.xml"})
 public class HomeControllerTest {
 
-	private HomeController controller = new HomeController();
+	@Autowired
+	private HomeController controller;
 	
-	@Mock
+	@Autowired
 	private ControllerExceptionHandler exceptionController;
 
 	private MockMvc mockMvc;
 
 	@Before
 	public void before() throws Exception{
-		Mockito.when(exceptionController.handleError404(Mockito.any(Exception.class))).thenReturn("pagenotfound");
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(exceptionController).build();
 		throwExceptionIfNoHandlerFound(mockMvc);
+	}
+	
+	@Test
+	public void contextLoads() throws Exception {
+		assertThat(controller, notNullValue());
 	}
 
 	@Test
@@ -45,7 +61,6 @@ public class HomeControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.get("/invalidURL")).
 		andExpect(MockMvcResultMatchers.status().isOk())
 		.andExpect(MockMvcResultMatchers.view().name("pagenotfound"));
-		Mockito.verify(exceptionController).handleError404(Mockito.any(Exception.class));
 
 	}
 	
