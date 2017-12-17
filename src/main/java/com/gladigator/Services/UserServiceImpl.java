@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gladigator.Daos.RoleDao;
 import com.gladigator.Daos.UserDao;
+import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
 import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private RoleDao roleDao;
 
 	@Transactional
 	public User getUserById(Integer id) {
@@ -110,6 +115,20 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("Exception occured", ex);
 		}
 		return result;
+	}
+	
+	@Transactional
+	public Role getRoleById(int id) {
+		Role role = null;
+		LOG.debug("Id parameter = {}", id);
+		try {
+			role = roleDao.getRoleById(id);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		return role;
 	}
 
 }

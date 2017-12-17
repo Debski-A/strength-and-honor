@@ -10,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.gladigator.Daos.RoleDao;
 import com.gladigator.Daos.UserDao;
+import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
 import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
@@ -19,6 +21,7 @@ import com.gladigator.Services.UserServiceImpl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +36,9 @@ public class UserServiceTest {
 	
 	@Mock
 	private UserDao userDao;
+	
+	@Mock
+	private RoleDao roleDao;
 	
 	private User testUser;
 	private String token;
@@ -220,11 +226,44 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void whenCheckIfUsernameOrEmailAreTaken_AndRepositroyExceptionOccursed_ThenThrowServiceException() throws Exception {
+	public void whenCheckIfUsernameOrEmailAreTaken_AndRepositroyExceptionOccurs_ThenThrowServiceException() throws Exception {
 		Mockito.when(userDao.checkIfUsernameOrEmailAreTaken(Mockito.anyString(), Mockito.anyString())).thenThrow(RepositoryException.class);
 		exception.expect(ServiceException.class);
 		exception.expectMessage("RepositoryException occured");
 		userService.checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
 		Mockito.verify(userDao).checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
+	}
+	
+	@Test
+	public void whenGetRoleById1_ThenReturnRoleUser() throws Exception {
+		Role roleUser = mock(Role.class);
+		Mockito.when(roleUser.getRole()).thenReturn("ROLE_USER");
+		Mockito.when(roleDao.getRoleById(1)).thenReturn(roleUser);
+		
+		assertThat(userService.getRoleById(1).getRole(), equalTo("ROLE_USER"));
+		Mockito.verify(roleUser).getRole();
+		Mockito.verify(roleDao).getRoleById(1);
+	}
+	
+	@Test 
+	public void whenGetRoleById_AndRepositoryExpcetionOccurs_ThenThrowServiceException() throws Exception {
+		Mockito.when(roleDao.getRoleById(Mockito.anyInt())).thenThrow(RepositoryException.class);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("RepositoryException occured");
+		
+		userService.getRoleById(1);
+		
+		Mockito.verify(roleDao).getRoleById(Mockito.anyInt());
+	}
+	
+	@Test
+	public void whenGetRoleById_AndExpcetionOccurs_ThenThrowServiceException() throws Exception {
+		Mockito.when(roleDao.getRoleById(Mockito.anyInt())).thenThrow(Exception.class);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("Exception occured");
+		
+		userService.getRoleById(1);
+		
+		Mockito.verify(roleDao).getRoleById(Mockito.anyInt());
 	}
 }

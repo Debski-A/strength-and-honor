@@ -33,7 +33,7 @@
 					<li><a href="#">Link3</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+					<li><a href="#" th:href="@{/profile}"><span class="glyphicon glyphicon-user"></span>
 							<span th:text="#{loginpage.profileLink}">Profile</span> </a></li>
 
 					<li sec:authorize="!isAuthenticated()"><a href="#"

@@ -2,6 +2,7 @@ package com.gladigator.Services;
 
 import java.util.List;
 
+import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
 
 public interface UserService {
@@ -13,4 +14,5 @@ public interface UserService {
 	public User getUserByEmail(String email);
 	public User getUserByToken(String token);
 	public boolean checkIfUsernameOrEmailAreTaken(String username, String email);
+	public Role getRoleById(int id);
 }

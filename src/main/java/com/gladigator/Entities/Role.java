@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.gladigator.Entities.Enums.RoleTypes;
 
 @Entity
 @Table(name = "roles")

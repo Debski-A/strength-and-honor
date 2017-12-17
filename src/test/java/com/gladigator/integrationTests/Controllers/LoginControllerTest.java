@@ -2,11 +2,9 @@ package com.gladigator.integrationTests.Controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

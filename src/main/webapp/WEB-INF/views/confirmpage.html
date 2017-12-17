@@ -45,6 +45,9 @@
 
 		<form th:if="!${invalidToken}" class="form-signin" id="passwordForm"
 			action="#" th:action="@{/confirm}" method="post">
+			
+			<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 
 			<input type="hidden" name="token" th:value="${confirmationToken}">
 			<input type="hidden" name="role" th:object="${role}">

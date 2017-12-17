@@ -11,10 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-
-import com.gladigator.Controllers.ProfileController;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -34,8 +31,6 @@ public class ProfileControllerTest {
 	@Autowired
 	private WebApplicationContext webContext;
 	
-	private ProfileController controller;
-	
 	private MockMvc mockMvc;
 	
 	@Before
@@ -46,15 +41,19 @@ public class ProfileControllerTest {
 	
 	@Test
 	public void contextLoads() throws Exception {
-		//assertThat(controller, notNullValue());
 		assertThat(webContext, notNullValue());
 	}
 	
 	@Test
-	public void whenProfile_ThenReturnProfilepage() throws Exception {
-//		mockMvc.perform(get("/profile").with(anonymous())).andExpect(status().is(302))
-//										.andExpect(a)(view().name("loginpage"))
-//										.andExpect(forwardedUrl("loginpage"));
+	public void whenProfile_AndUserUnauthenticated_ThenReturnLoginpage() throws Exception {
+		mockMvc.perform(get("/profile").with(anonymous())).andExpect(status().is(302))
+										.andExpect(redirectedUrlPattern("**/login"));
+	}
+	
+	@Test
+	public void whenProfile_AndUserIsAuthenticated_ThenReturnProfilepage() throws Exception {
+		mockMvc.perform(get("/profile").with(user("user"))).andExpect(status().isOk())
+										.andExpect(view().name("profilepage"));
 	}
 
 }

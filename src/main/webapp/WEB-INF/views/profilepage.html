@@ -24,44 +24,36 @@
 
 </head>
 <body>
-	<!-- navbar -->
 	<nav class="navbar navbar-inverse navbar-fixed-top"
-			th:replace="fragments/header :: navbar">
-			<div class="container">
-				<ul class="nav navbar-nav">
-					<li><a href="">Link1 z headera</a></li>
-					<li><a href="">Link2 z headera</a></li>
-					<li><a href="">Link3</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href=""><span class="glyphicon glyphicon-user"></span>
-							Profil</a></li>
-					<li><a href="" th:href="@{/login}"><span
-							class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				</ul>
-			</div>
-		</nav>
-	<!-- jumbotron -->
+			th:replace="fragments/header :: navbar"></nav>
+	
 	<div class="container-fluid">
-		<div class="jumbotron">
-			<div class="row">
-				<div class="col-md-4">
-					<img src="../../resources/images/aligator.png"
-						th:src="@{/resources/images/aligator.png}" class="img-circle"
+		<div class="col-lg-4 col-lg-offset-4 bg-dark">
+		<img src="../../resources/images/aligator.png"
+						th:src="@{/resources/images/aligator.png}" class="img-circle text-center"
 						alt="Cinque Terre" width="304" height="236" />
-				</div>
-				<div class="col-md-8">
-					<h1 th:text="#{homepage.content}">Content</h1>
-				</div>
-			</div>
 		</div>
-		<!-- content -->
-		<div class="container-fluid">
-			<div class="content">
-				<h1>PROFILE PAGE. ELO</h1>
-			</div>
-		</div>
+		
+		<form class="form-signin col-lg-5" name="f" th:action='@{/profile}' method="POST">
+		<div th:if="${successMessage}" class="alert alert-success"
+			th:text="${successMessage}"></div>
+		<h2 class="form-signin-heading" th:text="#{profilepage.heading}">Welcome in Your profile!</h2>
+		
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			
+			<h3><label for="inputUsername" class="label label-primary" th:text="#{profilepage.username}">Username</label></h3> 
+			<input
+				type="text" id="inputUsername" name="username" class="form-control" 
+				 readonly autofocus> 
+				
+			<h3><label for="inputEmail" class="label label-primary" th:text="#{profilepage.email}">Email</label></h3> 
+			<input
+				type="text" id="inputEmail" name="email" class="form-control" 
+				 readonly autofocus> 
+				
+		</form>
 	</div>
+	<!-- /container -->
 	<!-- footer -->
 	<footer class="footer" th:replace="fragments/footer :: footer">
 		<div class="container-fluid">

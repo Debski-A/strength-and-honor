@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,7 +31,6 @@ import com.gladigator.Controllers.RegisterController;
 import com.gladigator.Controllers.RegisterUtils;
 import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
-import com.gladigator.Entities.Enums.RoleTypes;
 import com.gladigator.Services.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -54,7 +53,6 @@ public class RegisterControllerTest {
 	private User testUser;
 	private Model model;
 	private Map<String, String> params;
-	private Role role; 
 	
 	@Before
 	public void before() {
@@ -219,8 +217,12 @@ public class RegisterControllerTest {
 	}
 	
 	@Test
-	public void whenProcessConfirmationPage_ThenUserIsEnabled_AndRoleIsSetToUser_AndConfirmationTokenIsErased_AndUserIsSaved() throws Exception {
-		
+	public void whenProcessConfirmationPage_ThenUserIsEnabled_AndUserRoleIsAdded_AndConfirmationTokenIsErased_AndUserIsSaved() throws Exception {
+		Role role = mock(Role.class);
+		@SuppressWarnings("unchecked")
+		List<Role> roles = mock(List.class);
+		when(testUser.getRoles()).thenReturn(roles);
+		when(userService.getRoleById(1)).thenReturn(role);
 		prepareProcessConfirmationPageTests();
 		when(userService.getUserByToken("1234")).thenReturn(testUser);
 		
@@ -229,6 +231,9 @@ public class RegisterControllerTest {
 		verify(testUser).setEnabled(true);
 		verify(testUser).setConfirmationToken(null);
 		verify(userService).saveOrUpdateUser(testUser);
+		verify(userService).getRoleById(1);
+		verify(testUser).getRoles();
+		verify(roles).add(role);
 	}
 	
 	@Test
@@ -240,11 +245,9 @@ public class RegisterControllerTest {
 		controller.processConfirmationForm(params, redirAttributes, null);
 		
 		verify(redirAttributes).addFlashAttribute(anyString(), any());
-		verify(testUser).setRoles(any());
 	}
 	
 	private void prepareProcessConfirmationPageTests() {
-		role = mock(Role.class);
 		params = new HashMap<>();
 		params.put("password", "xyz");
 		params.put("token", "1234");

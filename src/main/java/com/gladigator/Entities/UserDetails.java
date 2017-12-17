@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -26,11 +28,17 @@ public class UserDetails {
 	private Integer userId;
 
 	@Column(name = "height")
+	@Min(140)
+	@Max(250)
 	private Integer height;
 
+	@Min(40)
+	@Max(250)
 	@Column(name = "weight")
 	private Integer weight;
 
+	@Min(14)
+	@Max(100)
 	@Column(name = "age")
 	private Integer age;
 
@@ -57,6 +65,7 @@ public class UserDetails {
 	private Sex sex;
 	
 	public UserDetails() {}
+	PROFILEPAGE MA UPDATOWAC USERDETAILS
 	
 	public UserDetails(UserDetailsBuilder builder) {
 		this.userId = builder.userId;

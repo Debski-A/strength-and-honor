@@ -32,6 +32,9 @@
 	<div class="container">
 		<form class="form-signin" name="f" action="#"
 			th:action='@{/createUser}' method="POST" th:object="${user}">
+			
+			<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 
 			<div th:if="${confirmationMessage}" class="alert alert-success"
 				 th:text=${confirmationMessage}></div>

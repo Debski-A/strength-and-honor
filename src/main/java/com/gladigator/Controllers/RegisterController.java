@@ -1,6 +1,5 @@
 package com.gladigator.Controllers;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
@@ -19,9 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
-import com.gladigator.Entities.Enums.RoleTypes;
 import com.gladigator.Services.UserService;
 
 @Controller
@@ -103,8 +100,6 @@ public class RegisterController {
 		String password = String.valueOf(params.get("password"));
 		//token z hidden tagu input, czyli ten sam ktory byl dodany to modelu
 		String token = String.valueOf(params.get("token"));
-		Role role = new Role();
-		role.setRoleId(RoleTypes.ROLE_USER.ordinal());
 		
 		LOG.debug("Password provided in confirmpage form = {}", password);
 
@@ -124,7 +119,7 @@ public class RegisterController {
 
 		user.setEnabled(true);
 		user.setConfirmationToken(null);
-		user.setRoles(Arrays.asList(role));
+		user.getRoles().add(userService.getRoleById(1));
 		
 		userService.saveOrUpdateUser(user);
 
