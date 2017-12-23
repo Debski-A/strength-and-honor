@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public User getUserByToken(String token) {
 		if (token == null) throw new RepositoryException("Token field is null");
-		LOG.info("UserDao.getUserByToken(String email) START");
+		LOG.info("UserDao.getUserByToken(String token) START");
 		User user = getSession().createQuery("from User where confirmationToken = :token", User.class).setParameter("token", token).uniqueResult();
 		
 		LOG.debug("User from DB = {}", user);
@@ -105,6 +105,17 @@ public class UserDaoImpl implements UserDao{
 		LOG.info("UserDao.checkIfUsernameOrEmailAreTaken(String username, String email) END");
 		if (result == 1) return true;
 		return false;
+	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		if (username == null) throw new RepositoryException("Username field is null");
+		LOG.info("UserDao.getUserByUsername(String username) START");
+		User user = getSession().createQuery("from User where username = :username", User.class).setParameter("username", username).uniqueResult();
+		
+		LOG.debug("User from DB = {}", user);
+		LOG.info("UserDao.getUserByUsername(String username) END");
+		return user;
 	}
 	
 	

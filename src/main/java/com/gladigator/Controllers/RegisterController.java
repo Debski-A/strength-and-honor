@@ -56,7 +56,7 @@ public class RegisterController {
 
 		//Jesli wprowadzone dane w formularzu byly niezgodne z ograniczeniami
 		if (bindingResult.hasErrors()) {
-			LOG.debug("Binding results occured");
+			LOG.debug("Binding result error occured");
 		//Jesliu wszystko bylo ok - wysyla email
 		} else { 
 			user.setEnabled(false);

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,10 +25,12 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-// @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) // koteksty sa
-// tworzone na nowo i dataSource jest reinicjalizowane dla kazdej z testowych
-// metod
+ //@DirtiesContext(classMode = ClassMode.BEFORE_CLASS) // koteksty sa tworzone na nowo i dataSource jest reinicjalizowane 
+//dla tej klasy testowej z uwagi na mozliwa ingerencje na baze danych w innych testach integ. Przy ladowaniu kontekstow na nowo - baza danych
+//tworzy sie od nowa z powodu <prop key="hibernate.hbm2ddl.auto">create</prop> w test-dao-context.xml
 @Transactional
+@Rollback(true) //NIE TRZEBA UMIESZCZAC TEJ ADNOTACJI. DEFAULTOWO ROLLBACK USTAWIONY JEST NA TRUE
+//Usuwa "smieci" z DB po kazdym tescie. Niestety nie dziala na resetowanie ID i trzeba to zrobic "recznie" przy pomocy query(patrz before())
 public class UserDaoTest {
 
 	@Autowired
@@ -49,7 +52,7 @@ public class UserDaoTest {
 		newUserToken = UUID.randomUUID().toString();
 		newUser = new User("Roger", "rogeiro", "roger@gmail.com", newUserToken, true);
 	}
-
+	
 	////////////// saveOrUpdateUser(User user)
 	@Test
 	public void givenNewUser_WhenSaveOrUpdate_ThenNumberOfUsersIncreases() throws Exception {
@@ -206,6 +209,27 @@ public class UserDaoTest {
 		exception.expect(RepositoryException.class);
 		exception.expectMessage("Username or Email cannot be null");
 		userDao.checkIfUsernameOrEmailAreTaken(null, null);
+	}
+	 
+	////////////////getUserByUsername(String username)
+	@Test
+	public void givenUser_WhenGetUserByUsername_ThenReturnUserFromDB() throws Exception {
+		userDao.saveOrUpdateUser(newUser);
+		User userFromDB = userDao.getUserByUsername("Roger");
+		assertThat(userFromDB, equalTo(newUser));
+	}
+
+	@Test
+	public void whenGetUserByUsername_AndNoUserInDB_ThenReturnNull() throws Exception {
+		assertThat(userDao.getUserByUsername("xyz"), equalTo(null));
+	}
+
+	@Test
+	public void whenGetUserByUsernameParameterIsNull_ThenThrowRepositoryException() throws Exception {
+		String username = null;
+		exception.expect(RepositoryException.class);
+		exception.expectMessage("Username field is null");
+		userDao.getUserByUsername(username);
 	}
 
 }

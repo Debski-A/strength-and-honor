@@ -12,6 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -28,18 +29,21 @@ public class UserDetails {
 	private Integer userId;
 
 	@Column(name = "height")
+	@NotNull
 	@Min(140)
 	@Max(250)
 	private Integer height;
 
-	@Min(40)
-	@Max(250)
 	@Column(name = "weight")
+	@NotNull
+	@Min(40)
+	@Max(300)
 	private Integer weight;
 
+	@Column(name = "age")
+	@NotNull
 	@Min(14)
 	@Max(100)
-	@Column(name = "age")
 	private Integer age;
 
 	@Column(name = "BMI")
@@ -47,8 +51,8 @@ public class UserDetails {
 
 	@Column(name = "BMR")
 	private Integer bmr; // Basal Metabolic Rate
-	
-	@OneToOne  
+
+	@OneToOne
 	@PrimaryKeyJoinColumn   
 	private User user;
 
@@ -65,7 +69,6 @@ public class UserDetails {
 	private Sex sex;
 	
 	public UserDetails() {}
-	PROFILEPAGE MA UPDATOWAC USERDETAILS
 	
 	public UserDetails(UserDetailsBuilder builder) {
 		this.userId = builder.userId;

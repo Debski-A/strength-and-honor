@@ -7,11 +7,12 @@ import com.gladigator.Entities.User;
 public interface UserDao {
 	
 	public void saveOrUpdateUser(User user);
-	public User getUserById(Integer id);
 	public void deleteUserById(Integer id);
 	public List<User> getAllUsers();
+	public User getUserById(Integer id);
 	public User getUserByEmail(String email);
 	public User getUserByToken(String token);
+	public User getUserByUsername(String username);
 	public boolean checkIfUsernameOrEmailAreTaken(String username, String Email);
 	
 

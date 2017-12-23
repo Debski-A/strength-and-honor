@@ -104,6 +104,31 @@ public class UserServiceTest {
 		Mockito.verify(userDao).saveOrUpdateUser(testUser);
 	}
 	
+//	public void saveOrUpdateUserDetails(UserDetails userDetails);
+	@Test
+	public void whenSaveOrUpdateUserDetails_ThenDaoMethodIsInvoked() throws Exception {
+		userService.saveOrUpdateUser(testUser);
+		Mockito.verify(userDao, Mockito.times(1)).saveOrUpdateUser(testUser);
+	}
+	
+	@Test
+	public void whenSaveOrUpdateUserDetails_AndRepositoryExceptionOccured_ThenThrowServiceException() throws Exception {
+		Mockito.doThrow(RepositoryException.class).when(userDao).saveOrUpdateUser(testUser);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("RepositoryException occured");
+		userService.saveOrUpdateUser(testUser);
+		Mockito.verify(userDao).saveOrUpdateUser(testUser);
+	}
+	
+	@Test
+	public void whenSaveOrUpdateUserDetails_AndUserDetailsDaoIsNull_ThenThrowServiceException() throws Exception {
+		Mockito.doThrow(NullPointerException.class).when(userDao).saveOrUpdateUser(testUser);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("Exception occured");
+		userService.saveOrUpdateUser(testUser);
+		Mockito.verify(userDao).saveOrUpdateUser(testUser);
+	}
+	
 //	public void deleteUserById(Integer id);
 	@Test
 	public void whenDeleteUserById_ThenDaoMethodIsInvoked() throws Exception {
@@ -200,6 +225,31 @@ public class UserServiceTest {
 		userService.getUserByToken("xyz");
 		Mockito.verify(userDao).getUserByToken("xyz");
 	}
+//	public User getUserByUsername(String username);
+	@Test
+	public void whenGetUserByUsername_ThenReturnTestUser() throws Exception {
+		Mockito.when(userDao.getUserByUsername("adam")).thenReturn(testUser);
+		assertThat(userService.getUserByUsername("adam"), equalTo(testUser));
+		Mockito.verify(userDao, Mockito.times(1)).getUserByUsername("adam");
+	}
+	
+	@Test
+	public void whenGetUserByUsername_AndUserDaoIsNull_ThenThrowServiceException() throws Exception {
+		Mockito.doThrow(NullPointerException.class).when(userDao).getUserByUsername("adam");
+		exception.expect(ServiceException.class);
+		exception.expectMessage("Exception occured");
+		userService.getUserByUsername("adam");
+		Mockito.verify(userDao).getUserByUsername("adam");
+	}
+	
+	@Test
+	public void whenGetUserByUsername_AndRepositroyExceptionOccured_ThenThrowServiceException() throws Exception {
+		Mockito.when(userDao.getUserByUsername(Mockito.any(String.class))).thenThrow(RepositoryException.class);
+		exception.expect(ServiceException.class);
+		exception.expectMessage("RepositoryException occured");
+		userService.getUserByUsername("xyz");
+		Mockito.verify(userDao).getUserByUsername("xyz");
+	}
 	
 // checkIfUsernameOrEmailAreTaken(String username, String email)
 	@Test
@@ -234,6 +284,7 @@ public class UserServiceTest {
 		Mockito.verify(userDao).checkIfUsernameOrEmailAreTaken("adam", "adam@gmail.com");
 	}
 	
+	// getRoleById(Integer id)
 	@Test
 	public void whenGetRoleById1_ThenReturnRoleUser() throws Exception {
 		Role roleUser = mock(Role.class);

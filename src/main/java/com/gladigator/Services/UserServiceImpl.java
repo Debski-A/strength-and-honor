@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gladigator.Daos.RoleDao;
 import com.gladigator.Daos.UserDao;
+import com.gladigator.Daos.UserDetailsDao;
 import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
+import com.gladigator.Entities.UserDetails;
 import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
 
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private UserDetailsDao userDetailsDao;
 	
 	@Autowired
 	private RoleDao roleDao;
@@ -129,6 +134,32 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("Exception occured", ex);
 		}
 		return role;
+	}
+
+	@Transactional
+	public User getUserByUsername(String username) {
+		User user = null;
+		LOG.debug("Username parameter = {}", username);
+		try {
+			user = userDao.getUserByUsername(username);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
+		return user;
+	}
+
+	@Transactional
+	public void saveOrUpdateUserDetails(UserDetails userDetails) {
+		LOG.debug("UserDetails parameter = {}", userDetails);
+		try {
+			userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		} catch (RepositoryException ex) {
+			throw new ServiceException("RepositoryException occured", ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception occured", ex);
+		}
 	}
 
 }

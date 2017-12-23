@@ -53,6 +53,10 @@ code {
 	padding: 10px 10px 40px;
 }
 
+.div-colored-grey {
+	background: grey;
+}
+
 .flag {
     display: inline-block;
     width: 24px;
