@@ -13,19 +13,18 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Parameter;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "users_details")
 public class UserDetails {
-
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = {
-	@Parameter(name = "property", value = "user") }) // Konieczne aby pobierac ID z tabeli users
+	
 	@Id
-	@GeneratedValue(generator = "generator")
 	@Column(name = "id_user")
+	@GeneratedValue(generator = "generator")
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "user") )
 	private Integer userId;
 
 	@Column(name = "height")
@@ -53,7 +52,7 @@ public class UserDetails {
 	private Integer bmr; // Basal Metabolic Rate
 
 	@OneToOne
-	@PrimaryKeyJoinColumn   
+	@PrimaryKeyJoinColumn
 	private User user;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
@@ -67,9 +66,10 @@ public class UserDetails {
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_sex")
 	private Sex sex;
-	
-	public UserDetails() {}
-	
+
+	public UserDetails() {
+	}
+
 	public UserDetails(UserDetailsBuilder builder) {
 		this.userId = builder.userId;
 		this.age = builder.age;
@@ -78,12 +78,11 @@ public class UserDetails {
 		this.bmi = builder.bmi;
 		this.bmr = builder.bmr;
 	}
-	
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
@@ -92,108 +91,74 @@ public class UserDetails {
 		return height;
 	}
 
-
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
-
-
 
 	public Integer getWeight() {
 		return weight;
 	}
 
-
-
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
-
-
 
 	public Integer getAge() {
 		return age;
 	}
 
-
-
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-
-
 
 	public Integer getBmi() {
 		return bmi;
 	}
 
-
-
 	public void setBmi(Integer bmi) {
 		this.bmi = bmi;
 	}
-
-
 
 	public Integer getBmr() {
 		return bmr;
 	}
 
-
-
 	public void setBmr(Integer bmr) {
 		this.bmr = bmr;
 	}
-
-
 
 	public FrequencyOfActivity getFrequencyOfActivity() {
 		return frequencyOfActivity;
 	}
 
-
-
 	public void setFrequencyOfActivity(FrequencyOfActivity frequencyOfActivity) {
 		this.frequencyOfActivity = frequencyOfActivity;
 	}
-
-
 
 	public BodyType getBodyType() {
 		return bodyType;
 	}
 
-
-
 	public void setBodyType(BodyType bodyType) {
 		this.bodyType = bodyType;
 	}
 
-
-
 	public Sex getSex() {
 		return sex;
 	}
- 
-
 
 	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
 
-
-
 	public Integer getUserId() {
 		return userId;
 	}
-
-
 
 	public User getUser() {
 		return user;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -281,52 +246,48 @@ public class UserDetails {
 	}
 
 	public static class UserDetailsBuilder {
-		
+
 		private Integer userId;
 		private Integer height;
 		private Integer weight;
 		private Integer age;
 		private Integer bmi; // Body Mass Index
 		private Integer bmr; // Basal Metabolic Rate
-		
+
 		public UserDetailsBuilder setUserId(Integer userId) {
 			this.userId = userId;
 			return this;
 		}
-		
+
 		public UserDetailsBuilder setHeight(Integer height) {
 			this.height = height;
 			return this;
 		}
-		
+
 		public UserDetailsBuilder setWeight(Integer weight) {
 			this.weight = weight;
 			return this;
 		}
-		
+
 		public UserDetailsBuilder setAge(Integer age) {
 			this.age = age;
 			return this;
 		}
-		
+
 		public UserDetailsBuilder setBmi(Integer bmi) {
 			this.bmi = bmi;
 			return this;
 		}
-		
+
 		public UserDetailsBuilder setBmr(Integer bmr) {
 			this.bmr = bmr;
 			return this;
 		}
-		
-		
+
 		public UserDetails build() {
 			return new UserDetails(this);
 		}
-		
-		
+
 	}
 
-
-	
 }
