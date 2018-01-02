@@ -30,6 +30,10 @@ public class FrequencyOfActivity {
 	public void setFrequencyOfActivityId(Integer frequencyOfActivityId) {
 		this.frequencyOfActivityId = frequencyOfActivityId;
 	}
+	
+	public void setFrequencyOfActivityFrequencyName(String frequencyName) {
+		this.frequency = frequencyName;
+	}
 
 	@Override
 	public String toString() {

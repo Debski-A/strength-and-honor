@@ -25,7 +25,6 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 
 	public void saveOrUpdateUserDetails(UserDetails userDetails) throws RepositoryException {
 		LOG.info("UserDaoDetails.saveOrUpdate(UserDetails userDetails) START");
-		LOG.debug("UserDetails transient Entity = {}", userDetails);
 		try {
 			getSession().saveOrUpdate(userDetails);
 			LOG.info("UserDetails has been saved into database");
@@ -38,7 +37,6 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 
 	public UserDetails getUserDetailsById(Integer id) throws RepositoryException {
 		LOG.info("UserDaoDetails.getUserDetailsById(Integer id) START");
-		LOG.debug("ID parameter = {}", id);
 		UserDetails userDetails = null;
 		try {
 			userDetails = getSession().get(UserDetails.class, id);
@@ -54,7 +52,6 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 	@SuppressWarnings("rawtypes")
 	public void deleteUserDetailsById(Integer id) {
 		LOG.info("UserDaoDetails.deleteUserDetailsById(Integer id) START");
-		LOG.debug("ID parameter = {}",  id);
 		Query query = getSession().createQuery("delete from UserDetails where userId = :userId")
 			.setParameter("userId", id);
 		

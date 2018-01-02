@@ -30,6 +30,10 @@ public class BodyType {
 	public void setBodyTypeId(Integer bodyTypeId) {
 		this.bodyTypeId = bodyTypeId;
 	}
+	
+	public void setBodyTypeType(String type) {
+		this.type = type;
+	}
 
 	@Override
 	public String toString() {

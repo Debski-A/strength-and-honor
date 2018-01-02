@@ -31,6 +31,10 @@ public class Sex {
 		this.sexId = sexId;
 	}
 	
+	public void setSexType(String sexType) {
+		this.type = sexType;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

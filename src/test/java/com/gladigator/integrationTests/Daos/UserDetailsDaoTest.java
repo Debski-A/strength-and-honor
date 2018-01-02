@@ -1,7 +1,8 @@
 package com.gladigator.integrationTests.Daos;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import java.util.List;
 import java.util.UUID;
@@ -129,5 +130,32 @@ public class UserDetailsDaoTest {
 		exception.expectMessage("Couldn't delete UserDetails with ID = " + id + ". No such Entity");
 		userDetailsDao.deleteUserDetailsById(id);
 	}
+	
+//	@Test
+//	public void whenGetAllBodyTypes_ThenReturnListOfBodyTypes() throws Exception {
+//		BodyType ectomorphic = new BodyType();
+//		ectomorphic.setBodyTypeId(1);
+//		ectomorphic.setBodyTypeType("ectomorphic");
+//		BodyType mesomorphic = new BodyType();
+//		mesomorphic.setBodyTypeId(2);
+//		mesomorphic.setBodyTypeType("mesomorphic");
+//		BodyType endomorphic = new BodyType();
+//		endomorphic.setBodyTypeId(3);
+//		endomorphic.setBodyTypeType("endomorphic");
+//		
+//		assertThat(userDetailsDao.getAllBodyTypes(), equalTo(Arrays.asList(ectomorphic, mesomorphic, endomorphic)));
+//	}
+//	
+//	@DirtiesContext
+//	@Test
+//	public void whenGetAllBodyTypes_AndAnyExceptionOccurs_ThenThrowRepositoryException() throws Exception {
+//		exception.expect(RepositoryException.class);
+//		exception.expectMessage("An Exception occurred");
+//		sessionFactory.close();
+//		
+//		userDetailsDao.getAllBodyTypes();
+//	}
+	
+	
 
 }

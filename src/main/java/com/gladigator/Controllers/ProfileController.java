@@ -43,6 +43,7 @@ public class ProfileController {
 		String authenticatedUserUsername = principal.getName();
 		User user = userService.getUserByUsername(authenticatedUserUsername);
 		UserDetails userDetails = profileUtils.obtainUserDetails(user);
+		profileUtils.addListsOfAttributesToModel(model);
 		userDetails.setUser(user);
 		model.addAttribute("userDetails", userDetails);
 		return "profilepage";
