@@ -64,5 +64,5 @@ public class BodyTypeDaoTest extends GenericDaoTestUtils<BodyType> {
 		
 		super.whenFindById_AndBodyTypeIsNull_ThenThrowRepositoryException(bodyTypeDao, 8, BodyType.class);
 	}
-
+	
 }

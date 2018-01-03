@@ -49,15 +49,15 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T>{
 		return list;
 	}
 	
-//	@Override
-//	public void saveOrUpdate(T entity) {
-//		try {
-//			getSession().saveOrUpdate(entity);
-//		} catch (Exception ex) {
-//			throw new RepositoryException("An Exception occurred", ex);
-//		}
-//		LOG.info("{} entity has been saved", entityClass.getName());
-//	}
+	@Override
+	public void saveOrUpdate(T entity) {
+		try {
+			getSession().saveOrUpdate(entity);
+		} catch (Exception ex) {
+			throw new RepositoryException("An Exception occurred", ex);
+		}
+		LOG.info("{} entity has been saved", entityClass.getName());
+	}
 	
 	@Override
 	public T findById(Integer id) {
@@ -72,16 +72,6 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T>{
 		return entity;
 	}
 	
-	@Override
-	public void saveOrUpdate(T entity) {
-		
-	}
-	
-	
-//	TODO: Na razie nie korzystam z ponizszych metod. Powyzej dostepne sa stuby
-//	
-
-
 	
 
 }

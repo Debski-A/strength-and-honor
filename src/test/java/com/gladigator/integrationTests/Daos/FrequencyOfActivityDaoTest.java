@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 import com.gladigator.Daos.FrequencyOfActivityDao;
 import com.gladigator.Entities.FrequencyOfActivity;
@@ -39,14 +38,6 @@ public class FrequencyOfActivityDaoTest extends GenericDaoTestUtils<FrequencyOfA
 		assertThat(foaDao.getAll(), equalTo(Arrays.asList(veryLow, low, medium, high, veryHigh)));
 	}
 	
-	@DirtiesContext
-	@Test
-	public void whenGetAll_AndAnyExceptionOccurs_ThenThrowRepositoryException() throws Exception {
-		
-		
-		super.whenGetAll_AndAnyExceptionOccurs_ThenThrowRepositoryException(foaDao);
-	}
-	
 	@Test
 	public void whenFindById4_ThenReturnHighFrequency() throws Exception {
 		FrequencyOfActivity high = new FrequencyOfActivity();
@@ -56,18 +47,29 @@ public class FrequencyOfActivityDaoTest extends GenericDaoTestUtils<FrequencyOfA
 		assertThat(super.whenFindById_ThenReturnEntity(foaDao, 4), equalTo(high));
 	}
 	
-	@Test
-	public void whenFindById_AndExceptionOccurrs_ThenThrowRepositoryException() throws Exception{
-		
-		
-		super.whenFindById_AndExceptionOccurrs_ThenThrowRepositoryException(foaDao, null);
-	}
-	
-	@Test
-	public void whenFindById_AndFrequencyOfActivityIsNull_ThenThrowRepositoryException() throws Exception {
-		
-		
-		super.whenFindById_AndBodyTypeIsNull_ThenThrowRepositoryException(foaDao, 8, FrequencyOfActivity.class);
-	}
+//	Ponizsze trzy metody korzystaja z GenericDaoTestUtils, ktore jest zalezne od GenericDao i ich logika jest identyczna dla kazdej klasy testowej.
+//	Wystarczy przetestowac jedna klase rozszerzajaca GenericDao
+//	
+//	@DirtiesContext
+//	@Test
+//	public void whenGetAll_AndAnyExceptionOccurs_ThenThrowRepositoryException() throws Exception {
+//		
+//		
+//		super.whenGetAll_AndAnyExceptionOccurs_ThenThrowRepositoryException(foaDao);
+//	}
+//	
+//	@Test
+//	public void whenFindById_AndExceptionOccurrs_ThenThrowRepositoryException() throws Exception{
+//		
+//		
+//		super.whenFindById_AndExceptionOccurrs_ThenThrowRepositoryException(foaDao, null);
+//	}
+//	
+//	@Test
+//	public void whenFindById_AndFrequencyOfActivityIsNull_ThenThrowRepositoryException() throws Exception {
+//		
+//		
+//		super.whenFindById_AndBodyTypeIsNull_ThenThrowRepositoryException(foaDao, 8, FrequencyOfActivity.class);
+//	}
 
 }

@@ -1,7 +1,10 @@
 package com.gladigator.Services;
 
-import com.gladigator.Entities.UserDetails;
+import java.util.List;
+import java.util.Map;
 
-public interface UserDetailsService extends GenericService<UserDetails>{
+public interface UserDetailsService {
+	
+	public Map<String, List<?>> getSelectiveDetailsAsMap();
 
 }
