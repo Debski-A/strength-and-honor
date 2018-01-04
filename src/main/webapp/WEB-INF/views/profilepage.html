@@ -35,8 +35,6 @@
 		</div>
 		
 		<div class="col-lg-offset-4 col-lg-4">
-		<div th:if="${successMessage}" class="alert alert-success"
-			th:text="${successMessage}"></div>
 		<h2 class="form-signin-heading text-center" th:text="#{profilepage.heading}">Welcome in Your profile!</h2>
 		<div th:if="${success}" class="alert alert-success"
 				 th:text=${success}></div>
@@ -83,19 +81,19 @@
 		</div>
 		<div class="col-lg-6">
 			<h3><label for="inputSex" class="label label-primary" th:text="#{profilepage.sex}">Sex</label></h3> 
-			<select th:field="*{sex}" id="inputSex" name="sex">
-				<option th:each="sexType : ${sexTypes}" th:text="${sex.type}">
+			<select th:field="*{sex.sexId}" id="inputSex" name="sex">
+				<option th:each="sexType : ${sexListOfSelectives}" th:value="${sexType.sexId}" th:text="${sexType.type}">
 			</select>
 			
 				<h3><label for="inputBodyType" class="label label-primary" th:text="#{profilepage.bodyType}">Body Type</label></h3> 
-			<input
-				type="text" id="inputBodyType" name="bodyType" class="form-control" 
-				th:field="*{bodyType}"> 
+			<select th:field="*{bodyType.bodyTypeId}" id="inputBodyType" name="bodyType">
+				<option th:each="bodyType : ${bodyTypeListOfSelectives}" th:value="${bodyType.bodyTypeId}" th:text="${bodyType.type}">
+			</select>
 				
 				<h3><label for="inputFoa" class="label label-primary" th:text="#{profilepage.frequencyOfActivity}">Frequency of Activity</label></h3> 
-			<input
-				type="text" id="inputFoa" name="foa" class="form-control" 
-				th:field="*{frequencyOfActivity}"> 
+			<select th:field="*{frequencyOfActivity.frequencyOfActivityId}" id="inputFoa" name="foa">
+				<option th:each="frequency : ${frequenciesListOfSelectives}" th:value="${frequency.frequencyOfActivityId}" th:text="${frequency.frequency}">
+			</select>
 				
 				<h3><label for="inputBMI" class="label label-primary">BMI</label></h3> 
 			<input

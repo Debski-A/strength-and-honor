@@ -26,6 +26,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/logout"
 			access="permitAll" />
+		<security:intercept-url pattern="/weather"
+			access="permitAll" />
 		<security:intercept-url pattern="/profile"
 			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="denyAll" />

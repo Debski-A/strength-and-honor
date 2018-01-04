@@ -24,7 +24,8 @@ import com.gladigator.Entities.UserDetails;
 import com.gladigator.Services.UserService;
 
 @Controller
-@SessionAttributes("userDetails")
+@SessionAttributes({"userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives"}) //Dodaje atrybuty do sesji. Czemu tak? Jesli bindingResult.hasErrors() w processProfilePage
+//zwroci true to metoda zwroci widok profilepage bez w/w atrybutow. Zamiast przekazywac atrybuty z requesta na request dodalem je do sesji. TODO: Zmienic metode getUserByName aby nie pobierala password z BD
 public class ProfileController {
 	
 	private static final Logger LOG = LogManager.getLogger(ProfileController.class);

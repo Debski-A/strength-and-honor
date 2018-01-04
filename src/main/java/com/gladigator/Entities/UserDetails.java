@@ -55,15 +55,15 @@ public class UserDetails {
 	@PrimaryKeyJoinColumn
 	private User user;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_foa")
 	private FrequencyOfActivity frequencyOfActivity;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_bt")
 	private BodyType bodyType;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "id_sex")
 	private Sex sex;
 

@@ -38,9 +38,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			List<Sex> sList = sexDao.getAll();
 			List<FrequencyOfActivity> foaList = foaDao.getAll();
 			
-			listOfSelectives.put("bodyTypes", btList);
-			listOfSelectives.put("sexTypes", sList);
-			listOfSelectives.put("frequencies", foaList);
+			listOfSelectives.put("bodyTypeListOfSelectives", btList);
+			listOfSelectives.put("sexListOfSelectives", sList);
+			listOfSelectives.put("frequenciesListOfSelectives", foaList);
 		} catch (Exception ex) {
 			throw new ServiceException("An Exception occurred", ex);
 		}

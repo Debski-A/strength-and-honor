@@ -52,9 +52,9 @@ public class UserDetailsServiceTest {
 		List<Sex> sList = new ArrayList<>();
 		List<FrequencyOfActivity> foaList = new ArrayList<>();
 		Map<String, List<?>> result = new HashMap<>();
-		result.put("bt", btList);
-		result.put("sex", sList);
-		result.put("foa", foaList);
+		result.put("bodyTypeListOfSelectives", btList);
+		result.put("sexListOfSelectives", sList);
+		result.put("frequenciesListOfSelectives", foaList);
 		when(bodyTypeDao.getAll()).thenReturn(btList);
 		when(sexDao.getAll()).thenReturn(sList);
 		when(foaDao.getAll()).thenReturn(foaList);

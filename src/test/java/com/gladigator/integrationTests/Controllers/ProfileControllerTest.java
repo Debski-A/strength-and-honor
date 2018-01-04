@@ -76,7 +76,7 @@ public class ProfileControllerTest {
 	@Transactional //Rozszerza transakcje na metode testowa. Dzieki temu zmiany dokonane w metodzie testowej sa domyslnie rollback'owane.
 	//Alternatywa dla DiritiesContext np. w UserDaoTest - nie bedzie trzeba od nowa ladowac kontekstow, bo zmiany nie sa commitowane i konteksty pozostaja czyste
 	@Test
-	public void givenUser_WhenShowProfilePage_ThenGetUserFromDBAndAddToModel() throws Exception {
+	public void givenUser_WhenShowProfilePage_ThenGetUserDetailsFromDBAndAddToModel() throws Exception {
 		addUserToDB();
 		
 		mockMvc.perform(get("/profile").with(user("adam"))).andExpect(status().isOk())
@@ -98,6 +98,7 @@ public class ProfileControllerTest {
 		userDetails = new UserDetails();
 		user = new User("adam", "password1234", "adam@gmail.com", null, true);
 		userDetails.setUser(user);
+		user.setUserDetails(userDetails);
 		UserService userService = webContext.getBean("userServiceImpl", UserService.class);
 		userService.saveOrUpdateUser(user);
 	}
