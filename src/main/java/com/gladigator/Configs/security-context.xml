@@ -28,8 +28,10 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/weather"
 			access="permitAll" />
+		<security:intercept-url pattern="/weatherConditions"
+			access="permitAll" />
 		<security:intercept-url pattern="/profile"
-			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"
 			default-target-url="/" authentication-failure-url="/login?error=true" />
