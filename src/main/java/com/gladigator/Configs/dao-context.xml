@@ -45,7 +45,7 @@
 			<property name="maximumPoolSize" value="10" />
 			<property name="idleTimeout" value="600000" />
 			<property name="username" value="sahUser"/>
-			<property name="password" value="12345"/>
+			<property name="password" value=""/>
 
 			<property name="dataSourceProperties">
 				<props>
