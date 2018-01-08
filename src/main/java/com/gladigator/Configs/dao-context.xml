@@ -36,4 +36,49 @@
 
 		<tx:annotation-driven />
 	</beans>
+
+	<beans profile="showcase">
+
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=UTC" />
+			<property name="maximumPoolSize" value="10" />
+			<property name="idleTimeout" value="600000" />
+			<property name="username" value="sahUser"/>
+			<property name="password" value="12345"/>
+
+			<property name="dataSourceProperties">
+				<props>
+					<prop key="cachePrepStmts">true</prop>
+					<prop key="prepStmtCacheSize">250</prop>
+					<prop key="prepStmtCacheSqlLimit">2048</prop>
+				</props>
+			</property>
+		</bean>
+
+		<!-- HikariCP configuration -->
+		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+			destroy-method="close">
+			<constructor-arg ref="hikariConfig" />
+		</bean>
+
+		<bean id="sessionFactory"
+			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+			<property name="dataSource" ref="dataSource" />
+			<property name="packagesToScan" value="com.gladigator.Entities" />
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+					<prop key="hibernate.show_sql">true</prop>
+				</props>
+			</property>
+		</bean>
+
+		<bean id="transactionManager"
+			class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+
+		<tx:annotation-driven />
+	</beans>
 </beans>
