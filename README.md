@@ -23,9 +23,9 @@ i przechodzi do ustalania hasła do konta. Jeśli wszystko się zgadza token jes
 do bazy danych. Po zalogowaniu Użytkownik ma możliwość uzupełnienia swoich danych w zakładce Profil znajdującej sie w menu nawigacyjnym.
 Wszystkie czynności związane z rejestracją, logowaniem i zmianą danych Użytkownika są odpowiednio walidowane i obsługują i18n (przy pomocy messages.properties).</p>
 
-Diagram modelu bazy danych:
+Diagram modelu bazy danych wykorzystywanej w aplikacji:
 ![sah_db_diagram](https://user-images.githubusercontent.com/20265160/34687634-ac6eccd0-f4af-11e7-93dd-2c05c0a86734.png)
 Jak widać na załączonym diagramie tabela users jest połączona relacją 1:1 z tabelą users_details, a ich klucze główne są zależne od siebie
-tzn. users_details wykorzystuje klucz główny tabeli users (zatem encja users_details jest zależna od encji users i nie może bez niej istnieć). 
+tzn. users_details wykorzystuje klucz główny tabeli users (zatem encja users_details jest zależna od encji users i nie może bez niej istnieć. Tabele body_type, frequency_of_activity, sex są połączone z tabelą users_detals niezależną relacją 1:1 (usunięcia którejś z nich  nie skutkuje usunięciem encji users_details)
 
 <h2>Jak uruchomić projekt na serwerze lokalnym?</h2>
