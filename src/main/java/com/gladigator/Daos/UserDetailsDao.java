@@ -2,10 +2,7 @@ package com.gladigator.Daos;
 
 import com.gladigator.Entities.UserDetails;
 
-public interface UserDetailsDao {
+public interface UserDetailsDao extends GenericDao<UserDetails>{
 	
-	public void saveOrUpdateUserDetails(UserDetails user);
-	public UserDetails getUserDetailsById(Integer id);
 	public void deleteUserDetailsById(Integer id);
-
 }

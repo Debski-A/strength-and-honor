@@ -1,7 +1,5 @@
 package com.gladigator.Services;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
 	private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
 
@@ -31,31 +29,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleDao roleDao;
 
-	@Transactional
-	public User getUserById(Integer id) {
-		User user = null;
-		LOG.debug("Id parameter = {}", id);
-		try {
-			user = userDao.getUserById(id);
-		} catch (RepositoryException ex) {
-			throw new ServiceException("RepositoryException occured", ex);
-		} catch (Exception ex) {
-			throw new ServiceException("Exception occured", ex);
-		}
-		return user;
-	}
-
-	@Transactional
-	public void saveOrUpdateUser(User user) {
-		LOG.debug("User parameter = {}", user);
-		try {
-			userDao.saveOrUpdateUser(user);
-		} catch (RepositoryException ex) {
-			throw new ServiceException("RepositoryException occured", ex);
-		} catch (Exception ex) {
-			throw new ServiceException("Exception occured", ex);
-		}
-	}
 
 	@Transactional
 	public void deleteUserById(Integer id) {
@@ -67,17 +40,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception ex) {
 			throw new ServiceException("Exception occured", ex);
 		}
-	}
-
-	@Transactional
-	public List<User> getAllUsers() {
-		List<User> users = null;
-		try {
-			users = userDao.getAllUsers();
-		} catch (Exception ex) {
-			throw new ServiceException("Exception occured", ex);
-		}
-		return users;
 	}
 
 	@Transactional
@@ -154,7 +116,7 @@ public class UserServiceImpl implements UserService {
 	public void saveOrUpdateUserDetails(UserDetails userDetails) {
 		LOG.debug("UserDetails parameter = {}", userDetails);
 		try {
-			userDetailsDao.saveOrUpdateUserDetails(userDetails);
+			userDetailsDao.saveOrUpdate(userDetails);
 		} catch (RepositoryException ex) {
 			throw new ServiceException("RepositoryException occured", ex);
 		} catch (Exception ex) {

@@ -59,10 +59,10 @@ public class UserDetailsDaoTest {
 	// public void saveOrUpdateUserDetails(UserDetails user);
 	@Test
 	public void givenUserDetails_WhenSaveOrUpdateUserDetails_ThenUserDetailsArePersisted() throws Exception {
-		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		userDetailsDao.saveOrUpdate(userDetails);
 		sessionFactory.getCurrentSession().flush(); //flush aby zapelnic tabele danymi. Bez tego INSERT bedzie tylko w tabeli users. NIE WIEM CZEMU TAK JEST TODO
 		sessionFactory.getCurrentSession().detach(userDetails); //detach aby "odlaczyc" userDetails od Persistence context. clear odlacza wszystkie encje bedace w kontekscie
-		UserDetails userDetailsFromDB = userDetailsDao.getUserDetailsById(1); //BEZ DETACH usersDetails wciaz jest w cache i przez to nie jest wykonywany SELECT w bazie danych. getUserDetailsById po prostu przypisuje referencje z cache do zmiennej userDetailsFromDB
+		UserDetails userDetailsFromDB = userDetailsDao.findById(1); //BEZ DETACH usersDetails wciaz jest w cache i przez to nie jest wykonywany SELECT w bazie danych. getUserDetailsById po prostu przypisuje referencje z cache do zmiennej userDetailsFromDB
 		assertThat(userDetailsFromDB, equalTo(userDetails));
 	}
 	
@@ -70,27 +70,27 @@ public class UserDetailsDaoTest {
 	public void givenUserDetailsWithUserFieldSettedToNull_WhenSaveOrUpdateDetails_ThenThrowRepositoryException() throws Exception {
 		userDetails.setUser(null);
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("Could not save UserDetails");
-		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		exception.expectMessage("An Exception occurred");
+		userDetailsDao.saveOrUpdate(userDetails);
 	}
 	
 	@Test
 	public void givenUserDetailsIsNull_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("Could not save UserDetails");
-		userDetailsDao.saveOrUpdateUserDetails(null);
+		exception.expectMessage("An Exception occurred");
+		userDetailsDao.saveOrUpdate(null);
 	}	
 	
 	@Test
 	public void givenUserDetailsWithId_WhenSaveOrUpdate_ThenUserDetailsAreUpdated() throws Exception {
-		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		userDetailsDao.saveOrUpdate(userDetails);
 		sessionFactory.getCurrentSession().flush();
 		sessionFactory.getCurrentSession().detach(userDetails);
 		userDetails.setAge(99);
-		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		userDetailsDao.saveOrUpdate(userDetails);
 		sessionFactory.getCurrentSession().flush();
 		sessionFactory.getCurrentSession().detach(userDetails);
-		assertThat(userDetailsDao.getUserDetailsById(1).getAge(), equalTo(99));
+		assertThat(userDetailsDao.findById(1).getAge(), equalTo(99));
 	}
 	
 	
@@ -99,23 +99,23 @@ public class UserDetailsDaoTest {
 	public void givenEmptyDB_WhenGetUserDetailsById_ThenThrowRepositoryException() throws Exception {
 		Integer id = 1;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no UserDetails entity with such ID = " + id);
-		userDetailsDao.getUserDetailsById(id);
+		exception.expectMessage("No UserDetails entity with such id");
+		userDetailsDao.findById(id);
 	}
 	
 	@Test
 	public void givenIdIsNull_getUserDetailsById_ThenThrowRepositoryException() throws Exception {
 		Integer id = null;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no UserDetails entity with such ID = " + id);
-		userDetailsDao.getUserDetailsById(id);
+		exception.expectMessage("An Exception occurred");
+		userDetailsDao.findById(id);
 	}
 	
 	
 	// public void deleteUserDetailsById(Integer id);
 	@Test
 	public void givenUserDetailsWithId1_WhenDeleteUserDetailsById_ThenUserDetailsWithId1AreDeleted() throws Exception {
-		userDetailsDao.saveOrUpdateUserDetails(userDetails);
+		userDetailsDao.saveOrUpdate(userDetails);
 		sessionFactory.getCurrentSession().flush();
 		userDetailsDao.deleteUserDetailsById(1);
 		@SuppressWarnings("unchecked")

@@ -56,16 +56,16 @@ public class UserDaoTest {
 	////////////// saveOrUpdateUser(User user)
 	@Test
 	public void givenNewUser_WhenSaveOrUpdate_ThenNumberOfUsersIncreases() throws Exception {
-		int size = userDao.getAllUsers().size();
-		userDao.saveOrUpdateUser(newUser);
-		assertThat(userDao.getAllUsers(), hasSize(size + 1));
+		int size = userDao.getAll().size();
+		userDao.saveOrUpdate(newUser);
+		assertThat(userDao.getAll(), hasSize(size + 1));
 	}
 
 	@Test
 	public void givenNewUser_WhenSaveOrUpdate_ThenNewUserIsUpdated() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		newUser.setUsername("Alberto");
-		assertThat(userDao.getAllUsers().get(0).getUsername(), equalTo("Alberto")); // executing a query will trigger a
+		assertThat(userDao.getAll().get(0).getUsername(), equalTo("Alberto")); // executing a query will trigger a
 																					// flush if required --getAllUsers
 																					// uzywa HQL--
 	}
@@ -74,25 +74,25 @@ public class UserDaoTest {
 	public void givenUserIsNull_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
 		newUser = null;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("Could not save User. User = " + newUser);
-		userDao.saveOrUpdateUser(newUser);
+		exception.expectMessage("An Exception occurred");
+		userDao.saveOrUpdate(newUser);
 	}
 
 	@Test
 	public void givenUserWithNullForbiddenField_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
 		newUser.setUsername(null);
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("Could not save User. User = " + newUser);
-		userDao.saveOrUpdateUser(newUser);
+		exception.expectMessage("An Exception occurred");
+		userDao.saveOrUpdate(newUser);
 	}
 
 	////////////// getUserById(Integer id)
 	@Test
 	public void givenUser_WhenGetUserById_ThenReturnUserFromDB() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		sessionFactory.getCurrentSession().detach(newUser); // czemu detach? Patrz na podobna metode testowa w
 															// UserDetailsDaoTest
-		User userFromDB = userDao.getUserById(1);
+		User userFromDB = userDao.findById(1);
 		assertThat(userFromDB, equalTo(newUser));
 	}
 
@@ -100,24 +100,24 @@ public class UserDaoTest {
 	public void whenGetUserById_AndNoUserInDB_ThenThrowRepositoryException() throws Exception {
 		Integer id = 1;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no User with ID = " + id);
-		userDao.getUserById(id);
+		exception.expectMessage("No User entity with such id");
+		userDao.findById(id);
 	}
 
 	@Test
 	public void whenGetUserByIdParameterIsNull_ThenThrowRepositoryException() throws Exception {
 		Integer id = null;
 		exception.expect(RepositoryException.class);
-		exception.expectMessage("There is no User with ID = " + id);
-		userDao.getUserById(id);
+		exception.expectMessage("An Exception occurred");
+		userDao.findById(id);
 	}
 
 	////////////// deleteUserById(Integer id)
 	@Test
 	public void givenUserWithId1_WhenDeleteUserById_ThenUserWithId1IsDeleted() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		userDao.deleteUserById(1);
-		assertThat(userDao.getAllUsers(), hasSize(0));
+		assertThat(userDao.getAll(), hasSize(0));
 	}
 
 	@Test
@@ -131,17 +131,17 @@ public class UserDaoTest {
 	////////////// getAllUsers()
 	@Test
 	public void givenTwoUsers_WhenGetAllUsers_ThenNumberOfUsersIsTwo() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		String token = UUID.randomUUID().toString();
 		User secondUser = new User("Bolo", "kung-fu", "enterthedragon@gmail.com", token, true);
-		userDao.saveOrUpdateUser(secondUser);
-		assertThat(userDao.getAllUsers(), hasSize(2));
+		userDao.saveOrUpdate(secondUser);
+		assertThat(userDao.getAll(), hasSize(2));
 	}
 
 	/////////////// getUserByEmail(String email)
 	@Test
 	public void givenUser_WhenGetUserByEmail_ThenReturnUserFromDB() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		User userFromDB = userDao.getUserByEmail("roger@gmail.com");
 		assertThat(userFromDB, equalTo(newUser));
 	}
@@ -162,7 +162,7 @@ public class UserDaoTest {
 	/////////////// getUserByToken(String token)
 	@Test
 	public void givenUser_WhenGetUserByToken_ThenReturnUserFromDB() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		User userFromDB = userDao.getUserByToken(newUserToken);
 		assertThat(userFromDB, equalTo(newUser));
 	}
@@ -188,19 +188,19 @@ public class UserDaoTest {
 	
 	@Test
 	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndEmailIsTaken_ThenReturnTrue() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		assertThat(userDao.checkIfUsernameOrEmailAreTaken("user44", "roger@gmail.com"), is(true));
 	}
 	
 	@Test
 	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndUsernameIsTaken_ThenReturnTrue() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		assertThat(userDao.checkIfUsernameOrEmailAreTaken("Roger", "rxyz"), is(true));
 	}
 	
 	@Test
 	public void givenUserWithEmail_WhenCheckIfUsernameOrEmailAreTaken_AndBothAreTaken_ThenReturnTrue() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		assertThat(userDao.checkIfUsernameOrEmailAreTaken("Roger", "roger@gmail.com"), is(true));
 	}
 	
@@ -214,7 +214,7 @@ public class UserDaoTest {
 	////////////////getUserByUsername(String username)
 	@Test
 	public void givenUser_WhenGetUserByUsername_ThenReturnUserFromDB() throws Exception {
-		userDao.saveOrUpdateUser(newUser);
+		userDao.saveOrUpdate(newUser);
 		User userFromDB = userDao.getUserByUsername("Roger");
 		assertThat(userFromDB, equalTo(newUser));
 	}

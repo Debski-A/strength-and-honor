@@ -100,7 +100,7 @@ public class ProfileControllerTest {
 		userDetails.setUser(user);
 		user.setUserDetails(userDetails);
 		UserService userService = webContext.getBean("userServiceImpl", UserService.class);
-		userService.saveOrUpdateUser(user);
+		userService.saveOrUpdate(user);
 	}
 
 }

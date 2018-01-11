@@ -44,8 +44,8 @@
 			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=UTC" />
 			<property name="maximumPoolSize" value="10" />
 			<property name="idleTimeout" value="600000" />
-			<property name="username" value="root"/>
-			<property name="password" value="CHANGE_ME"/>
+			<property name="username" value="sahUser"/>
+			<property name="password" value=""/>
 
 			<property name="dataSourceProperties">
 				<props>

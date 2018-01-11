@@ -64,7 +64,7 @@ public class RegisterController {
 			String token = registerUtils.generateToken();
 			user.setConfirmationToken(token);
 			LOG.debug("User from registerpage before DB save");
-			userService.saveOrUpdateUser(user);
+			userService.saveOrUpdate(user);
 
 			String link = registerUtils.createLink(request, token);
 			registerUtils.sendRegistrationLink(link, user.getEmail(), locale);
@@ -121,7 +121,7 @@ public class RegisterController {
 		user.setConfirmationToken(null);
 		user.getRoles().add(userService.getRoleById(1));
 		
-		userService.saveOrUpdateUser(user);
+		userService.saveOrUpdate(user);
 
 		String success = messageSource.getMessage("confirmpage.success", null, locale);
 		redir.addFlashAttribute("successMessage", success);

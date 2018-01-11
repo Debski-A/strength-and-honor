@@ -124,7 +124,7 @@ public class RegisterControllerTest {
 		
 		controller.processRegistrationForm(model, testUser, mock(BindingResult.class), mock(HttpServletRequest.class), null);
 		
-		verify(userService).saveOrUpdateUser(testUser);
+		verify(userService).saveOrUpdate(testUser);
 	}
 	
 	@Test
@@ -230,7 +230,7 @@ public class RegisterControllerTest {
 		
 		verify(testUser).setEnabled(true);
 		verify(testUser).setConfirmationToken(null);
-		verify(userService).saveOrUpdateUser(testUser);
+		verify(userService).saveOrUpdate(testUser);
 		verify(userService).getRoleById(1);
 		verify(testUser).getRoles();
 		verify(roles).add(role);
