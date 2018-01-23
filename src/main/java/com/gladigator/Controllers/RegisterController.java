@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gladigator.Controllers.PasswordsWorkflow.CustomPasswordEncoder;
+import com.gladigator.Controllers.PasswordsWorkflow.PasswordValidator;
 import com.gladigator.Entities.User;
 import com.gladigator.Services.UserService;
 

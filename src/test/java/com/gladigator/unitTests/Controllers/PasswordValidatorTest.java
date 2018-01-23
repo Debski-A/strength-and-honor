@@ -7,15 +7,15 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gladigator.Controllers.PasswordValidator;
+import com.gladigator.Controllers.PasswordsWorkflow.SimplePasswordValidator;
 
 public class PasswordValidatorTest {
 	
-	private PasswordValidator passswordValidator;
+	private SimplePasswordValidator passswordValidator;
 	
 	@Before
 	public void before() {
-		passswordValidator = new PasswordValidator();
+		passswordValidator = new SimplePasswordValidator();
 	}
 	
 	@Test

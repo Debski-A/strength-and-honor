@@ -25,10 +25,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gladigator.Controllers.CustomPasswordEncoder;
-import com.gladigator.Controllers.PasswordValidator;
 import com.gladigator.Controllers.RegisterController;
 import com.gladigator.Controllers.RegisterUtils;
+import com.gladigator.Controllers.PasswordsWorkflow.CustomPasswordEncoder;
+import com.gladigator.Controllers.PasswordsWorkflow.PasswordValidator;
 import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
 import com.gladigator.Services.UserService;

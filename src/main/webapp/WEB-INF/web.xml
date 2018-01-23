@@ -26,7 +26,7 @@
   </context-param>
   <context-param>
     <param-name>spring.profiles.active</param-name>
-    <param-value>showcase</param-value>
+    <param-value>production</param-value>
   </context-param>
   <servlet>
     <servlet-name>dispatcher</servlet-name>
