@@ -1,4 +1,4 @@
-package com.gladigator.Controllers;
+package com.gladigator.Controllers.Utils;
 
 import java.util.Locale;
 import java.util.UUID;

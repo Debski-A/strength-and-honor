@@ -13,7 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 
 import com.gladigator.Controllers.HomeController;
-import com.gladigator.Controllers.ResponseEntityBuilder;
+import com.gladigator.Controllers.Utils.ResponseEntityBuilder;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HomeControllerTest {

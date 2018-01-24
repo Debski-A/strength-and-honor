@@ -1,4 +1,4 @@
-package com.gladigator.Controllers;
+package com.gladigator.Controllers.Utils;
 
 import java.util.List;
 
@@ -31,9 +31,10 @@ public class ResponseEntityBuilder {
 		this.httpHeaders.setAccept(mediaTypes);
 	}
 	
-	public ResponseEntity<String> createResponseEntity() {
+	public ResponseEntity<String> createResponseEntity(String param) {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", httpHeaders);
-		ResponseEntity<String> responseEntity = restTemplate.exchange(restUrl.getUrl(), HttpMethod.GET, entity, String.class);
+		String url = restUrl.getUrl().replaceAll("NameOfTheCity", param);
+		ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 		return responseEntity;
 	}
 

@@ -1,5 +1,6 @@
-package com.gladigator.Controllers;
+package com.gladigator.Controllers.Utils;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Services.UserDetailsService;
+import com.gladigator.Services.UserService;
 
 @Component
 public class ProfileUtils {
@@ -20,19 +22,33 @@ public class ProfileUtils {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private UserService userService;
 
-	public UserDetails obtainUserDetails(User user) {
-		UserDetails userDetailsFromUser = user.getUserDetails();
-		LOG.debug("UserDetails from user = {}", userDetailsFromUser);
-		if (userDetailsFromUser != null) {
+	public UserDetails obtainUserDetails(Principal principal) {
+		String authenticatedUserUsername = principal.getName();
+		User user = userService.getUserByUsername(authenticatedUserUsername);
+		
+		//Jesli User ma juz jakies UserDetails
+		UserDetails userDetailsFromUserObtainedForUpdate = user.getUserDetails();
+		LOG.debug("UserDetails from user = {}", userDetailsFromUserObtainedForUpdate);
+		if (userDetailsFromUserObtainedForUpdate != null) {
+			user.getUserDetails().setUser(user);
 			return user.getUserDetails();
 		}
-		return new UserDetails();
+		
+		//Jesli User pierwszy raz ustawia UserDetails
+		UserDetails emptyUserDetails = new UserDetails();
+		emptyUserDetails.setUser(user);
+		return emptyUserDetails;
 	}
-
+	
 	public void addListsOfAttributesToModel(Model model) {
 		Map<String, List<?>> listOfSelectives = userDetailsService.getSelectiveDetailsAsMap();
 		model.addAllAttributes(listOfSelectives);
 	}
+	
+	
 
 }

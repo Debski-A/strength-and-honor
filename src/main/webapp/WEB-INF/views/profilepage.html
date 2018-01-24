@@ -81,17 +81,17 @@
 		</div>
 		<div class="col-lg-6">
 			<h3><label for="inputSex" class="label label-primary" th:text="#{profilepage.sex}">Sex</label></h3> 
-			<select th:field="*{sex.sexId}" id="inputSex" name="sex">
+			<select th:field="*{sex.sexId}" id="inputSex" name="sex" class="form-control"> 
 				<option th:each="sexType : ${sexListOfSelectives}" th:value="${sexType.sexId}" th:text="${sexType.type}">
 			</select>
 			
 				<h3><label for="inputBodyType" class="label label-primary" th:text="#{profilepage.bodyType}">Body Type</label></h3> 
-			<select th:field="*{bodyType.bodyTypeId}" id="inputBodyType" name="bodyType">
+			<select th:field="*{bodyType.bodyTypeId}" id="inputBodyType" name="bodyType" class="form-control">
 				<option th:each="bodyType : ${bodyTypeListOfSelectives}" th:value="${bodyType.bodyTypeId}" th:text="${bodyType.type}">
 			</select>
 				
 				<h3><label for="inputFoa" class="label label-primary" th:text="#{profilepage.frequencyOfActivity}">Frequency of Activity</label></h3> 
-			<select th:field="*{frequencyOfActivity.frequencyOfActivityId}" id="inputFoa" name="foa">
+			<select th:field="*{frequencyOfActivity.frequencyOfActivityId}" id="inputFoa" name="foa" class="form-control">
 				<option th:each="frequency : ${frequenciesListOfSelectives}" th:value="${frequency.frequencyOfActivityId}" th:text="${frequency.frequency}">
 			</select>
 				

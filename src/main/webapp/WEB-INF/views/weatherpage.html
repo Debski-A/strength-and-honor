@@ -10,7 +10,8 @@
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	th:src="@{/resources/js/bootstrap.min.js}"></script>
+	th:src="@{/resources/js/bootstrap.min.js}">
+</script>
 
 
 <link
@@ -41,15 +42,33 @@
 				</ul>
 			</div>
 		</nav>
-	<div class="container">
-		<form class="form-inline" th:action='@{/weather}' th:object="${city}" method="POST">
+		<div class="container">
+			 <div class="alert alert-info" th:text="#{weatherpage.inputInfo}">Give the name of the city where you want to see the weather</div>
+   				 <label for="inputCity" class="sr-only">Input city</label>
+   				 <input type="text" class="form-control" id="inputCity" name="inputCity" th:placeholder="#{weatherpage.city}">
+		  		 <button type="button" class="btn btn-primary mb-2" th:text="#{weatherpage.submit}" onclick="getWeatherJson()">Check it!</button>
+		</div>
+		<div class="container" >
+			<div id="date"  class="bg-success"></div>
+			<div id="city" class="bg-primary"></div>
+			<div id="region"  class="bg-information"></div>
+			<div id="country"  class="bg-success"></div>
+			<div id="temp"  class="bg-success"></div>
+		</div>
+	<!--  <div class="container">
+		<form class="form-inline" th:action='@{/weather}' method="POST">
 			 <div class="form-group mx-sm-3 mb-2">
-   				 <label for="inputPassword" class="sr-only">Password</label>
-   				 <input type="password" class="form-control" id="inputPassword" placeholder="#{loginpage.password}">
+			 	 <div class="alert alert-info" th:text="#{weatherpage.inputInfo}">Give the name of the city where you want to see the weather</div>
+   				 <label for="inputCity" class="sr-only">Input city</label>
+   				 <input type="text" class="form-control" id="inputCity" name="inputCity" th:placeholder="#{weatherpage.city}">
+		  		 <button type="submit" class="btn btn-primary mb-2" th:text="#{weatherpage.submit}">Check it!</button>
   			</div>
-  			<button type="submit" class="btn btn-primary mb-2">Check it!</button>
 		</form>
-	</div>
+	</div> 
+	<div class="container" th:if="${weatherEntity}">
+		<div th:text="${weatherEntity}"></div>
+		<button type="button" onclick="getWeatherJson()"></button>
+	</div> -->
 	<footer class="footer" th:replace="fragments/footer :: footer">
 		<div class="container-fluid">
 			<span class="text-muted">Place sticky footer content here.</span>
@@ -58,15 +77,19 @@
 	
 <script th:inline="javascript">
 	function updateWeatherConditions(data) {
-		alert(data.query.results.channel.location.city);
+		$("#date").text(data.query.results.channel.item.condition.date);
+		$("#city").text(data.query.results.channel.location.city);
+		$("#region").text(data.query.results.channel.location.region);
+		$("#country").text(data.query.results.channel.location.country);
+		$("#temp").text(data.query.results.channel.item.condition.temp);
 	}
 	
-	function onLoad() {
-		$.getJSON(/*[[@{/weatherConditions}]]*/, updateWeatherConditions);
+	function getWeatherJson() {
+		var city = $("#inputCity").val();
+		$.getJSON(/*[+ [[@{/weatherConditions/}]] + city +]*/, updateWeatherConditions);
 	}
 	
-	$(document).ready(onLoad);
-</script>	
+</script>  
 
 </body>
 </html>

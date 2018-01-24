@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 
-import com.gladigator.Controllers.RegisterUtils;
+import com.gladigator.Controllers.Utils.RegisterUtils;
 import com.gladigator.Services.EmailService;
 
 import static org.hamcrest.CoreMatchers.equalTo;

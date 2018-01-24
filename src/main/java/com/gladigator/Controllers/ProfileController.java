@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gladigator.Entities.User;
+import com.gladigator.Controllers.Utils.ProfileUtils;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Services.UserService;
 
@@ -41,11 +41,9 @@ public class ProfileController {
 
 	@GetMapping("/profile")
 	public String showProfilePage(Model model, Principal principal) {
-		String authenticatedUserUsername = principal.getName();
-		User user = userService.getUserByUsername(authenticatedUserUsername);
-		UserDetails userDetails = profileUtils.obtainUserDetails(user);
+		UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+		
 		profileUtils.addListsOfAttributesToModel(model);
-		userDetails.setUser(user);
 		model.addAttribute("userDetails", userDetails);
 		return "profilepage";
 	}

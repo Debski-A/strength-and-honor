@@ -28,7 +28,7 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/weather"
 			access="permitAll" />
-		<security:intercept-url pattern="/weatherConditions"
+		<security:intercept-url pattern="/weatherConditions/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/profile"
 			access="isAuthenticated()" />

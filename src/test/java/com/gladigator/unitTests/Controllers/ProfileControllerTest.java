@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import com.gladigator.Controllers.ProfileController;
-import com.gladigator.Controllers.ProfileUtils;
+import com.gladigator.Controllers.Utils.ProfileUtils;
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Services.UserService;
@@ -58,42 +58,21 @@ public class ProfileControllerTest {
 	
 	@Before
 	public void before() {
-		when(profileUtils.obtainUserDetails(user)).thenReturn(userDetails);
+		when(profileUtils.obtainUserDetails(principal)).thenReturn(userDetails);
 		locale = new Locale("pl");
 	}
 	
 	@Test
 	public void whenShowProfilePage_ThenReturnProfilepage() throws Exception {
-		when(userService.getUserByUsername(any())).thenReturn(user);
 		
 		assertThat(controller.showProfilePage(model, principal), equalTo("profilepage"));
 	}
 	
 	@Test
 	public void whenShowProfilePage_ThenAddUserDetailsToModel() throws Exception {
-		when(userService.getUserByUsername(any())).thenReturn(user);
-		//any(), a nie anyString(), bo jak nie zmockuje zachowania principal.getName() to metoda bedzie miala postac getUserByUsername(null)
 		controller.showProfilePage(model, principal);
 		
 		verify(model).addAttribute(anyString(), any(UserDetails.class));
-	}
-	
-	@Test
-	public void whenShowProfilePage_ThenGetPrincipalName() throws Exception {
-		when(userService.getUserByUsername(any())).thenReturn(user);
-		controller.showProfilePage(model, principal);
-		
-		verify(principal).getName();
-	}
-	
-	
-	@Test
-	public void whenShowProfilePage_ThenCallGetUserByUsername() throws Exception {
-		when(userService.getUserByUsername(any())).thenReturn(user);
-		when(principal.getName()).thenReturn("adam");
-		controller.showProfilePage(model, principal);
-		
-		verify(userService).getUserByUsername("adam");
 	}
 	
 	@Test
