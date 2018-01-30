@@ -27,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
+import com.gladigator.Entities.UserDetails.UserDetailsBuilder;
 import com.gladigator.Services.UserService;
 
 @WebAppConfiguration

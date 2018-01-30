@@ -37,13 +37,5 @@ public class HomeControllerTest {
 		assertThat(controller.showWeatherPage(), equalTo("weatherpage"));
 	}
 	
-	@Test
-	public void whenShowWeatherConditions_ThenReturnResponseEntity() throws Exception {
-		when(responseEntityBuilder.createResponseEntity()).thenReturn(responseEntity);
-		
-		assertThat(controller.showWeatherConditions(), equalTo(responseEntity));
-		
-		verify(responseEntityBuilder).createResponseEntity();
-	}
 	
 }
