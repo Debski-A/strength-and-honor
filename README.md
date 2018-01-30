@@ -94,3 +94,4 @@ tzn. users_details wykorzystuje klucz główny tabeli users (zatem encja users_d
 </strong>
 
 <h2>Jak uruchomić projekt na serwerze lokalnym?</h2>
+xyz
