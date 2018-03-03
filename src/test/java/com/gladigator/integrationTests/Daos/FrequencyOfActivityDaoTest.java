@@ -19,32 +19,35 @@ public class FrequencyOfActivityDaoTest extends GenericDaoTestUtils<FrequencyOfA
 	
 	@Test
 	public void whenGetAllFre_ThenReturnListOfFrequencies() throws Exception {
+		FrequencyOfActivity none = new FrequencyOfActivity();
+		none.setFrequencyOfActivityId(1);
+		none.setFrequencyOfActivityFrequencyName("none");
 		FrequencyOfActivity veryLow = new FrequencyOfActivity();
-		veryLow.setFrequencyOfActivityId(1);
+		veryLow.setFrequencyOfActivityId(2);
 		veryLow.setFrequencyOfActivityFrequencyName("very low");
 		FrequencyOfActivity low = new FrequencyOfActivity();
-		low.setFrequencyOfActivityId(2);
+		low.setFrequencyOfActivityId(3);
 		low.setFrequencyOfActivityFrequencyName("low");
 		FrequencyOfActivity medium = new FrequencyOfActivity();
-		medium.setFrequencyOfActivityId(3);
+		medium.setFrequencyOfActivityId(4);
 		medium.setFrequencyOfActivityFrequencyName("medium");
 		FrequencyOfActivity high = new FrequencyOfActivity();
-		high.setFrequencyOfActivityId(4);
+		high.setFrequencyOfActivityId(5);
 		high.setFrequencyOfActivityFrequencyName("high");
 		FrequencyOfActivity veryHigh = new FrequencyOfActivity();
-		veryHigh.setFrequencyOfActivityId(5);
+		veryHigh.setFrequencyOfActivityId(6);
 		veryHigh.setFrequencyOfActivityFrequencyName("very high");
 		
-		assertThat(foaDao.getAll(), equalTo(Arrays.asList(veryLow, low, medium, high, veryHigh)));
+		assertThat(foaDao.getAll(), equalTo(Arrays.asList(none,veryLow, low, medium, high, veryHigh)));
 	}
 	
 	@Test
-	public void whenFindById4_ThenReturnHighFrequency() throws Exception {
+	public void whenFindById5_ThenReturnHighFrequency() throws Exception {
 		FrequencyOfActivity high = new FrequencyOfActivity();
-		high.setFrequencyOfActivityId(4);
+		high.setFrequencyOfActivityId(5);
 		high.setFrequencyOfActivityFrequencyName("high");
 		
-		assertThat(super.whenFindById_ThenReturnEntity(foaDao, 4), equalTo(high));
+		assertThat(super.whenFindById_ThenReturnEntity(foaDao, 5), equalTo(high));
 	}
 	
 //	Ponizsze trzy metody korzystaja z GenericDaoTestUtils, ktore jest zalezne od GenericDao i ich logika jest identyczna dla kazdej klasy testowej.

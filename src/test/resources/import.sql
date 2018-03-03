@@ -1,18 +1,21 @@
 INSERT INTO roles (id_role, role) VALUES (1, 'ROLE_USER');
 INSERT INTO roles (id_role, role) VALUES (2, 'ROLE_ADMIN');
 
-INSERT INTO body_type (id_bt, type) VALUES (1, 'ectomorphic');
-INSERT INTO body_type (id_bt, type) VALUES (2, 'mesomorphic');
-INSERT INTO body_type (id_bt, type) VALUES (3, 'endomorphic');
+INSERT INTO body_type (id_bt, type) VALUES (2, 'ectomorphic');
+INSERT INTO body_type (id_bt, type) VALUES (3, 'mesomorphic');
+INSERT INTO body_type (id_bt, type) VALUES (4, 'endomorphic');
+INSERT INTO body_type (id_bt, type) VALUES (1, 'none');
 
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (1, 'very low');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (2, 'low');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (3, 'medium');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (4, 'high');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (5, 'very high');
+INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (2, 'very low');
+INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (3, 'low');
+INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (4, 'medium');
+INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (5, 'high');
+INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (6, 'very high');
+INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (1, 'none');
 
 INSERT INTO sex (id_sex, type) VALUES (1, 'male');
 INSERT INTO sex (id_sex, type) VALUES (2, 'female');
+
 
 --User Adam
 --INSERT INTO users (id_user, username, password, email, enabled) VALUES (1, 'adam', 'test', 'adam@gmail.com', true);

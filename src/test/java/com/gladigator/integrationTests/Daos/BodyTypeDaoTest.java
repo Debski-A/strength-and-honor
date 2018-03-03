@@ -19,19 +19,23 @@ public class BodyTypeDaoTest extends GenericDaoTestUtils<BodyType> {
 	
 	@Test
 	public void whenGetAll_ThenReturnListOfBodyTypes() throws Exception {
+		BodyType none = new BodyType();
+		none.setBodyTypeId(1);
+		none.setBodyTypeType("none");
+		
 		BodyType ectomorphic = new BodyType();
-		ectomorphic.setBodyTypeId(1);
+		ectomorphic.setBodyTypeId(2);
 		ectomorphic.setBodyTypeType("ectomorphic");
 		
 		BodyType mesomorphic = new BodyType();
-		mesomorphic.setBodyTypeId(2);
+		mesomorphic.setBodyTypeId(3);
 		mesomorphic.setBodyTypeType("mesomorphic");
 		
 		BodyType endomorphic = new BodyType();
-		endomorphic.setBodyTypeId(3);
+		endomorphic.setBodyTypeId(4);
 		endomorphic.setBodyTypeType("endomorphic");
 		
-		assertThat(bodyTypeDao.getAll(), equalTo(Arrays.asList(ectomorphic, mesomorphic, endomorphic)));
+		assertThat(bodyTypeDao.getAll(), equalTo(Arrays.asList(none, ectomorphic, mesomorphic, endomorphic)));
 	}
 	
 	@DirtiesContext
@@ -43,12 +47,12 @@ public class BodyTypeDaoTest extends GenericDaoTestUtils<BodyType> {
 	}
 	
 	@Test
-	public void whenFindById1_ThenReturnBodyTypeEctomorphic() throws Exception {
+	public void whenFindById2_ThenReturnBodyTypeEctomorphic() throws Exception {
 		BodyType ectomorphic = new BodyType();
-		ectomorphic.setBodyTypeId(1);
+		ectomorphic.setBodyTypeId(2);
 		ectomorphic.setBodyTypeType("ectomorphic");
 		
-		assertThat(super.whenFindById_ThenReturnEntity(bodyTypeDao, 1), equalTo(ectomorphic));
+		assertThat(super.whenFindById_ThenReturnEntity(bodyTypeDao, 2), equalTo(ectomorphic));
 	}
 	
 	@Test

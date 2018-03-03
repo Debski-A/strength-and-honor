@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				authorities-by-username-query="SELECT username, role FROM users u LEFT JOIN users_has_roles ur ON u.id_user = ur.id_user LEFT JOIN roles r ON ur.id_role = r.id_role WHERE BINARY username = ?"
+				users-by-username-query="SELECT username, password, enabled FROM users WHERE BINARY username = ?" />
+			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/createUser"
+			access="permitAll" />
+		<security:intercept-url pattern="/confirm"
+			access="permitAll" />
+		<security:intercept-url pattern="/logout"
+			access="permitAll" />
+		<security:intercept-url pattern="/weather"
+			access="permitAll" />
+		<security:intercept-url pattern="/weatherConditions/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/profile"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/**" access="denyAll" />
+		<security:form-login login-page="/login"
+			default-target-url="/" authentication-failure-url="/login?error=true" />
+		<security:csrf />
+		<security:logout logout-success-url="/" logout-url="/logout" 
+			delete-cookies="JSESSIONID" />
+		<security:access-denied-handler
+			error-page="/accessDenied" />
+	</security:http>
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	</bean>
+
+</beans>
