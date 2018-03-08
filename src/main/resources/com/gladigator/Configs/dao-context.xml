@@ -12,7 +12,7 @@
 	<context:component-scan base-package="com.gladigator.Daos">
 	</context:component-scan>
 
-	<beans profile="jndi-database">
+	<beans profile="test">
 		<jee:jndi-lookup jndi-name="jdbc/sah_db" id="dataSource"
 			expected-type="javax.sql.DataSource">
 		</jee:jndi-lookup>
@@ -36,6 +36,7 @@
 
 		<tx:annotation-driven />
 	</beans>
+
 
 	<beans profile="production">
 
