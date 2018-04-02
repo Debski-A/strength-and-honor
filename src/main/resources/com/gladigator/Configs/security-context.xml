@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-		
+
 
 	<security:authentication-manager>
 		<security:authentication-provider>
@@ -37,7 +40,7 @@
 		<security:form-login login-page="/login"
 			default-target-url="/" authentication-failure-url="/login?error=true" />
 		<security:csrf />
-		<security:logout logout-success-url="/" logout-url="/logout" 
+		<security:logout logout-success-url="/" logout-url="/logout"
 			delete-cookies="JSESSIONID" />
 		<security:access-denied-handler
 			error-page="/accessDenied" />

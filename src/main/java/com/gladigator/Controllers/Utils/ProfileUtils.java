@@ -2,6 +2,7 @@ package com.gladigator.Controllers.Utils;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -44,8 +45,8 @@ public class ProfileUtils {
 		return emptyUserDetails;
 	}
 	
-	public void addListsOfAttributesToModel(Model model) {
-		Map<String, List<?>> listOfSelectives = userDetailsService.getSelectiveDetailsAsMap();
+	public void addListsOfAttributesToModel(Model model, Locale locale) {
+		Map<String, List<?>> listOfSelectives = userDetailsService.getSelectiveDetailsAsMap(locale);
 		model.addAllAttributes(listOfSelectives);
 	}
 	

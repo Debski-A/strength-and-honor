@@ -40,10 +40,11 @@ public class ProfileController {
 	private ProfileUtils profileUtils;
 
 	@GetMapping("/profile")
-	public String showProfilePage(Model model, Principal principal) {
+	public String showProfilePage(Model model, Principal principal, Locale locale) {
 		UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+		System.out.println("Locale in controller = " + locale.toLanguageTag());
 		
-		profileUtils.addListsOfAttributesToModel(model);
+		profileUtils.addListsOfAttributesToModel(model, locale);
 		model.addAttribute("userDetails", userDetails);
 		return "profilepage";
 	}

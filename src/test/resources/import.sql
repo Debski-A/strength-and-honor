@@ -13,8 +13,13 @@ INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (5, 'high');
 INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (6, 'very high');
 INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (1, 'none');
 
-INSERT INTO sex (id_sex, type) VALUES (1, 'male');
-INSERT INTO sex (id_sex, type) VALUES (2, 'female');
+INSERT INTO sex (id_sex) VALUES (1);
+INSERT INTO sex (id_sex) VALUES (2);
+
+INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (1, 'en-GB', 1, 'male', 1);
+INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (2, 'en-GB', 1, 'female', 2);
+INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (3, 'pl-PL', 0, 'mężczyzna', 1);
+INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (4, 'pl-PL', 0, 'kobieta', 2);
 
 
 --User Adam
