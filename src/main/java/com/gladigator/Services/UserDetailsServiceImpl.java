@@ -32,6 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired
 	private FrequencyOfActivityDao foaDao;
 
+	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
 	public Map<String, List<?>> getSelectiveDetailsAsMap(Locale locale) {
@@ -39,20 +40,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		try {
 			listOfSelectives = new HashMap<>();
 			List<BodyType> btList = bodyTypeDao.getAll();
-			List sList = sexDao.getAll();
+			List<? extends Translationable<Translation>> sList = (List<? extends Translationable<Translation>>) sexDao.getAll();
 			setTranslationAccordingToLocale(sList, locale);
-//			for (Sex sex : sList) {
-//				sex.setDescription(sex.getTranslations()
-//						.stream()
-//						.filter(e -> locale.toLanguageTag().equals(e.getLanguage()))
-//						.findFirst()
-//						.orElse(sex.getTranslations()
-//								.stream()
-//								.filter(e -> e.getIsDefault())
-//								.findFirst()
-//								.get())
-//						.getTranslatedDescription());
-//			}
 			List<FrequencyOfActivity> foaList = foaDao.getAll();
 			
 			listOfSelectives.put("bodyTypeListOfSelectives", btList);
@@ -65,7 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		return listOfSelectives;
 	}
 	
-	private void setTranslationAccordingToLocale(List<Translationable<Translation>> list, Locale locale) {
+	private void setTranslationAccordingToLocale(List<? extends Translationable<Translation>> list, Locale locale) {
 		for (Translationable<Translation> entity : list) {
 			entity.setDescription(entity.getTranslations()
 					.stream()

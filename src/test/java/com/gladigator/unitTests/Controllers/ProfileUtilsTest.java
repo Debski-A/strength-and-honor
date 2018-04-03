@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.junit.Before;
@@ -78,11 +79,12 @@ public class ProfileUtilsTest {
 	public void whenAddListsOfAttributesToModel_ThenObtainListsFromServices_AndAddToModel() throws Exception {
 		Model model = mock(Model.class);
 		Map<String, List<?>> listOfSelectives = new HashMap<>();
-		when(userDetailsService.getSelectiveDetailsAsMap()).thenReturn(listOfSelectives);
+		Locale locale = new Locale("pl-PL");
+		when(userDetailsService.getSelectiveDetailsAsMap(locale)).thenReturn(listOfSelectives);
 		
-		profileUtils.addListsOfAttributesToModel(model);
+		profileUtils.addListsOfAttributesToModel(model, locale);
 		
-		verify(userDetailsService).getSelectiveDetailsAsMap();
+		verify(userDetailsService).getSelectiveDetailsAsMap(locale);
 		verify(model).addAllAttributes(listOfSelectives);
 	}
 	

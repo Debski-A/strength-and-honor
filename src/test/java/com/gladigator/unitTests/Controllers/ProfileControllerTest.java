@@ -59,18 +59,18 @@ public class ProfileControllerTest {
 	@Before
 	public void before() {
 		when(profileUtils.obtainUserDetails(principal)).thenReturn(userDetails);
-		locale = new Locale("pl");
+		locale = new Locale("pl-PL");
 	}
 	
 	@Test
 	public void whenShowProfilePage_ThenReturnProfilepage() throws Exception {
 		
-		assertThat(controller.showProfilePage(model, principal), equalTo("profilepage"));
+		assertThat(controller.showProfilePage(model, principal, locale), equalTo("profilepage"));
 	}
 	
 	@Test
 	public void whenShowProfilePage_ThenAddUserDetailsToModel() throws Exception {
-		controller.showProfilePage(model, principal);
+		controller.showProfilePage(model, principal, locale);
 		
 		verify(model).addAttribute(anyString(), any(UserDetails.class));
 	}

@@ -20,12 +20,12 @@ public class SexDaoTest extends GenericDaoTestUtils<Sex>{
 	@Test
 	public void whenGetAllFre_ThenReturnListOfSexes() throws Exception {
 		Sex male = new Sex();
-		SexTranslation maleEngTranslation = new SexTranslation(1, "en-GB", true, "male");
+		SexTranslation maleEngTranslation = new SexTranslation(1, "en-UK", true, "male");
 		SexTranslation malePlTranslation = new SexTranslation(3, "pl-PL", false, "mężczyzna");
 		male.setSexId(1);
 		male.setSexTranslations(Arrays.asList(maleEngTranslation, malePlTranslation));
 		Sex female = new Sex();
-		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-GB", true, "female");
+		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-UK", true, "female");
 		SexTranslation femalePlTranslation = new SexTranslation(4, "pl-PL", false, "kobieta");
 		female.setSexId(2);
 		female.setSexTranslations(Arrays.asList(femaleEngTranslation, femalePlTranslation));
@@ -36,7 +36,7 @@ public class SexDaoTest extends GenericDaoTestUtils<Sex>{
 	@Test
 	public void whenFindById2_ThenReturnFemale() throws Exception {
 		Sex female = new Sex();
-		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-GB", true, "female");
+		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-UK", true, "female");
 		SexTranslation femalePlTranslation = new SexTranslation(4, "pl-PL", false, "kobieta");
 		female.setSexId(2);
 		female.setSexTranslations(Arrays.asList(femaleEngTranslation, femalePlTranslation));

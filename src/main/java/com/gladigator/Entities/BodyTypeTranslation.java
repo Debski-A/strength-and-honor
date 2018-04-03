@@ -8,22 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sex_translations")
-public class SexTranslation implements Translation {
+@Table(name = "body_type_translations")
+public class BodyTypeTranslation implements Translation {
 	
-	public SexTranslation() {
+	public BodyTypeTranslation() {
 	}
 	
-	public SexTranslation(Integer id, String lang, Boolean isDefault, String translatedDescription) {
-		this.sexTranslationId = id;
-		this.language = lang;
+	public BodyTypeTranslation(Integer sexTranslationId, String language, Boolean isDefault, String translatedDescription) {
+		this.sexTranslationId = sexTranslationId;
+		this.language = language;
 		this.isDefault = isDefault;
 		this.translatedDescription = translatedDescription;
 	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_sex_translations")
+	@Column(name="id_bt_translations")
 	private Integer sexTranslationId;
 	
 	@Column(name="language")
@@ -34,35 +34,35 @@ public class SexTranslation implements Translation {
 	
 	@Column(name="description")
 	private String translatedDescription;
+
 	
+	@Override
+	public String getLanguage() {
+		return this.getLanguage();
+	}
+
+	@Override
+	public Boolean getIsDefault() {
+		return this.isDefault;
+	}
+
+	@Override
+	public String getTranslatedDescription() {
+		return this.getTranslatedDescription();
+	}
 
 	public Integer getSexTranslationId() {
 		return sexTranslationId;
 	}
 
 	@Override
-	public String getLanguage() {
-		return language;
-	}
-
-	@Override
-	public Boolean getIsDefault() {
-		return isDefault;
-	}
-
-	@Override
-	public String getTranslatedDescription() {
-		return translatedDescription;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((translatedDescription == null) ? 0 : translatedDescription.hashCode());
 		result = prime * result + ((isDefault == null) ? 0 : isDefault.hashCode());
 		result = prime * result + ((language == null) ? 0 : language.hashCode());
 		result = prime * result + ((sexTranslationId == null) ? 0 : sexTranslationId.hashCode());
+		result = prime * result + ((translatedDescription == null) ? 0 : translatedDescription.hashCode());
 		return result;
 	}
 
@@ -74,12 +74,7 @@ public class SexTranslation implements Translation {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SexTranslation other = (SexTranslation) obj;
-		if (translatedDescription == null) {
-			if (other.translatedDescription != null)
-				return false;
-		} else if (!translatedDescription.equals(other.translatedDescription))
-			return false;
+		BodyTypeTranslation other = (BodyTypeTranslation) obj;
 		if (isDefault == null) {
 			if (other.isDefault != null)
 				return false;
@@ -95,13 +90,27 @@ public class SexTranslation implements Translation {
 				return false;
 		} else if (!sexTranslationId.equals(other.sexTranslationId))
 			return false;
+		if (translatedDescription == null) {
+			if (other.translatedDescription != null)
+				return false;
+		} else if (!translatedDescription.equals(other.translatedDescription))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "SexTranslation [sexTranslationId=" + sexTranslationId + ", language=" + language + ", isDefault="
-				+ isDefault + ", translatedDescription=" + translatedDescription + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("BodyTypeTranslations [sexTranslationId=");
+		builder.append(sexTranslationId);
+		builder.append(", language=");
+		builder.append(language);
+		builder.append(", isDefault=");
+		builder.append(isDefault);
+		builder.append(", translatedDescription=");
+		builder.append(translatedDescription);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	

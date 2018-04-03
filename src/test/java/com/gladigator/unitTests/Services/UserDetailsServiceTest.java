@@ -4,10 +4,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.junit.Rule;
@@ -59,7 +61,7 @@ public class UserDetailsServiceTest {
 		when(sexDao.getAll()).thenReturn(sList);
 		when(foaDao.getAll()).thenReturn(foaList);
 		
-		assertThat(userDetailsService.getSelectiveDetailsAsMap(), equalTo(result));
+		assertThat(userDetailsService.getSelectiveDetailsAsMap(new Locale("pl-PL")), equalTo(result));
 		
 		verify(bodyTypeDao).getAll();
 		verify(sexDao).getAll();
@@ -72,7 +74,7 @@ public class UserDetailsServiceTest {
 		exception.expectMessage("An Exception occurred");
 		when(foaDao.getAll()).thenThrow(Exception.class);
 		
-		userDetailsService.getSelectiveDetailsAsMap();
+		userDetailsService.getSelectiveDetailsAsMap(new Locale("pl-PL"));
 	}
 	
 }
