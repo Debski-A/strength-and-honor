@@ -87,12 +87,12 @@
 			
 				<h3><label for="inputBodyType" class="label label-primary" th:text="#{profilepage.bodyType}">Body Type</label></h3> 
 			<select th:field="*{bodyType.bodyTypeId}" id="inputBodyType" name="bodyType" class="form-control">
-				<option th:each="bodyType : ${bodyTypeListOfSelectives}" th:value="${bodyType.bodyTypeId}" th:text="${bodyType.type}">
+				<option th:each="bodyType : ${bodyTypeListOfSelectives}" th:value="${bodyType.bodyTypeId}" th:text="${bodyType.description}">
 			</select>
 				
 				<h3><label for="inputFoa" class="label label-primary" th:text="#{profilepage.frequencyOfActivity}">Frequency of Activity</label></h3> 
 			<select th:field="*{frequencyOfActivity.frequencyOfActivityId}" id="inputFoa" name="foa" class="form-control">
-				<option th:each="frequency : ${frequenciesListOfSelectives}" th:value="${frequency.frequencyOfActivityId}" th:text="${frequency.frequency}">
+				<option th:each="frequency : ${frequenciesListOfSelectives}" th:value="${frequency.frequencyOfActivityId}" th:text="${frequency.description}">
 			</select>
 				
 				<h3><label for="inputBMI" class="label label-primary">BMI</label></h3> 

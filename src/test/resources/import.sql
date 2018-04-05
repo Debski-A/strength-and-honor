@@ -15,12 +15,25 @@ INSERT INTO body_type_translations (id_bt_translations,language,is_default,descr
 INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (7,'pl-PL',0,'mezomorficzny',3);
 INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (8,'pl-PL',0,'endomorficzny',4);
 
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (2, 'very low');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (3, 'low');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (4, 'medium');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (5, 'high');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (6, 'very high');
-INSERT INTO frequency_of_activity (id_foa, frequency) VALUES (1, 'none');
+INSERT INTO frequency_of_activity (id_foa) VALUES (1);
+INSERT INTO frequency_of_activity (id_foa) VALUES (2);
+INSERT INTO frequency_of_activity (id_foa) VALUES (3);
+INSERT INTO frequency_of_activity (id_foa) VALUES (4);
+INSERT INTO frequency_of_activity (id_foa) VALUES (5);
+INSERT INTO frequency_of_activity (id_foa) VALUES (6);
+
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (1,'en-UK',1,'none',1);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (2,'en-UK',1,'very low',2);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (3,'en-UK',1,'low',3);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (4,'en-UK',1,'medium',4);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (5,'en-UK',1,'high',5);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (6,'en-UK',1,'very high',6);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (7,'pl-PL',0,'nieokreślono',1);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (8,'pl-PL',0,'bardzo mała',2);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (9,'pl-PL',0,'mała',3);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (10,'pl-PL',0,'średnia',4);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (11,'pl-PL',0,'duża',5);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (12,'pl-PL',0,'bardzo duża',6);
 
 INSERT INTO sex (id_sex) VALUES (1);
 INSERT INTO sex (id_sex) VALUES (2);

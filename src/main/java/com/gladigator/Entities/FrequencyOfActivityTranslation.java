@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "body_type_translations")
-public class BodyTypeTranslation implements Translation {
+@Table(name = "frequency_of_activity_translations")
+public class FrequencyOfActivityTranslation implements Translation {
 	
-	public BodyTypeTranslation() {
+	public FrequencyOfActivityTranslation() {
 	}
 	
-	public BodyTypeTranslation(Integer btTranslationId, String language, Boolean isDefault, String translatedDescription) {
-		this.btTranslationId = btTranslationId;
+	public FrequencyOfActivityTranslation(Integer foaTranslationId, String language, Boolean isDefault, String translatedDescription) {
+		this.foaTranslationId = foaTranslationId;
 		this.language = language;
 		this.isDefault = isDefault;
 		this.translatedDescription = translatedDescription;
@@ -23,8 +23,8 @@ public class BodyTypeTranslation implements Translation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_bt_translations")
-	private Integer btTranslationId;
+	@Column(name="id_foa_translations")
+	private Integer foaTranslationId;
 	
 	@Column(name="language")
 	private String language;
@@ -51,15 +51,15 @@ public class BodyTypeTranslation implements Translation {
 		return this.translatedDescription;
 	}
 
-	public Integer getBtTranslationId() {
-		return btTranslationId;
+	public Integer getFoaTranslationId() {
+		return foaTranslationId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((btTranslationId == null) ? 0 : btTranslationId.hashCode());
+		result = prime * result + ((foaTranslationId == null) ? 0 : foaTranslationId.hashCode());
 		result = prime * result + ((isDefault == null) ? 0 : isDefault.hashCode());
 		result = prime * result + ((language == null) ? 0 : language.hashCode());
 		result = prime * result + ((translatedDescription == null) ? 0 : translatedDescription.hashCode());
@@ -74,11 +74,11 @@ public class BodyTypeTranslation implements Translation {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BodyTypeTranslation other = (BodyTypeTranslation) obj;
-		if (btTranslationId == null) {
-			if (other.btTranslationId != null)
+		FrequencyOfActivityTranslation other = (FrequencyOfActivityTranslation) obj;
+		if (foaTranslationId == null) {
+			if (other.foaTranslationId != null)
 				return false;
-		} else if (!btTranslationId.equals(other.btTranslationId))
+		} else if (!foaTranslationId.equals(other.foaTranslationId))
 			return false;
 		if (isDefault == null) {
 			if (other.isDefault != null)
@@ -101,8 +101,8 @@ public class BodyTypeTranslation implements Translation {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BodyTypeTranslations [btTranslationId=");
-		builder.append(btTranslationId);
+		builder.append("FrequencyOfActivityTranslations [foaTranslationId=");
+		builder.append(foaTranslationId);
 		builder.append(", language=");
 		builder.append(language);
 		builder.append(", isDefault=");

@@ -39,10 +39,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		Map<String, List<?>> listOfSelectives = null;
 		try {
 			listOfSelectives = new HashMap<>();
-			List<BodyType> btList = bodyTypeDao.getAll();
+			List<? extends Translationable<Translation>> btList = (List<? extends Translationable<Translation>>) bodyTypeDao.getAll();
+			setTranslationAccordingToLocale(btList, locale);
 			List<? extends Translationable<Translation>> sList = (List<? extends Translationable<Translation>>) sexDao.getAll();
 			setTranslationAccordingToLocale(sList, locale);
-			List<FrequencyOfActivity> foaList = foaDao.getAll();
+			List<? extends Translationable<Translation>> foaList = (List<? extends Translationable<Translation>>) foaDao.getAll();
+			setTranslationAccordingToLocale(foaList, locale);
 			
 			listOfSelectives.put("bodyTypeListOfSelectives", btList);
 			listOfSelectives.put("sexListOfSelectives", sList);
