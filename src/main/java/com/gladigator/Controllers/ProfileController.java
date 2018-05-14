@@ -1,6 +1,8 @@
 package com.gladigator.Controllers;
 
 import java.security.Principal;
+import wsdl.CalculateBMIResponse;
+
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gladigator.Controllers.Utils.ProfileUtils;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Services.UserService;
+import com.gladigator.Services.WebServices.BmrBmiWSClient;
 
 @Controller
 @SessionAttributes({"userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives"}) //Dodaje atrybuty do sesji. Czemu tak? Jesli bindingResult.hasErrors() w processProfilePage
@@ -38,6 +41,25 @@ public class ProfileController {
 	
 	@Autowired
 	private ProfileUtils profileUtils;
+	
+	@Autowired
+	private BmrBmiWSClient bmrBmiWSClient;
+	
+	@PostMapping("/calculateBMI")
+	public String calculateBMI(RedirectAttributes redirAttributs, @ModelAttribute @Valid UserDetails userDetails, BindingResult bindingResult, SessionStatus sessionStatus, Locale locale) {
+		if (bindingResult.hasErrors()) {
+			LOG.debug("Binding result error occured");
+			return "profilepage";
+		} else {
+			CalculateBMIResponse calculatedBmi = bmrBmiWSClient.getCalculatedBmi(userDetails.getHeight(), userDetails.getWeight());
+			LOG.info("calculatedBmi = {}", calculatedBmi.getCalculatedBMI());
+			userDetails.setBmi(Integer.valueOf(calculatedBmi.getCalculatedBMI()));
+			userService.saveOrUpdateUserDetails(userDetails);
+			sessionStatus.setComplete();
+			redirAttributs.addFlashAttribute("success", messageSource.getMessage("profilepage.updateSuccess", null , locale));
+		}
+		return "redirect:profile";
+	}
 
 	@GetMapping("/profile")
 	public String showProfilePage(Model model, Principal principal, Locale locale) {
