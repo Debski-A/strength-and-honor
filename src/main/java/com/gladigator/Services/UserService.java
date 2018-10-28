@@ -13,4 +13,6 @@ public interface UserService extends GenericService<User>{
 	public boolean checkIfUsernameOrEmailAreTaken(String username, String email);
 	public Role getRoleById(int id);
 	public void saveOrUpdateUserDetails(UserDetails userDetails);
+	public void throwServiceException();
+	public void throwRepositoryException();
 }

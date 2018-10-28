@@ -74,5 +74,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao{
 		LOG.info("UserDao.getUserByUsername(String username) END");
 		return user;
 	}
+	
+	public void throwRepositoryException() throws RepositoryException {
+	    throw new RepositoryException("exception from repositorylayer");
+	}
 
 }

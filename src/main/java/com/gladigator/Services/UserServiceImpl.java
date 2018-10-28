@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gladigator.Daos.RoleDao;
 import com.gladigator.Daos.UserDao;
+import com.gladigator.Daos.UserDaoImpl;
 import com.gladigator.Daos.UserDetailsDao;
 import com.gladigator.Entities.Role;
 import com.gladigator.Entities.User;
@@ -124,8 +125,13 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 		}
 	}
 	
-//	public void throwServiceException() throws ServiceException {
-//	    throw new ServiceException("exception form service layer");
-//	}
+	public void throwServiceException() throws ServiceException {
+	    throw new ServiceException("exception form service layer");
+	}
+	
+	public void throwRepositoryException() throws RepositoryException {
+	    UserDaoImpl udimpl = (UserDaoImpl) userDao;
+	    udimpl.throwRepositoryException();
+	}
 
 }

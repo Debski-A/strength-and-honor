@@ -23,55 +23,58 @@ import com.gladigator.Controllers.Utils.ProfileUtils;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Exceptions.ServiceException;
 import com.gladigator.Services.UserService;
-import com.gladigator.Services.UserServiceImpl;
 
 @Controller
-@SessionAttributes({"userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives"}) //Dodaje atrybuty do sesji. Czemu tak? Jesli bindingResult.hasErrors() w processProfilePage
-//zwroci true to metoda zwroci widok profilepage bez w/w atrybutow. Zamiast przekazywac atrybuty z requesta na request dodalem je do sesji. TODO: Zmienic metode getUserByName aby nie pobierala password z BD
+@SessionAttributes({ "userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives" }) // Dodaje
+// zwroci true to metoda zwroci widok profilepage bez w/w atrybutow. Zamiast
+// przekazywac atrybuty z requesta na request dodalem je do sesji. TODO: Zmienic
+// metode getUserByName aby nie pobierala password z BD
 public class ProfileController {
-	
-	private static final Logger LOG = LogManager.getLogger(ProfileController.class);
-	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired 
-	private MessageSource messageSource;
-	
-	@Autowired
-	private ProfileUtils profileUtils;
 
-	@GetMapping("/profile")
-	public String showProfilePage(Model model, Principal principal, Locale locale) {
-		UserDetails userDetails = profileUtils.obtainUserDetails(principal);
-		System.out.println("Locale in controller = " + locale.toLanguageTag());
-		
-		profileUtils.addListsOfAttributesToModel(model, locale);
-		model.addAttribute("userDetails", userDetails);
-		return "profilepage";
+    private static final Logger LOG = LogManager.getLogger(ProfileController.class);
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private ProfileUtils profileUtils;
+
+    @GetMapping("/profile")
+    public String showProfilePage(Model model, Principal principal, Locale locale) {
+	UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+	System.out.println("Locale in controller = " + locale.toLanguageTag());
+
+	profileUtils.addListsOfAttributesToModel(model, locale);
+	model.addAttribute("userDetails", userDetails);
+	return "profilepage";
+    }
+
+    @PostMapping("/profile")
+    public String processProfilePage(RedirectAttributes redirAttributs, @ModelAttribute @Valid UserDetails userDetails,
+	    BindingResult bindingResult, SessionStatus sessionStatus, Locale locale) {
+	if (bindingResult.hasErrors()) {
+	    LOG.debug("Binding result error occured");
+	    return "profilepage";
+	} else {
+	    userService.saveOrUpdateUserDetails(userDetails);
+	    sessionStatus.setComplete();
+	    redirAttributs.addFlashAttribute("success",
+		    messageSource.getMessage("profilepage.updateSuccess", null, locale));
 	}
-	
-	@PostMapping("/profile")
-	public String processProfilePage(RedirectAttributes redirAttributs, @ModelAttribute @Valid UserDetails userDetails, BindingResult bindingResult, SessionStatus sessionStatus, Locale locale) {
-		if (bindingResult.hasErrors()) {
-			LOG.debug("Binding result error occured");
-			return "profilepage";
-		} else {
-			userService.saveOrUpdateUserDetails(userDetails);
-			sessionStatus.setComplete();
-			redirAttributs.addFlashAttribute("success", messageSource.getMessage("profilepage.updateSuccess", null , locale));
-		}
-		return "redirect:profile";
-	}
-	
-//	@GetMapping("/serviceerror")
-//	public void throwErrorFromServiceLayer() throws ServiceException {
-//	    ((UserServiceImpl) userService).throwServiceException();
-//	}
-//	
-//	@GetMapping("/repositoryerror")
-//	public void throwErrorFromRepoistoryLayer() {
-//	    
-//	}
+	return "redirect:profile";
+    }
+
+    @GetMapping("/serviceerror")
+    public void throwErrorFromServiceLayer() throws ServiceException {
+	userService.throwServiceException();
+    }
+
+    @GetMapping("/repositoryerror")
+    public void throwErrorFromRepoistoryLayer() {
+	userService.throwRepositoryException();
+    }
 
 }

@@ -14,12 +14,14 @@
 				data-source-ref="dataSource"
 				authorities-by-username-query="SELECT username, role FROM users u LEFT JOIN users_has_roles ur ON u.id_user = ur.id_user LEFT JOIN roles r ON ur.id_role = r.id_role WHERE BINARY username = ?"
 				users-by-username-query="SELECT username, password, enabled FROM users WHERE BINARY username = ?" />
-			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
+			<security:password-encoder
+				ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
 
 	<security:http use-expressions="true">
-		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/"
+			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/login"
@@ -32,16 +34,21 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/weather"
 			access="permitAll" />
-		<security:intercept-url pattern="/weatherConditions/**"
+		<security:intercept-url pattern="/serviceerror"
 			access="permitAll" />
+		<security:intercept-url pattern="/repositoryerror"
+			access="permitAll" />
+		<security:intercept-url
+			pattern="/weatherConditions/**" access="permitAll" />
 		<security:intercept-url pattern="/profile"
 			access="isAuthenticated()" />
-		<security:intercept-url pattern="/**" access="denyAll" />
+		<security:intercept-url pattern="/**"
+			access="denyAll" />
 		<security:form-login login-page="/login"
 			default-target-url="/" authentication-failure-url="/login?error=true" />
 		<security:csrf />
-		<security:logout logout-success-url="/" logout-url="/logout"
-			delete-cookies="JSESSIONID" />
+		<security:logout logout-success-url="/"
+			logout-url="/logout" delete-cookies="JSESSIONID" />
 		<security:access-denied-handler
 			error-page="/accessDenied" />
 	</security:http>
