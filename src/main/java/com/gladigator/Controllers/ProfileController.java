@@ -21,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gladigator.Controllers.Utils.ProfileUtils;
 import com.gladigator.Entities.UserDetails;
+import com.gladigator.Exceptions.ServiceException;
 import com.gladigator.Services.UserService;
+import com.gladigator.Services.UserServiceImpl;
 
 @Controller
 @SessionAttributes({"userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives"}) //Dodaje atrybuty do sesji. Czemu tak? Jesli bindingResult.hasErrors() w processProfilePage
@@ -61,5 +63,15 @@ public class ProfileController {
 		}
 		return "redirect:profile";
 	}
+	
+//	@GetMapping("/serviceerror")
+//	public void throwErrorFromServiceLayer() throws ServiceException {
+//	    ((UserServiceImpl) userService).throwServiceException();
+//	}
+//	
+//	@GetMapping("/repositoryerror")
+//	public void throwErrorFromRepoistoryLayer() {
+//	    
+//	}
 
 }

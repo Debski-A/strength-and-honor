@@ -28,7 +28,7 @@ public class RegisterUtils {
 	private static final Logger LOG = LogManager.getLogger(RegisterUtils.class);
 	
 	public String createLink(HttpServletRequest request, String confirmationToken) {
-		String appUrl = request.getScheme() + "://" + request.getServerName() + request.getContextPath();
+		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort() + request.getContextPath();
 		appUrl += "/confirm?token=" + confirmationToken;
 		LOG.debug("Application URL with token param = {}", appUrl);
 		return appUrl;

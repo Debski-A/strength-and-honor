@@ -12,12 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gladigator.Daos.BodyTypeDao;
 import com.gladigator.Daos.FrequencyOfActivityDao;
 import com.gladigator.Daos.SexDao;
-import com.gladigator.Entities.BodyType;
-import com.gladigator.Entities.FrequencyOfActivity;
 import com.gladigator.Entities.Translation;
 import com.gladigator.Entities.Translationable;
-import com.gladigator.Entities.Sex;
-import com.gladigator.Entities.SexTranslation;
 import com.gladigator.Exceptions.ServiceException;
 
 @Service
@@ -39,12 +35,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		Map<String, List<?>> listOfSelectives = null;
 		try {
 			listOfSelectives = new HashMap<>();
-			List<? extends Translationable<Translation>> btList = (List<? extends Translationable<Translation>>) bodyTypeDao.getAll();
-			setTranslationAccordingToLocale(btList, locale);
-			List<? extends Translationable<Translation>> sList = (List<? extends Translationable<Translation>>) sexDao.getAll();
-			setTranslationAccordingToLocale(sList, locale);
-			List<? extends Translationable<Translation>> foaList = (List<? extends Translationable<Translation>>) foaDao.getAll();
-			setTranslationAccordingToLocale(foaList, locale);
+			List<?> btList = (List<?>) bodyTypeDao.getAll();
+			setTranslationAccordingToLocale((List<? extends Translationable<Translation>>) btList, locale);
+			List<?> sList = (List<?>) sexDao.getAll();
+			setTranslationAccordingToLocale((List<? extends Translationable<Translation>>) sList, locale);
+			List<?> foaList = (List<?>) foaDao.getAll();
+			setTranslationAccordingToLocale((List<? extends Translationable<Translation>>) foaList, locale);
 			
 			listOfSelectives.put("bodyTypeListOfSelectives", btList);
 			listOfSelectives.put("sexListOfSelectives", sList);

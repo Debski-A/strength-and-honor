@@ -40,10 +40,11 @@ public class RegisterUtilsTest {
 	@Test
 	public void whenCreateLink_ThenReturnExpectedLink() throws Exception {
 		when(request.getScheme()).thenReturn("scheme");
+		when(request.getLocalPort()).thenReturn(8080);
 		when(request.getServerName()).thenReturn("serverName");
 		when(request.getContextPath()).thenReturn("/contextPath");
 		
-		assertThat(registerUtils.createLink(request, "1234"), equalTo("scheme://serverName/contextPath/confirm?token=1234"));
+		assertThat(registerUtils.createLink(request, "1234"), equalTo("scheme://serverName:8080/contextPath/confirm?token=1234"));
 		
 		verify(request).getScheme();
 		verify(request).getServerName();

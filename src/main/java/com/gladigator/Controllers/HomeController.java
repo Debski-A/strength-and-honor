@@ -37,5 +37,5 @@ public class HomeController {
 		model.addAttribute("weatherEntity", responseEntityBuilder.createResponseEntity(inputCity));
 		return "weatherpage";
 	}
-
+	
 }

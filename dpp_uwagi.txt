@@ -1,0 +1,4 @@
+- komentarze
+- dorobić obsługę wyjątków
+- w dłuższych metodach dokonać podziału
+- w dłuższych metodach delikatnie poprawić nazewnictwo

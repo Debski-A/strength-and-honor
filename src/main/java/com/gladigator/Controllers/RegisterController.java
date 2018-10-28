@@ -60,19 +60,18 @@ public class RegisterController {
 		//Jesli wprowadzone dane w formularzu byly niezgodne z ograniczeniami
 		if (bindingResult.hasErrors()) {
 			LOG.debug("Binding result error occured");
-		//Jesliu wszystko bylo ok - wysyla email
+		//Jesli wszystko bylo ok - wysyla email
 		} else { 
 			user.setEnabled(false);
 			
 			String token = registerUtils.generateToken();
 			user.setConfirmationToken(token);
-			LOG.debug("User from registerpage before DB save");
-			userService.saveOrUpdate(user);
 
 			String link = registerUtils.createLink(request, token);
 			registerUtils.sendRegistrationLink(link, user.getEmail(), locale);
 
 			String confirmationMessage = messageSource.getMessage("registerpage.confirmationMessage", new Object[] {user.getEmail()}, locale);
+			userService.saveOrUpdate(user);
 			model.addAttribute("confirmationMessage", confirmationMessage);
 		}
 
@@ -119,7 +118,6 @@ public class RegisterController {
 		User user = userService.getUserByToken(token);
 		LOG.info("Encoding password, enabling user, erasing token and saving user to db");
 		user.setEncryptedPassword(encoder.encodePassword(password));
-
 		user.setEnabled(true);
 		user.setConfirmationToken(null);
 		user.getRoles().add(userService.getRoleById(1));

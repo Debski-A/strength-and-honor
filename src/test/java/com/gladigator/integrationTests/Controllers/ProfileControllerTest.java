@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
@@ -27,7 +26,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
-import com.gladigator.Entities.UserDetails.UserDetailsBuilder;
 import com.gladigator.Services.UserService;
 
 @WebAppConfiguration

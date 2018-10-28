@@ -64,6 +64,11 @@ public class HomeControllerTest {
 
 	}
 	
+	@Test
+	public void whenServiceExceptionIsThrown_ThenShowInernalErrorPage() throws Exception {
+	    
+	}
+	
 	//Potrzebne aby podczas testow rzucany byl wyjatek NoHandlerFoundException
 	private void throwExceptionIfNoHandlerFound(MockMvc mvc) throws NoSuchFieldException, IllegalAccessException { 
         final Field field = MockMvc.class.getDeclaredField("servlet"); 

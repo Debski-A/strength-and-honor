@@ -123,5 +123,9 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 			throw new ServiceException("Exception occured", ex);
 		}
 	}
+	
+//	public void throwServiceException() throws ServiceException {
+//	    throw new ServiceException("exception form service layer");
+//	}
 
 }
