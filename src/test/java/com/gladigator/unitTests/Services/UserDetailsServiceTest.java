@@ -26,6 +26,7 @@ import com.gladigator.Daos.SexDao;
 import com.gladigator.Entities.BodyType;
 import com.gladigator.Entities.FrequencyOfActivity;
 import com.gladigator.Entities.Sex;
+import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
 import com.gladigator.Services.UserDetailsService;
 import com.gladigator.Services.UserDetailsServiceImpl;
@@ -72,7 +73,7 @@ public class UserDetailsServiceTest {
 	public void whenGetSelectiveDetailsAsMap_AndAnyExceptionOccurrs_ThenThrowServiceException() throws Exception {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("An Exception occurred");
-		when(foaDao.getAll()).thenThrow(Exception.class);
+		when(foaDao.getAll()).thenThrow(RepositoryException.class);
 		
 		userDetailsService.getSelectiveDetailsAsMap(new Locale("pl-PL"));
 	}

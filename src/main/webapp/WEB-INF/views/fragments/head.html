@@ -12,19 +12,21 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	th:src="@{/resources/js/bootstrap.min.js}"></script>
 
-<!-- Zapobiega requestowi o favico -->	
+<script src="../../resources/js/custom.js"
+	th:src="@{/resources/js/custom.js}"></script>
+
+<!-- Zapobiega requestowi o favico -->
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
-	
-<link
-	href="../../../resources/css/custom.css"
+
+<link href="../../../resources/css/custom.css"
 	th:href="@{/resources/css/custom.css}" rel="stylesheet" />
 
- <title th:text="${pageTitle}">Layout Generic Title</title>
+<title th:text="${pageTitle}">Layout Generic Title</title>
 </head>
 <body>
 </body>

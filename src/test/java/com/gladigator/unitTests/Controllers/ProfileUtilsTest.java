@@ -2,12 +2,16 @@ package com.gladigator.unitTests.Controllers;
 
 import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.InvalidParameterException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +19,27 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.ui.Model;
 
 import com.gladigator.Controllers.Utils.ProfileUtils;
+import com.gladigator.Entities.CalculateBMIRequest;
+import com.gladigator.Entities.CalculateBMIResponse;
+import com.gladigator.Entities.CalculateBMRRequest;
+import com.gladigator.Entities.CalculateBMRResponse;
+import com.gladigator.Entities.FrequencyOfActivity;
+import com.gladigator.Entities.Sex;
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
+import com.gladigator.Services.BmiBmrServiceClient;
 import com.gladigator.Services.UserDetailsService;
 import com.gladigator.Services.UserService;
 
@@ -40,14 +55,65 @@ public class ProfileUtilsTest {
 	@Mock
 	private User user;
 	@Mock
-	private UserDetails userDetails;
-	@Mock
 	private Principal principal;
+	@Mock
+	private BmiBmrServiceClient bmiBmrService;
+	
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
+	
+	private UserDetails userDetails;
 	
 	@Before
 	public void before() {
 		when(principal.getName()).thenReturn("some username");
 		when(userService.getUserByUsername("some username")).thenReturn(user);
+		userDetails = new UserDetails();
+		userDetails.setFrequencyOfActivity(new FrequencyOfActivity());
+		userDetails.setSex(new Sex());
+	}
+	
+	@Test
+	@Ignore
+	public void whenPrepareBMIResponse_ThenReturnFilledBMIResponseObject() throws Exception {
+	    // Given:
+	    // When:
+	    CalculateBMIResponse bmiResponse = profileUtils.prepareBMIReponse(userDetails);
+	    // Then:
+	    assertEquals("666", bmiResponse.getCalculatedBMI());
+	}
+	
+	
+	@Test
+	public void givenUserDetails_WhenPrepareBMRResponse_ThenReturnFilledBMRResponseObject() throws Exception {
+	    // Given:
+	    userDetails.setAge(28);
+	    userDetails.getFrequencyOfActivity().setFrequencyOfActivityId(1);
+	    userDetails.getSex().setSexId(2);
+	    userDetails.setHeight(193);
+	    userDetails.setWeight(105);
+	    
+	    CalculateBMRResponse preparedResponse = new CalculateBMRResponse();
+	    preparedResponse.setCalculatedBMRResponse("666");
+	    Mockito.when(bmiBmrService.callBmrService(Mockito.any(CalculateBMRRequest.class))).thenReturn(preparedResponse);
+	    // When:
+	    CalculateBMRResponse bmrResponse = profileUtils.prepareBMRReponse(userDetails);
+	    // Then:
+	    assertEquals("666", bmrResponse.getCalculatedBMRResponse());
+	    Mockito.verify(bmiBmrService).callBmrService(Mockito.any(CalculateBMRRequest.class));
+	}
+	
+	@Test
+	public void givenInvalidUserDetails_WhenPrepareBMRResponse_ThenThrowException() throws Exception {
+		// Given:
+		userDetails.getFrequencyOfActivity().setFrequencyOfActivityId(3);
+		userDetails.getSex().setSexId(3);
+		userDetails.setHeight(null);
+		// Then:
+		expectedException.expect(InvalidParameterException.class);
+		expectedException.expectMessage("Some user details wasn't filled");
+		// When:
+		profileUtils.prepareBMRReponse(userDetails);
 	}
 	
 	@Test

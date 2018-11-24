@@ -309,7 +309,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void whenGetRoleById_AndExpcetionOccurs_ThenThrowServiceException() throws Exception {
-		Mockito.when(roleDao.getRoleById(Mockito.anyInt())).thenThrow(Exception.class);
+		Mockito.when(roleDao.getRoleById(Mockito.anyInt())).thenThrow(RepositoryException.class);
 		exception.expect(ServiceException.class);
 		exception.expectMessage("Exception occured");
 		

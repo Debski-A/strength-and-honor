@@ -17,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.gladigator.Daos.BodyTypeDao;
 import com.gladigator.Entities.BodyType;
+import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
 import com.gladigator.Services.BodyTypeService;
 import com.gladigator.Services.BodyTypeServiceImpl;
@@ -53,7 +54,7 @@ public class BodyTypeServiceTest {
 	public void whenFindById_AndAnyExceptionOccurrs_ThenThrowServiceException() throws Exception {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("An Exception occurred");
-		when(bodyTypeDao.findById(16)).thenThrow(Exception.class);
+		when(bodyTypeDao.findById(16)).thenThrow(RepositoryException.class);
 		
 		bodyTypeService.findById(16);
 	}
@@ -69,7 +70,7 @@ public class BodyTypeServiceTest {
 	public void whenSaveOrUpdate_AndAnyExceptionOccurrs_ThenThrowServiceException() throws Exception {
 		exception.expect(ServiceException.class);
 		exception.expectMessage("An Exception occurred");
-		doThrow(Exception.class).when(bodyTypeDao).saveOrUpdate(ectomorphic);
+		doThrow(RepositoryException.class).when(bodyTypeDao).saveOrUpdate(ectomorphic);
 		
 		bodyTypeService.saveOrUpdate(ectomorphic);
 	}

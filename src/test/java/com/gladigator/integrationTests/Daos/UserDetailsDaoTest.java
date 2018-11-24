@@ -50,8 +50,8 @@ public class UserDetailsDaoTest {
 				.setAge(27)
 				.setHeight(193)
 				.setWeight(97)
-				.setBmi(333)
-				.setBmr(444)
+				.setBmi(333D)
+				.setBmr(444D)
 				.build();
 		userDetails.setUser(user); // musze dodac zaleznosc od User poniewaz ID w UserDetails pobierane jest z pola User. Jesli ustawie id recznie to saveOrUpdate bedzie zawsze wywolywac update
 	}

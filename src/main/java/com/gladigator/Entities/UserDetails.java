@@ -46,10 +46,10 @@ public class UserDetails {
 	private Integer age;
 
 	@Column(name = "BMI")
-	private Integer bmi; // Body Mass Index
+	private Double bmi; // Body Mass Index
 
 	@Column(name = "BMR")
-	private Integer bmr; // Basal Metabolic Rate
+	private Double bmr; // Basal Metabolic Rate
 
 	@OneToOne
 	@PrimaryKeyJoinColumn
@@ -111,19 +111,19 @@ public class UserDetails {
 		this.age = age;
 	}
 
-	public Integer getBmi() {
+	public Double getBmi() {
 		return bmi;
 	}
 
-	public void setBmi(Integer bmi) {
+	public void setBmi(Double bmi) {
 		this.bmi = bmi;
 	}
 
-	public Integer getBmr() {
+	public Double getBmr() {
 		return bmr;
 	}
 
-	public void setBmr(Integer bmr) {
+	public void setBmr(Double bmr) {
 		this.bmr = bmr;
 	}
 
@@ -251,8 +251,8 @@ public class UserDetails {
 		private Integer height;
 		private Integer weight;
 		private Integer age;
-		private Integer bmi; // Body Mass Index
-		private Integer bmr; // Basal Metabolic Rate
+		private Double bmi; // Body Mass Index
+		private Double bmr; // Basal Metabolic Rate
 
 		public UserDetailsBuilder setUserId(Integer userId) {
 			this.userId = userId;
@@ -274,12 +274,12 @@ public class UserDetails {
 			return this;
 		}
 
-		public UserDetailsBuilder setBmi(Integer bmi) {
+		public UserDetailsBuilder setBmi(Double bmi) {
 			this.bmi = bmi;
 			return this;
 		}
 
-		public UserDetailsBuilder setBmr(Integer bmr) {
+		public UserDetailsBuilder setBmr(Double bmr) {
 			this.bmr = bmr;
 			return this;
 		}

@@ -36,10 +36,12 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/serviceerror"
 			access="permitAll" />
-		<security:intercept-url pattern="/repositoryerror"
-			access="permitAll" />
+		<security:intercept-url
+			pattern="/repositoryerror" access="permitAll" />
 		<security:intercept-url
 			pattern="/weatherConditions/**" access="permitAll" />
+		<security:intercept-url pattern="/profile/*"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/profile"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/**"

@@ -23,4 +23,16 @@
 		</props>
 		</property>		
 	</bean>
+	
+	<bean id="marschaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="contextPath" value="com.gladigator.Entities"/>
+	</bean>
+	
+	<bean id="bmiBmrClient" class="com.gladigator.Services.BmiBmrServiceClient">
+		<property name="defaultUri" value="http://localhost:8090/bmibmrcalculatorws"/>
+		<property name="marshaller" ref="marschaller"/>
+		<property name="unmarshaller" ref="marschaller"/>
+	</bean>
+	
+	<bean id="bmiBmrFactory" class="com.gladigator.Entities.ObjectFactory"/>
 </beans>
