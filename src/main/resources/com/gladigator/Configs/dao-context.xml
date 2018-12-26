@@ -42,10 +42,10 @@
 
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="jdbcUrl" value="jdbc:mysql://mydatabase.cwdj9cl61yf4.eu-west-1.rds.amazonaws.com:3306/myDatabase" />
+			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET" />
 			<property name="maximumPoolSize" value="10" />
 			<property name="idleTimeout" value="600000" />
-			<property name="username" value="admin"/>
+			<property name="username" value="SaH_user"/>
 			<property name="password" value="herflik1"/>
 
 			<property name="dataSourceProperties">
