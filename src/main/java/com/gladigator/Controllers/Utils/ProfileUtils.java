@@ -71,6 +71,7 @@ public class ProfileUtils {
 	}
 
 	public CalculateBMIResponse prepareBMIReponse(UserDetails userDetails) {
+		//TODO
 		Integer height = userDetails.getHeight();
 		Integer weight = userDetails.getWeight();
 		return null;

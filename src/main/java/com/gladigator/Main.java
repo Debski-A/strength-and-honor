@@ -2,6 +2,8 @@ package com.gladigator;
 
 import java.io.File;
 
+import javax.servlet.ServletException;
+
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
@@ -9,8 +11,8 @@ import org.apache.tomcat.util.scan.StandardJarScanner;
 
 public class Main {
 
-	public static void main(String[] args) throws LifecycleException {
-		String webappDirLocation = "src/main/webapp/";
+	public static void main(String[] args) throws LifecycleException, ServletException {
+		String webappDirLocation = "src/main/webapp";
         Tomcat tomcat = new Tomcat();
 
         //The port that we should run on can be set into an environment variable
