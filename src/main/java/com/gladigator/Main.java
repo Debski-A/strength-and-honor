@@ -12,6 +12,10 @@ import org.apache.tomcat.util.scan.StandardJarScanner;
 public class Main {
 
 	public static void main(String[] args) throws LifecycleException, ServletException {
+		prepareAndStartEmbeddedTomcat();
+	}
+
+	private static void prepareAndStartEmbeddedTomcat() throws ServletException, LifecycleException {
 		String webappDirLocation = "src/main/webapp";
         Tomcat tomcat = new Tomcat();
 

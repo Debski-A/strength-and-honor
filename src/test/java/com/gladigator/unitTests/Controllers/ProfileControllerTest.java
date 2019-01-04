@@ -78,7 +78,7 @@ public class ProfileControllerTest {
 	@Test
 	public void whenProcessProfilePage_ThenReturnRedirectProfile() throws Exception {
 		
-		assertThat(controller.processProfilePage(mock(RedirectAttributes.class), userDetails, bindingResult, mock(SessionStatus.class), locale), equalTo("profilepage"));
+		assertThat(controller.processProfilePage(mock(RedirectAttributes.class), userDetails, bindingResult, mock(SessionStatus.class), locale), equalTo("redirect:profile"));
 	}
 	
 	@Test

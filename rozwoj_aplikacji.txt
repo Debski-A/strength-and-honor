@@ -1,0 +1,10 @@
+1. Dodać asynchroniczność przy łączeniu z zewnętrznymi serwisami
+2. Dodać testy jednostkowe dla calculateBmr
+3. Zaimplementować z użyciem TDD calculateBmi
+4a.Zrobić ogólny refactor
+4. zDockerować projekt.
+5. Wystawić na świat
+6. Dodać jakieś nowe ciekawe funkcjonalności
+7. Zrobić podział aplikacji, tzn. wystawić RESTowe API zamiast warstwy widoku z wykorzystaniem Thymeleaf
+8. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
+9. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
