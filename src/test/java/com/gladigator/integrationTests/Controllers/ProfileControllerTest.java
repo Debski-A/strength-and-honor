@@ -67,8 +67,8 @@ public class ProfileControllerTest {
     public void whenShowProfilePage_AndUserIsAuthenticated_ThenReturnProfilepage() throws Exception {
 	addUserToDB();
 
-	mockMvc.perform(get("/profile/showProfile").with(user("adam"))).andExpect(status().isOk())
-		.andExpect(view().name("forward:displayProfile"));
+	mockMvc.perform(get("/profile").with(user("adam"))).andExpect(status().isOk())
+		.andExpect(view().name("profilepage"));
     }
 
     @Transactional // Rozszerza transakcje na metode testowa. Dzieki temu zmiany dokonane w
@@ -79,7 +79,7 @@ public class ProfileControllerTest {
     public void givenUser_WhenShowProfilePage_ThenGetUserDetailsFromDBAndAddToModel() throws Exception {
 	addUserToDB();
 
-	mockMvc.perform(get("/profile/showProfile").with(user("adam"))).andExpect(status().isOk())
+	mockMvc.perform(get("/profile").with(user("adam"))).andExpect(status().isOk())
 		.andExpect(model().attribute("userDetails", userDetails));
 
     }

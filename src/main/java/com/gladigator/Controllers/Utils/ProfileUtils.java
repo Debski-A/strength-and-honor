@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import com.gladigator.Entities.BodyType;
-import com.gladigator.Entities.CalculateBMIRequest;
 import com.gladigator.Entities.CalculateBMIResponse;
 import com.gladigator.Entities.CalculateBMRRequest;
 import com.gladigator.Entities.CalculateBMRResponse;
@@ -48,9 +47,9 @@ public class ProfileUtils {
 		String authenticatedUserUsername = principal.getName();
 		User user = userService.getUserByUsername(authenticatedUserUsername);
 
-		// Jesli User ma juz jakies UserDetails
 		UserDetails userDetailsFromUserObtainedForUpdate = user.getUserDetails();
 		LOG.debug("UserDetails from user = {}", userDetailsFromUserObtainedForUpdate);
+		// Jesli User ma juz jakies UserDetails
 		if (userDetailsFromUserObtainedForUpdate != null) {
 			user.getUserDetails().setUser(user);
 			return user.getUserDetails();
@@ -58,9 +57,21 @@ public class ProfileUtils {
 
 		// Jesli User pierwszy raz ustawia UserDetails
 		UserDetails emptyUserDetails = new UserDetails();
-		emptyUserDetails.setBodyType(new BodyType() {{ setBodyTypeId(BodyTypeTypes.NONE.getIndex()); }});
-		emptyUserDetails.setFrequencyOfActivity(new FrequencyOfActivity() {{ setFrequencyOfActivityId(FrequencyOfActivityTypes.NONE.getIndex()); }});
-		emptyUserDetails.setSex(new Sex() {{ setSexId(SexTypes.NONE.getIndex()); }});
+		emptyUserDetails.setBodyType(new BodyType() {
+			{
+				setBodyTypeId(BodyTypeTypes.NONE.getIndex());
+			}
+		});
+		emptyUserDetails.setFrequencyOfActivity(new FrequencyOfActivity() {
+			{
+				setFrequencyOfActivityId(FrequencyOfActivityTypes.NONE.getIndex());
+			}
+		});
+		emptyUserDetails.setSex(new Sex() {
+			{
+				setSexId(SexTypes.NONE.getIndex());
+			}
+		});
 		emptyUserDetails.setUser(user);
 		return emptyUserDetails;
 	}
@@ -71,7 +82,7 @@ public class ProfileUtils {
 	}
 
 	public CalculateBMIResponse prepareBMIReponse(UserDetails userDetails) {
-		//TODO
+		// TODO
 		Integer height = userDetails.getHeight();
 		Integer weight = userDetails.getWeight();
 		return null;
@@ -98,7 +109,7 @@ public class ProfileUtils {
 			bmrResponse = bmiBmrService.callBmrService(bmrRequest);
 		} else
 			throw new InvalidParameterException("Some user details wasn't filled");
-			
+
 		return bmrResponse;
 
 	}

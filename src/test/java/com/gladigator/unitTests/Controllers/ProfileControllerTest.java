@@ -65,12 +65,12 @@ public class ProfileControllerTest {
 	@Test
 	public void whenShowProfilePage_ThenReturnProfilepage() throws Exception {
 		
-		assertThat(controller.initializeProfile(model, principal, locale), equalTo("forward:displayProfile"));
+		assertThat(controller.showProfile(model, principal, locale), equalTo("profilepage"));
 	}
 	
 	@Test
 	public void whenShowProfilePage_ThenAddUserDetailsToModel() throws Exception {
-		controller.initializeProfile(model, principal, locale);
+		controller.showProfile(model, principal, locale);
 		
 		verify(model).addAttribute(anyString(), any(UserDetails.class));
 	}
@@ -78,7 +78,7 @@ public class ProfileControllerTest {
 	@Test
 	public void whenProcessProfilePage_ThenReturnRedirectProfile() throws Exception {
 		
-		assertThat(controller.processProfilePage(mock(RedirectAttributes.class), userDetails, bindingResult, mock(SessionStatus.class), locale), equalTo("redirect:showProfile"));
+		assertThat(controller.processProfilePage(mock(RedirectAttributes.class), userDetails, bindingResult, mock(SessionStatus.class), locale), equalTo("profilepage"));
 	}
 	
 	@Test

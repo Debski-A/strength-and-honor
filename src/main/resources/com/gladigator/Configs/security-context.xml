@@ -40,9 +40,11 @@
 			pattern="/repositoryerror" access="permitAll" />
 		<security:intercept-url
 			pattern="/weatherConditions/**" access="permitAll" />
-		<security:intercept-url pattern="/profile/*"
-			access="isAuthenticated()" />
 		<security:intercept-url pattern="/profile"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/calculateBmr"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/calculateBmi"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/**"
 			access="denyAll" />

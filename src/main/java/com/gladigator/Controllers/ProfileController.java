@@ -17,7 +17,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,7 +32,6 @@ import com.gladigator.Exceptions.ServiceException;
 import com.gladigator.Services.UserService;
 
 @Controller
-@RequestMapping("/profile")
 @SessionAttributes({ "userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives" })
 // zwroci true to metoda zwroci widok profilepage bez w/w atrybutow. Zamiast
 // przekazywac atrybuty z requesta na request dodalem je do sesji.
@@ -50,21 +48,28 @@ public class ProfileController {
 	@Autowired
 	private ProfileUtils profileUtils;
 
-	@GetMapping("/showProfile")
-	public String initializeProfile(Model model, Principal principal, Locale locale) {
-		UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+	@GetMapping("/profile")
+	public String showProfile(Model model, Principal principal, Locale locale) {
+		if (isModelVaild(model)) {
+			UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+			profileUtils.addListsOfAttributesToModel(model, locale);
+			model.addAttribute("userDetails", userDetails);
+		}
 
-		profileUtils.addListsOfAttributesToModel(model, locale);
-		model.addAttribute("userDetails", userDetails);
-		return "forward:displayProfile";
-	}
-
-	@GetMapping("/displayProfile")
-	public String showProfile() {
 		return "profilepage";
 	}
 
-	@PostMapping("/updateProfile")
+	private boolean isModelVaild(Model model) {
+		if (model.containsAttribute("org.springframework.validation.BindingResult.userDetails")) {
+			BindingResult bindingResult = (BindingResult) model.asMap()
+					.get("org.springframework.validation.BindingResult.userDetails");
+			if (bindingResult.hasErrors())
+				return false;
+		}
+		return true;
+	}
+
+	@PostMapping("/profile")
 	public String processProfilePage(RedirectAttributes redirAttributs, @ModelAttribute @Valid UserDetails userDetails,
 			BindingResult bindingResult, SessionStatus sessionStatus, Locale locale) {
 		if (bindingResult.hasErrors()) {
@@ -76,7 +81,7 @@ public class ProfileController {
 			redirAttributs.addFlashAttribute("success",
 					messageSource.getMessage("profilepage.updateSuccess", null, locale));
 		}
-		return "redirect:showProfile";
+		return "redirect:profile";
 	}
 
 	@PostMapping("/calculateBmi")
@@ -98,28 +103,35 @@ public class ProfileController {
 
 	@PostMapping("/calculateBmr")
 	public String calculateBmr(@Valid @ModelAttribute UserDetails userDetails, BindingResult bindingResult,
-			Locale locale) {
+			RedirectAttributes redirectAttributes, Locale locale) {
+		
+		//z uwagi na redirect napisz unit testy!!
+
+		redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDetails", bindingResult);
+		redirectAttributes.addFlashAttribute("userDetails", userDetails);
 		try {
-			// TODO sex, foa i bt sie nie zmieniaja. sprawdz w custom.js
 			if (bindingResult.hasErrors()) {
 				LOG.debug("Binding result error occured");
-				return "profilepage";
+				addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.missingParams", locale);
+				return "redirect:profile";
 			}
 			CalculateBMRResponse bmrResponse = profileUtils.prepareBMRReponse(userDetails);
 			userDetails.setBmr(Double.valueOf(bmrResponse.getCalculatedBMRResponse()));
 		} catch (WebServiceIOException ex) {
 			LOG.error("Couldn't connect to service", ex);
-			bindingResult.addError(new FieldError("userDetails", "bmr",
-					messageSource.getMessage("userDetails.bmr.connectionProblem", null, locale)));
-			return "profilepage";
+			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.connectionProblem", locale);
+			return "redirect:profile";
 		} catch (InvalidParameterException ex) {
-			LOG.error("Missing parameters in BmrRequest", ex);
-			bindingResult.addError(new FieldError("userDetails", "bmr",
-					messageSource.getMessage("userDetails.bmr.missingParams", null, locale)));
-			return "profilepage";
+			LOG.debug("Missing parameters in BmrRequest");
+			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.missingParams", locale);
+			return "redirect:profile";
 		}
-		return "redirect:displayProfile";
-		// TODO redirect spoko, ale nie przekazuje dalej tych errorow z bindingResult
+		return "redirect:profile";
+	}
+
+	private void addSpecifiedErrorToUserDetails(BindingResult bindingResult, String specifiedError, Locale locale) {
+		bindingResult
+				.addError(new FieldError("userDetails", "bmr", messageSource.getMessage(specifiedError, null, locale)));
 	}
 
 	@GetMapping("/serviceerror")
