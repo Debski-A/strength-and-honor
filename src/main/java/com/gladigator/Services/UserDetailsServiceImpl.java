@@ -52,7 +52,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		return listOfSelectives;
 	}
 	
-	private void setTranslationAccordingToLocale(List<? extends Translationable<Translation>> list, Locale locale) {
+	@Override
+	public void setTranslationAccordingToLocale(List<? extends Translationable<Translation>> list, Locale locale) {
 		for (Translationable<Translation> entity : list) {
 			entity.setDescription(entity.getTranslations()
 					.stream()

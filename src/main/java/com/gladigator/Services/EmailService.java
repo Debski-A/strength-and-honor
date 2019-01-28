@@ -17,11 +17,11 @@ public class EmailService {
 
 	@Async
 	public void sendEmail(SimpleMailMessage email) {
-	    try {
-		this.mailSender.send(email);
-	    } catch (MailException ex) {
-		throw new ServiceException(ex.getMessage());
-	    }
+		try {
+			this.mailSender.send(email);
+		} catch (MailException ex) {
+			throw new ServiceException(ex.getMessage());
+		}
 	}
 
 }

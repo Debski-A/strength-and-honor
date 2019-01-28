@@ -51,7 +51,7 @@
 		<div class="container" >
 			<div id="date"  class="bg-success"></div>
 			<div id="city" class="bg-primary"></div>
-			<div id="region"  class="bg-information"></div>
+			<!-- <div id="region"  class="bg-information"></div>  -->
 			<div id="country"  class="bg-success"></div>
 			<div id="temp"  class="bg-success"></div>
 		</div>
@@ -75,21 +75,5 @@
 		</div>
 	</footer>
 	
-<script th:inline="javascript">
-	function updateWeatherConditions(data) {
-		$("#date").text(data.query.results.channel.item.condition.date);
-		$("#city").text(data.query.results.channel.location.city);
-		$("#region").text(data.query.results.channel.location.region);
-		$("#country").text(data.query.results.channel.location.country);
-		$("#temp").text(data.query.results.channel.item.condition.temp);
-	}
-	
-	function getWeatherJson() {
-		var city = $("#inputCity").val();
-		$.getJSON(/*[+ [[@{/weatherConditions/}]] + city +]*/, updateWeatherConditions);
-	}
-	
-</script>  
-
 </body>
 </html>

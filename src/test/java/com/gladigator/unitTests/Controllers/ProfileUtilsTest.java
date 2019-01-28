@@ -3,9 +3,7 @@ package com.gladigator.unitTests.Controllers;
 import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -19,7 +17,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -74,13 +71,28 @@ public class ProfileUtilsTest {
 	}
 	
 	@Test
-	@Ignore
-	public void whenPrepareBMIResponse_ThenReturnFilledBMIResponseObject() throws Exception {
+	public void givenUserDetails_WhenPrepareBMIResponse_ThenReturnFilledBMIResponseObject() throws Exception {
 	    // Given:
+		CalculateBMIResponse preparedResponse = new CalculateBMIResponse();
+		preparedResponse.setCalculatedBMI("666");
+		when(bmiBmrService.callBmiService(Mockito.any(CalculateBMIRequest.class))).thenReturn(preparedResponse);
+		userDetails.setHeight(666);
+		userDetails.setWeight(666);
 	    // When:
-	    CalculateBMIResponse bmiResponse = profileUtils.prepareBMIReponse(userDetails);
+	    CalculateBMIResponse bmiResponse = profileUtils.prepareBMIResponse(userDetails);
 	    // Then:
 	    assertEquals("666", bmiResponse.getCalculatedBMI());
+	}
+	
+	@Test
+	public void givenInvalidUserDetails_WhenPrepareBMIResponse_ThenThrowException() throws Exception {
+		// Given:
+		userDetails.setHeight(null);
+		// Then:
+		expectedException.expect(InvalidParameterException.class);
+		expectedException.expectMessage("Some user details wasn't filled");
+		// When:
+		profileUtils.prepareBMIResponse(userDetails);
 	}
 	
 	
@@ -97,7 +109,7 @@ public class ProfileUtilsTest {
 	    preparedResponse.setCalculatedBMRResponse("666");
 	    Mockito.when(bmiBmrService.callBmrService(Mockito.any(CalculateBMRRequest.class))).thenReturn(preparedResponse);
 	    // When:
-	    CalculateBMRResponse bmrResponse = profileUtils.prepareBMRReponse(userDetails);
+	    CalculateBMRResponse bmrResponse = profileUtils.prepareBMRResponse(userDetails);
 	    // Then:
 	    assertEquals("666", bmrResponse.getCalculatedBMRResponse());
 	    Mockito.verify(bmiBmrService).callBmrService(Mockito.any(CalculateBMRRequest.class));
@@ -113,7 +125,7 @@ public class ProfileUtilsTest {
 		expectedException.expect(InvalidParameterException.class);
 		expectedException.expectMessage("Some user details wasn't filled");
 		// When:
-		profileUtils.prepareBMRReponse(userDetails);
+		profileUtils.prepareBMRResponse(userDetails);
 	}
 	
 	@Test

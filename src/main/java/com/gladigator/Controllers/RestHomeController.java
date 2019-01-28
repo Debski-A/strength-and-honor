@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gladigator.Controllers.Utils.ResponseEntityBuilder;
+import com.gladigator.Controllers.RestUrls.ResponseEntityBuilder;
 
 @RestController
 public class RestHomeController {
@@ -21,7 +21,7 @@ public class RestHomeController {
 	public ResponseEntity<String> showWeatherConditions(@PathVariable("city") String city) {
 		responseEntityBuilder.setAcceptableMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON));
 		
-		return responseEntityBuilder.createResponseEntity(city);
+		return responseEntityBuilder.callWeatherApi(city);
 	}
 
 }

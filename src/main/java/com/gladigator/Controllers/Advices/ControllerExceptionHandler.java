@@ -11,17 +11,17 @@ import com.gladigator.Exceptions.ServiceException;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public String handleError404(Exception ex) {
-	return "pagenotfound";
-    }
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public String handleError404(Exception ex) {
+		return "pagenotfound";
+	}
 
-    @ExceptionHandler({ ServiceException.class, RepositoryException.class })
-    public ModelAndView handleServiceException(Exception ex) {
-	ModelAndView mav = new ModelAndView();
-	mav.addObject("errorMessage", ex.getMessage());
-	mav.setViewName("internalerrorpage");
-	return mav;
-    }
+	@ExceptionHandler({ ServiceException.class, RepositoryException.class })
+	public ModelAndView handleServiceException(Exception ex) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("errorMessage", ex.getMessage());
+		mav.setViewName("internalerrorpage");
+		return mav;
+	}
 
 }

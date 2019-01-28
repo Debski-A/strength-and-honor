@@ -12,14 +12,18 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+import org.thymeleaf.util.MapUtils;
 
 import com.gladigator.Entities.BodyType;
+import com.gladigator.Entities.CalculateBMIRequest;
 import com.gladigator.Entities.CalculateBMIResponse;
 import com.gladigator.Entities.CalculateBMRRequest;
 import com.gladigator.Entities.CalculateBMRResponse;
 import com.gladigator.Entities.FrequencyOfActivity;
 import com.gladigator.Entities.Gender;
 import com.gladigator.Entities.Sex;
+import com.gladigator.Entities.Translation;
+import com.gladigator.Entities.Translationable;
 import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Entities.Enums.BodyTypeTypes;
@@ -81,14 +85,25 @@ public class ProfileUtils {
 		model.addAllAttributes(listOfSelectives);
 	}
 
-	public CalculateBMIResponse prepareBMIReponse(UserDetails userDetails) {
-		// TODO
+	public CalculateBMIResponse prepareBMIResponse(UserDetails userDetails) {
 		Integer height = userDetails.getHeight();
 		Integer weight = userDetails.getWeight();
-		return null;
+		CalculateBMIRequest bmiRequest = new CalculateBMIRequest();
+		CalculateBMIResponse bmiResponse = null;
+		
+		if(ObjectUtils.allNotNull(height, weight)) {
+			bmiRequest.setHeight(height);
+			bmiRequest.setWeight(weight);
+			
+			bmiResponse = bmiBmrService.callBmiService(bmiRequest);
+		} else {
+			throw new InvalidParameterException("Some user details wasn't filled");
+		}
+		
+		return bmiResponse;
 	}
 
-	public CalculateBMRResponse prepareBMRReponse(UserDetails userDetails) {
+	public CalculateBMRResponse prepareBMRResponse(UserDetails userDetails) {
 		Integer userAge = userDetails.getAge();
 		FrequencyOfActivityTypes userFOA = FrequencyOfActivityTypes
 				.valueOf(userDetails.getFrequencyOfActivity().getFrequencyOfActivityId());
@@ -112,6 +127,22 @@ public class ProfileUtils {
 
 		return bmrResponse;
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setTranslations(Model model, Locale locale) {
+		List<Translationable<Translation>> frequencyOfActivity = (List<Translationable<Translation>>) model.asMap().get("frequenciesListOfSelectives");
+		userDetailsService.setTranslationAccordingToLocale(frequencyOfActivity, locale);
+		
+		List<Translationable<Translation>> sex = (List<Translationable<Translation>>) model.asMap().get("sexListOfSelectives");
+		userDetailsService.setTranslationAccordingToLocale(sex, locale);
+		
+		List<Translationable<Translation>> bodyType = (List<Translationable<Translation>>) model.asMap().get("bodyTypeListOfSelectives");
+		userDetailsService.setTranslationAccordingToLocale(bodyType, locale);
+	}
+	
+	public boolean containsAllSessionAttributes(Model model) {
+		return MapUtils.containsAllKeys(model.asMap(), new String[]{"userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives"});
 	}
 
 	private Gender evaluateGender(SexTypes userSex) {

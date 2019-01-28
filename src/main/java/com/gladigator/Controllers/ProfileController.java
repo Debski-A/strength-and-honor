@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ws.client.WebServiceIOException;
 
 import com.gladigator.Controllers.Utils.ProfileUtils;
-import com.gladigator.Entities.CalculateBMIRequest;
 import com.gladigator.Entities.CalculateBMIResponse;
 import com.gladigator.Entities.CalculateBMRResponse;
 import com.gladigator.Entities.UserDetails;
@@ -33,8 +32,6 @@ import com.gladigator.Services.UserService;
 
 @Controller
 @SessionAttributes({ "userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives" })
-// zwroci true to metoda zwroci widok profilepage bez w/w atrybutow. Zamiast
-// przekazywac atrybuty z requesta na request dodalem je do sesji.
 public class ProfileController {
 
 	private static final Logger LOG = LogManager.getLogger(ProfileController.class);
@@ -47,26 +44,28 @@ public class ProfileController {
 
 	@Autowired
 	private ProfileUtils profileUtils;
+	
+	private Locale locale;
 
 	@GetMapping("/profile")
-	public String showProfile(Model model, Principal principal, Locale locale) {
-		if (isModelVaild(model)) {
-			UserDetails userDetails = profileUtils.obtainUserDetails(principal);
-			profileUtils.addListsOfAttributesToModel(model, locale);
-			model.addAttribute("userDetails", userDetails);
+	public String showProfile(Model model, Principal principal, Locale currentLocale) {
+		// Jesli SessionAttributes sa puste
+		if (!profileUtils.containsAllSessionAttributes(model)) {
+			locale = currentLocale;
+			obtainSessionAttributes(model, principal, locale);
+		// Jesli zmieniono jezyk
+		} else if (locale != currentLocale) {
+			locale = currentLocale;
+			profileUtils.setTranslations(model, locale);
 		}
 
 		return "profilepage";
 	}
-
-	private boolean isModelVaild(Model model) {
-		if (model.containsAttribute("org.springframework.validation.BindingResult.userDetails")) {
-			BindingResult bindingResult = (BindingResult) model.asMap()
-					.get("org.springframework.validation.BindingResult.userDetails");
-			if (bindingResult.hasErrors())
-				return false;
-		}
-		return true;
+	
+	private void obtainSessionAttributes(Model model, Principal principal, Locale locale) {
+		UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+		profileUtils.addListsOfAttributesToModel(model, locale);
+		model.addAttribute("userDetails", userDetails);
 	}
 
 	@PostMapping("/profile")
@@ -77,7 +76,9 @@ public class ProfileController {
 			return "profilepage";
 		} else {
 			userService.saveOrUpdateUserDetails(userDetails);
+			
 			sessionStatus.setComplete();
+			
 			redirAttributs.addFlashAttribute("success",
 					messageSource.getMessage("profilepage.updateSuccess", null, locale));
 		}
@@ -85,53 +86,66 @@ public class ProfileController {
 	}
 
 	@PostMapping("/calculateBmi")
-	public String calculateBmi(@ModelAttribute UserDetails userDetails, BindingResult bindingResult, Locale locale) {
-		CalculateBMIRequest bmiRequest = new CalculateBMIRequest();
-		bmiRequest.setHeight(userDetails.getHeight());
-		bmiRequest.setWeight(userDetails.getWeight());
-		try {
-			CalculateBMIResponse bmiResponse = profileUtils.prepareBMIReponse(userDetails);
-			userDetails.setBmi(Double.valueOf(bmiResponse.getCalculatedBMI()));
-		} catch (WebServiceIOException ex) {
-			LOG.error("Couldn't connect to service", ex);
-			bindingResult.addError(
-					new FieldError("userDetails", "bmi", messageSource.getMessage("userDetails.bmi", null, locale)));
-		}
-
-		return "profilepage";
-	}
-
-	@PostMapping("/calculateBmr")
-	public String calculateBmr(@Valid @ModelAttribute UserDetails userDetails, BindingResult bindingResult,
+	public String calculateBmi(@Valid @ModelAttribute UserDetails userDetails, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Locale locale) {
-		
-		//z uwagi na redirect napisz unit testy!!
 
+		// ponizsze linijki umozliwiaja wyswietlanie errorow z bindingResult po
+		// zrobieniu redirect
 		redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDetails", bindingResult);
 		redirectAttributes.addFlashAttribute("userDetails", userDetails);
+
 		try {
 			if (bindingResult.hasErrors()) {
 				LOG.debug("Binding result error occured");
-				addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.missingParams", locale);
+				addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmi.missingParams", "bmi", locale);
 				return "redirect:profile";
 			}
-			CalculateBMRResponse bmrResponse = profileUtils.prepareBMRReponse(userDetails);
-			userDetails.setBmr(Double.valueOf(bmrResponse.getCalculatedBMRResponse()));
+			CalculateBMIResponse bmiResponse = profileUtils.prepareBMIResponse(userDetails);
+			userDetails.setBmi(Double.valueOf(bmiResponse.getCalculatedBMI()));
 		} catch (WebServiceIOException ex) {
 			LOG.error("Couldn't connect to service", ex);
-			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.connectionProblem", locale);
+			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmi.connectionProblem", "bmi", locale);
 			return "redirect:profile";
 		} catch (InvalidParameterException ex) {
-			LOG.debug("Missing parameters in BmrRequest");
-			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.missingParams", locale);
+			LOG.error("Missing parameters in BmrRequest");
+			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmi.missingParams", "bmi", locale);
 			return "redirect:profile";
 		}
 		return "redirect:profile";
 	}
 
-	private void addSpecifiedErrorToUserDetails(BindingResult bindingResult, String specifiedError, Locale locale) {
+	@PostMapping("/calculateBmr")
+	public String calculateBmr(@Valid @ModelAttribute UserDetails userDetails, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, Locale locale) {
+
+		// ponizsze linijki umozliwiaja wyswietlanie errorow z bindingResult po
+		// zrobieniu redirect
+		redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDetails", bindingResult);
+		redirectAttributes.addFlashAttribute("userDetails", userDetails);
+
+		try {
+			if (bindingResult.hasErrors()) {
+				LOG.debug("Binding result error occured");
+				addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.missingParams", "bmr", locale);
+				return "redirect:profile";
+			}
+			CalculateBMRResponse bmrResponse = profileUtils.prepareBMRResponse(userDetails);
+			userDetails.setBmr(Double.valueOf(bmrResponse.getCalculatedBMRResponse()));
+		} catch (WebServiceIOException ex) {
+			LOG.error("Couldn't connect to service", ex);
+			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.connectionProblem", "bmr", locale);
+			return "redirect:profile";
+		} catch (InvalidParameterException ex) {
+			LOG.error("Missing parameters in BmrRequest");
+			addSpecifiedErrorToUserDetails(bindingResult, "userDetails.bmr.missingParams", "bmr", locale);
+			return "redirect:profile";
+		}
+		return "redirect:profile";
+	}
+
+	private void addSpecifiedErrorToUserDetails(BindingResult bindingResult, String specifiedError, String field, Locale locale) {
 		bindingResult
-				.addError(new FieldError("userDetails", "bmr", messageSource.getMessage(specifiedError, null, locale)));
+				.addError(new FieldError("userDetails", field, messageSource.getMessage(specifiedError, null, locale)));
 	}
 
 	@GetMapping("/serviceerror")

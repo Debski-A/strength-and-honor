@@ -1,6 +1,6 @@
 package com.gladigator.Controllers.RestUrls;
 
-public interface RestUrl {
+public interface WeatherApi {
 	
 	public String getUrl();
 	

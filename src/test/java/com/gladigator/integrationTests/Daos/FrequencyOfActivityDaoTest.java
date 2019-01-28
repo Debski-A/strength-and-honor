@@ -10,8 +10,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gladigator.Daos.FrequencyOfActivityDao;
-import com.gladigator.Entities.BodyType;
-import com.gladigator.Entities.BodyTypeTranslation;
 import com.gladigator.Entities.FrequencyOfActivity;
 import com.gladigator.Entities.FrequencyOfActivityTranslation;
 
