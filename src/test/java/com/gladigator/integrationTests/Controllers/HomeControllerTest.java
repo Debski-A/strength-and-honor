@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.gladigator.Controllers.HomeController;
-import com.gladigator.Controllers.Advices.ControllerExceptionHandler;
+import com.gladigator.Controllers.Advices.ApplicationExceptionsHandler;
 
 @ActiveProfiles("test")
 @WebAppConfiguration
@@ -35,7 +35,7 @@ public class HomeControllerTest {
 	private HomeController controller;
 	
 	@Autowired
-	private ControllerExceptionHandler exceptionController;
+	private ApplicationExceptionsHandler exceptionController;
 
 	private MockMvc mockMvc;
 

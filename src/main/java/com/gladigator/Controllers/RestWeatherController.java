@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gladigator.Controllers.RestUrls.ResponseEntityBuilder;
 
 @RestController
-public class RestHomeController {
+public class RestWeatherController {
 	
 	@Autowired
 	private ResponseEntityBuilder responseEntityBuilder;

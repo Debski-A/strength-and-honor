@@ -9,7 +9,7 @@ import com.gladigator.Exceptions.RepositoryException;
 import com.gladigator.Exceptions.ServiceException;
 
 @ControllerAdvice
-public class ControllerExceptionHandler {
+public class ApplicationExceptionsHandler {
 
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public String handleError404(Exception ex) {
