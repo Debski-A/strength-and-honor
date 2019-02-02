@@ -18,8 +18,6 @@ import javax.persistence.Transient;
 public class Sex implements Translationable<SexTranslation>{
 	
 	
-	//TODO:ZROB INTERNACJONALIZACJE BAZY DANYCH, ABY NP. BODYTYPE.TYPE ZAWIERALO INFORMACJE W ROZNYCH JEZYKACH (A NIE TYLKO W JEZ. ANG. - TAK JEST OBECNIE)
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_sex")

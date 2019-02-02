@@ -84,19 +84,6 @@ public class ProfileControllerTest {
 
     }
 
-    // mvn test robi failure na tym tescie TODO
-    // @Transactional
-    // @Test
-    // public void whenProcessProfilePage_ThenReturnProfilepage() throws Exception {
-    // addUserToDB();
-    // //musialem dodac CSRF ze wzgledu na to, ze kazdy formularz post wymaga tokenu
-    // CSRF. Ponadto gdy metoda robi redirect to zwraca status 302
-    // mockMvc.perform(post("/profile").sessionAttr("userDetails",
-    // userDetails).with(user("adam")).with(csrf())).andDo(print())
-    // .andExpect(status().isOk())
-    // .andExpect(view().name("profilepage"));
-    // }
-
     private void addUserToDB() throws Exception {
 	userDetails = new UserDetails();
 	user = new User("adam", "password1234", "adam@gmail.com", null, true);

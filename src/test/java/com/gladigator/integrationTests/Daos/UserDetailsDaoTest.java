@@ -60,7 +60,7 @@ public class UserDetailsDaoTest {
 	@Test
 	public void givenUserDetails_WhenSaveOrUpdateUserDetails_ThenUserDetailsArePersisted() throws Exception {
 		userDetailsDao.saveOrUpdate(userDetails);
-		sessionFactory.getCurrentSession().flush(); //flush aby zapelnic tabele danymi. Bez tego INSERT bedzie tylko w tabeli users. NIE WIEM CZEMU TAK JEST TODO
+		sessionFactory.getCurrentSession().flush(); //flush aby zapelnic tabele danymi. Bez tego INSERT bedzie tylko w tabeli users. 
 		sessionFactory.getCurrentSession().detach(userDetails); //detach aby "odlaczyc" userDetails od Persistence context. clear odlacza wszystkie encje bedace w kontekscie
 		UserDetails userDetailsFromDB = userDetailsDao.findById(1); //BEZ DETACH usersDetails wciaz jest w cache i przez to nie jest wykonywany SELECT w bazie danych. getUserDetailsById po prostu przypisuje referencje z cache do zmiennej userDetailsFromDB
 		assertThat(userDetailsFromDB, equalTo(userDetails));
