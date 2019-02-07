@@ -21,7 +21,7 @@ import com.gladigator.Controllers.LoginController;
 @ActiveProfiles("test")
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/sah-servlet.xml",
+@ContextConfiguration(locations = {"classpath:com/gladigator/Configs/sah-servlet.xml",
 		   "classpath:com/gladigator/Configs/test-dao-context.xml",
 		   "classpath:com/gladigator/Configs/security-context.xml",
 		   "classpath:com/gladigator/Configs/service-context.xml"})
