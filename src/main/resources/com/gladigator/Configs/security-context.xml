@@ -22,7 +22,9 @@
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/"
 			access="permitAll" />
-		<security:intercept-url pattern="/resources/**"
+		<security:intercept-url pattern="/static/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/templates/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/login"
 			access="permitAll" />

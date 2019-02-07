@@ -38,7 +38,7 @@
 	</beans>  -->
 
 
-	<beans profile="production">
+	<!-- <beans profile="production">  -->
 
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
@@ -81,5 +81,5 @@
 		</bean>
 
 		<tx:annotation-driven />
-	</beans>
+	<!-- </beans>  -->
 </beans>

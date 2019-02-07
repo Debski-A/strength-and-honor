@@ -9,36 +9,36 @@
 
 	<mvc:annotation-driven />
 
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/static/**" location="classpath:static/" />
 
-	<!-- TemplateResolver <- TemplateEngine <- ViewResolver 
+	<!-- TemplateResolver <- TemplateEngine <- ViewResolver -->
 
 	<bean id="templateResolver"
-		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
 		<property name="characterEncoding" value="UTF-8" />
-		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="prefix" value="classpath:templates/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML" />
 	</bean>
 
-	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+	<bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
 		<property name="additionalDialects">
 			<set>
 				<bean
-					class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect" />
+					class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
 			</set>
 		</property>
 	</bean>
 
-	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="templateEngine" />
 		<property name="characterEncoding" value="UTF-8" />
-	</bean> -->
+	</bean> 
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:i18n/messages" />
+		<property name="basename" value="classpath:static/i18n/messages" />
 	</bean>
 
 	<!-- LOCALE RESOLVER FOR TESTING i18n -->
