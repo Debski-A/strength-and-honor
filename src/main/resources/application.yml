@@ -3,3 +3,6 @@ spring:
     allow-bean-definition-overriding: true
   jpa:
     open-in-view: false
+server:
+    servlet: 
+      context-path: /sah

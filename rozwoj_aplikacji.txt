@@ -4,3 +4,7 @@
 4. Zrobić podział aplikacji, tzn. wystawić RESTowe API zamiast warstwy widoku z wykorzystaniem Thymeleaf
 5. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
+
+
+.service dla odpalania
+wysylanie maila przy rejestracji sie wywala

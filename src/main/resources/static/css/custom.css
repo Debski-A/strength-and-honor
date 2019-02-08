@@ -60,7 +60,7 @@ code {
     display: inline-block;
     width: 24px;
     height: 24px;
-    background: url('flags.png') no-repeat;
+    background: url('../images/flags.png') no-repeat;
     padding: initial;
 }
 

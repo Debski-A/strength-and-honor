@@ -38,7 +38,7 @@
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:static/i18n/messages" />
+		<property name="basename" value="classpath:i18n/messages" />
 	</bean>
 
 	<!-- LOCALE RESOLVER FOR TESTING i18n -->
