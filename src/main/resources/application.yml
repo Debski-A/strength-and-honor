@@ -5,4 +5,4 @@ spring:
     open-in-view: false
 server:
     servlet: 
-      context-path: /sah
+      context-path: /

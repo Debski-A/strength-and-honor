@@ -6,5 +6,5 @@
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
 
 
-.service dla odpalania
-wysylanie maila przy rejestracji sie wywala
+link do rejestracji strzela do http://localhost:8080/confirm?token=6e4b9bdc-f7dd-41d2-93c8-23090d006392
+zamiast to http://adam-debski.com/confirm? ...
