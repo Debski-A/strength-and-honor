@@ -1,10 +1,12 @@
-1. zDockerować projekt.
+﻿1. zDockerować projekt.
 2. Wystawić na świat
 3. Dodać jakieś nowe ciekawe funkcjonalności
 4. Zrobić podział aplikacji, tzn. wystawić RESTowe API zamiast warstwy widoku z wykorzystaniem Thymeleaf
 5. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
 
+poprawić strukture weatherApi
+dodać obrazek chmury/slonca itp. w zaleznosci od response z API
+dodac tlumaczenia
 
-link do rejestracji strzela do http://localhost:8080/confirm?token=6e4b9bdc-f7dd-41d2-93c8-23090d006392
-zamiast to http://adam-debski.com/confirm? ...
+

@@ -1,6 +1,7 @@
 package com.gladigator.Controllers;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,10 +19,10 @@ public class RestWeatherController {
 	private ResponseEntityBuilder responseEntityBuilder;
 	
 	@GetMapping("/weatherConditions/{city}")
-	public ResponseEntity<String> showWeatherConditions(@PathVariable("city") String city) {
+	public ResponseEntity<String> showWeatherConditions(@PathVariable("city") String city, Locale locale) {
 		responseEntityBuilder.setAcceptableMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON));
 		
-		return responseEntityBuilder.callWeatherApi(city);
+		return responseEntityBuilder.callWeatherApi(city, locale);
 	}
 
 }

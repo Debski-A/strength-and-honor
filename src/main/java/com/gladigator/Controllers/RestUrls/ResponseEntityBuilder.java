@@ -1,6 +1,7 @@
 package com.gladigator.Controllers.RestUrls;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,12 +34,12 @@ public class ResponseEntityBuilder {
 		this.httpHeaders.setAccept(mediaTypes);
 	}
 	
-	public ResponseEntity<String> callWeatherApi(String param) {
+	public ResponseEntity<String> callWeatherApi(String param, Locale locale) {
+		String localeParam = String.format("&lang=%s", locale.getCountry());
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", httpHeaders);
-		String url = restUrl.getUrl().replaceAll(NAME_OF_THE_CITY, param);
+		String url = restUrl.getUrl().replaceAll(NAME_OF_THE_CITY, param) + localeParam;
 		ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 		return responseEntity;
 	}
 
-	
 }

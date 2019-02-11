@@ -4,8 +4,6 @@
 	padding: 10px;
 }
 
-
-
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -71,4 +69,8 @@ code {
 
 .flag.flag-pl {
     background-position: -24px 0;
+}
+
+.custom-btn {
+	margin-top: 7px;
 }
