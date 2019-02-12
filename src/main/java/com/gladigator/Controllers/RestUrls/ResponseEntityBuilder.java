@@ -35,7 +35,7 @@ public class ResponseEntityBuilder {
 	}
 	
 	public ResponseEntity<String> callWeatherApi(String param, Locale locale) {
-		String localeParam = String.format("&lang=%s", locale.getCountry());
+		String localeParam = String.format("&lang=%s", locale.getLanguage());
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", httpHeaders);
 		String url = restUrl.getUrl().replaceAll(NAME_OF_THE_CITY, param) + localeParam;
 		ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
