@@ -8,40 +8,22 @@
 <script src="../static/js/jquery-3.2.1.min.js"></script>
 
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-	
-</script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
-<link href="../static/css/custom.css" />
+<link href="../static/css/custom.css" rel="stylesheet"/>
 
 <title>Page title</title>
 
 </head>
 <body>
-	<!-- navbar -->
 	<nav class="navbar navbar-inverse navbar-fixed-top"
-		th:replace="fragments/header :: navbar">
-		<div class="container">
-			<ul class="nav navbar-nav">
-				<li><a href="">Link1 z headera</a></li>
-				<li><a href="">Link2 z headera</a></li>
-				<li><a href="">Link3</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href=""><span class="glyphicon glyphicon-user"></span>
-						Profil</a></li>
-				<li><a href="" th:href="@{/login}"><span
-						class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			</ul>
-		</div>
-	</nav>
+		th:replace="fragments/header :: navbar"></nav>
+		
 	<div class="container">
-		<div class="alert alert-info" th:text="#{weatherpage.inputInfo}">Give
-			the name of the city where you want to see the weather</div>
 		<label for="inputCity" class="sr-only">Input city</label> <input
 			type="text" class="form-control" id="inputCity" name="inputCity"
 			th:placeholder="#{weatherpage.city}">

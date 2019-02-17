@@ -5,8 +5,6 @@
 5. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
 
-poprawić strukture weatherApi
-dodać obrazek chmury/slonca itp. w zaleznosci od response z API
-dodac tlumaczenia
+zrobić chat
 
 
