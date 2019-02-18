@@ -21,21 +21,16 @@ const editor = pell.init({
 		icon: 'PublishPL',
 		title: 'PublishPL',
 		result: () => {
-			var csrfParameter = '${_csrf.parameterName}';
-		    var csrfToken = '${_csrf.token}';
-		    alert(csrfParameter);
-		    alert(csrfToken);
 			var content = {};
 			content['content'] =  document.getElementById('html-output').innerHTML;
-			content[csrfParameter] = csrfToken;
-			alert(content);
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
 			//var encodedContent = btoa(content);
 			$.ajax({
-				url: '/saveDivContentToDatabase',
+				url: 'save',
 				type: 'POST',
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				data: content,
+				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+				data: JSON.stringify(content),
 				success : function (data) {
 					alert("Poszło");
 				}

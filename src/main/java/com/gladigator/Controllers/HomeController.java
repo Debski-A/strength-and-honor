@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
@@ -31,9 +33,9 @@ public class HomeController {
 		return "homepage";
 	}
 	
-	@PostMapping(value = "/saveDivContentToDatabase", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String saveDivContentToDatabase(@RequestBody String encodedContent) {
-		System.out.println(encodedContent);
+	@PostMapping("/save")
+	public String saveDivContentToDatabase() {
+		System.out.println("ss");
 		
 		return "homepage";
 	}
