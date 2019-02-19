@@ -49,7 +49,7 @@
 				</executions>
 				<configuration>
 					<generatePackage>com.gladigator.Entities</generatePackage>
-					<generateDirectory>src/main/generated/</generateDirectory>
+					<generateDirectory>target/generated-entities</generateDirectory>
 					<schemaDirectory>${project.basedir}/src/main/resources/wsdl</schemaDirectory>
 					<schemaIncludes>
 						<include>*.wsdl</include>
@@ -128,10 +128,8 @@
 		</dependency>
 
 		<!-- Eclipse nie moze udzwignac devtools -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>  -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+			</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -197,6 +195,7 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 
+		<!-- Others -->
 		<dependency>
 			<groupId>javax.xml.soap</groupId>
 			<artifactId>javax.xml.soap-api</artifactId>
@@ -229,6 +228,16 @@
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-core</artifactId>
 			<version>2.3.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<!-- MySQL connector -->

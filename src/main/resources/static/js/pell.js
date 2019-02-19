@@ -23,16 +23,16 @@ const editor = pell.init({
 		result: () => {
 			var content = {};
 			content['content'] =  document.getElementById('html-output').innerHTML;
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
 			//var encodedContent = btoa(content);
 			$.ajax({
-				url: 'save',
+				url: 'post',
 				type: 'POST',
+				dataType : 'json',
+				'contentType': 'application/json',
 				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
-				data: JSON.stringify(content),
+				data: content,
 				success : function (data) {
-					alert("Poszło");
+					console.log(data);
 				}
 			});
 		}
