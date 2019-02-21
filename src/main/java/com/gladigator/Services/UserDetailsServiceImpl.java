@@ -55,7 +55,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Override
 	public void setTranslationAccordingToLocale(List<? extends Translationable<Translation>> list, Locale locale) {
 		for (Translationable<Translation> entity : list) {
-			entity.setDescription(entity.getTranslations()
+			entity.setContent(entity.getTranslations()
 					.stream()
 					.filter(e -> locale.toLanguageTag().equals(e.getLanguage()))
 					.findFirst()
@@ -64,7 +64,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 							.filter(e -> e.getIsDefault())
 							.findFirst()
 							.get())
-					.getTranslatedDescription());
+					.getTranslatedContent());
 		}
 	}
 }

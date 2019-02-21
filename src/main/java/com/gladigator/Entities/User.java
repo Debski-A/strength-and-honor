@@ -48,7 +48,7 @@ public class User {
 	@Column(name="enabled")
 	private Boolean enabled;
 	
-	@OneToOne(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private UserDetails userDetails;													//Zaladowane od razu bo - EAGER, 
 																						//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH (DML - data manipulation language) 
 																						//beda rowniez wykonane na powiazanych encjach

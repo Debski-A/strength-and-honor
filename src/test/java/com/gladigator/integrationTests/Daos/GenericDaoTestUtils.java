@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gladigator.Daos.GenericDao;
 import com.gladigator.Exceptions.RepositoryException;
 
-@ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional

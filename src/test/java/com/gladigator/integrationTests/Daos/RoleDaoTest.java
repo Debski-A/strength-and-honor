@@ -18,7 +18,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Rule;
 
-@ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional

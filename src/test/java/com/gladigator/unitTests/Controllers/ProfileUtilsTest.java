@@ -44,7 +44,7 @@ import com.gladigator.Services.UserService;
 public class ProfileUtilsTest {
 	
 	@InjectMocks
-	private ProfileUtils profileUtils = new ProfileUtils();
+	private ProfileUtils profileUtils;
 	@Mock
 	private UserDetailsService userDetailsService;
 	@Mock

@@ -43,6 +43,12 @@ INSERT INTO sex_translations (id_sex_translations, language, is_default, descrip
 INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (3, 'pl-PL', 0, 'mężczyzna', 1);
 INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (4, 'pl-PL', 0, 'kobieta', 2);
 
+ALTER TABLE posts ALTER COLUMN id_post RESTART WITH 1
+
+INSERT INTO posts (id_post) VALUES (1);
+
+INSERT INTO posts_translations (id_post_translations, language, is_default, content, id_post) VALUES (1, 'en-UK', 1, 'This is first post in english', 1);
+INSERT INTO posts_translations (id_post_translations, language, is_default, content, id_post) VALUES (2, 'pl-PL', 0, 'To jest pierwszy post po polsku', 1);
 
 --User Adam
 --INSERT INTO users (id_user, username, password, email, enabled) VALUES (1, 'adam', 'test', 'adam@gmail.com', true);

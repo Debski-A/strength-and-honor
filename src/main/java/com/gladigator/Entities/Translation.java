@@ -10,5 +10,5 @@ public interface Translation {
 
 	public Boolean getIsDefault();
 
-	public String getTranslatedDescription();
+	public String getTranslatedContent();
 }

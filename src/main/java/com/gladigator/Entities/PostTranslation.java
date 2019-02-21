@@ -8,23 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "frequency_of_activity_translations")
-public class FrequencyOfActivityTranslation implements Translation {
-	
-	public FrequencyOfActivityTranslation() {
-	}
-	
-	public FrequencyOfActivityTranslation(Integer foaTranslationId, String language, Boolean isDefault, String translatedDescription) {
-		this.foaTranslationId = foaTranslationId;
-		this.language = language;
-		this.isDefault = isDefault;
-		this.translatedDescription = translatedDescription;
-	}
+@Table(name = "posts_translations")
+public class PostTranslation implements Translation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_foa_translations")
-	private Integer foaTranslationId;
+	@Column(name="id_post_translations")
+	private Integer postTranslationId;
 	
 	@Column(name="language")
 	private String language;
@@ -32,10 +22,9 @@ public class FrequencyOfActivityTranslation implements Translation {
 	@Column(name="is_default")
 	private Boolean isDefault;
 	
-	@Column(name="description")
-	private String translatedDescription;
+	@Column(name="content")
+	private String translatedContent;
 
-	
 	@Override
 	public String getLanguage() {
 		return this.language;
@@ -48,21 +37,33 @@ public class FrequencyOfActivityTranslation implements Translation {
 
 	@Override
 	public String getTranslatedContent() {
-		return this.translatedDescription;
+		return this.translatedContent;
 	}
 
-	public Integer getFoaTranslationId() {
-		return foaTranslationId;
+	public Integer getPostTranslationId() {
+		return postTranslationId;
+	}
+
+	public void setTranslatedContent(String translatedContent) {
+		this.translatedContent = translatedContent;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((foaTranslationId == null) ? 0 : foaTranslationId.hashCode());
 		result = prime * result + ((isDefault == null) ? 0 : isDefault.hashCode());
 		result = prime * result + ((language == null) ? 0 : language.hashCode());
-		result = prime * result + ((translatedDescription == null) ? 0 : translatedDescription.hashCode());
+		result = prime * result + ((postTranslationId == null) ? 0 : postTranslationId.hashCode());
+		result = prime * result + ((translatedContent == null) ? 0 : translatedContent.hashCode());
 		return result;
 	}
 
@@ -74,12 +75,7 @@ public class FrequencyOfActivityTranslation implements Translation {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FrequencyOfActivityTranslation other = (FrequencyOfActivityTranslation) obj;
-		if (foaTranslationId == null) {
-			if (other.foaTranslationId != null)
-				return false;
-		} else if (!foaTranslationId.equals(other.foaTranslationId))
-			return false;
+		PostTranslation other = (PostTranslation) obj;
 		if (isDefault == null) {
 			if (other.isDefault != null)
 				return false;
@@ -90,10 +86,15 @@ public class FrequencyOfActivityTranslation implements Translation {
 				return false;
 		} else if (!language.equals(other.language))
 			return false;
-		if (translatedDescription == null) {
-			if (other.translatedDescription != null)
+		if (postTranslationId == null) {
+			if (other.postTranslationId != null)
 				return false;
-		} else if (!translatedDescription.equals(other.translatedDescription))
+		} else if (!postTranslationId.equals(other.postTranslationId))
+			return false;
+		if (translatedContent == null) {
+			if (other.translatedContent != null)
+				return false;
+		} else if (!translatedContent.equals(other.translatedContent))
 			return false;
 		return true;
 	}
@@ -101,18 +102,16 @@ public class FrequencyOfActivityTranslation implements Translation {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("FrequencyOfActivityTranslations [foaTranslationId=");
-		builder.append(foaTranslationId);
+		builder.append("PostTranslation [btTranslationId=");
+		builder.append(postTranslationId);
 		builder.append(", language=");
 		builder.append(language);
 		builder.append(", isDefault=");
 		builder.append(isDefault);
-		builder.append(", translatedDescription=");
-		builder.append(translatedDescription);
+		builder.append(", translatedContent=");
+		builder.append(translatedContent);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
 }

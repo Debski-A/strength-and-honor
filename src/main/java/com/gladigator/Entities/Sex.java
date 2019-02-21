@@ -35,7 +35,7 @@ public class Sex implements Translationable<SexTranslation>{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setContent(String description) {
 		this.description = description;
 	}
 

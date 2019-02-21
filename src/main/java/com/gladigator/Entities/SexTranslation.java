@@ -51,7 +51,7 @@ public class SexTranslation implements Translation {
 	}
 
 	@Override
-	public String getTranslatedDescription() {
+	public String getTranslatedContent() {
 		return translatedDescription;
 	}
 

@@ -47,7 +47,7 @@ public class BodyTypeTranslation implements Translation {
 	}
 
 	@Override
-	public String getTranslatedDescription() {
+	public String getTranslatedContent() {
 		return this.translatedDescription;
 	}
 

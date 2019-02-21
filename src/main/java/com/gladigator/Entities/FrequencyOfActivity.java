@@ -102,7 +102,7 @@ public class FrequencyOfActivity implements Translationable<FrequencyOfActivityT
 	}
 
 	@Override
-	public void setDescription(String description) {
+	public void setContent(String description) {
 		this.description = description;
 	}
 	

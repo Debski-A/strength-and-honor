@@ -41,7 +41,7 @@ const editor = pell.init({
   classes: {
     actionbar: 'pell-actionbar-custom-name',
     button: 'pell-button-custom-name',
-    content: 'pell-content-custom-name',
+    content: 'pell-content-gray',
     selected: 'pell-button-selected-custom-name'
   }
 })

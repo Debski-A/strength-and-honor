@@ -52,7 +52,7 @@ public class BodyType implements Translationable<BodyTypeTranslation>{
 	}
 
 	@Override
-	public void setDescription(String description) {
+	public void setContent(String description) {
 		this.description = description;
 	}
 

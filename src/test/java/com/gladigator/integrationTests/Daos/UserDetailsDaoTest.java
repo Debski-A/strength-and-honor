@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gladigator.Daos.UserDetailsDao;
@@ -24,9 +25,8 @@ import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Exceptions.RepositoryException;
 
-@ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml" )
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @Transactional
 public class UserDetailsDaoTest {
 
