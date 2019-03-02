@@ -23,14 +23,15 @@ const editor = pell.init({
 		result: () => {
 			var content = {};
 			content['content'] =  document.getElementById('html-output').innerHTML;
-			//var encodedContent = btoa(content);
+			console.log(content);
+			//content['postId'] = jesli bedzie podane id to update zamiast save
 			$.ajax({
 				url: 'post',
 				type: 'POST',
 				dataType : 'json',
 				'contentType': 'application/json',
 				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
-				data: content,
+				data: JSON.stringify(content),
 				success : function (data) {
 					console.log(data);
 				}

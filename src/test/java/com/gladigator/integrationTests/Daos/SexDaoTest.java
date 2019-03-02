@@ -20,13 +20,13 @@ public class SexDaoTest extends GenericDaoTestUtils<Sex>{
 	@Test
 	public void whenGetAllFre_ThenReturnListOfSexes() throws Exception {
 		Sex male = new Sex();
-		SexTranslation maleEngTranslation = new SexTranslation(1, "en-UK", true, "male");
-		SexTranslation malePlTranslation = new SexTranslation(3, "pl-PL", false, "mężczyzna");
+		SexTranslation maleEngTranslation = new SexTranslation(1, "en-GB", "male");
+		SexTranslation malePlTranslation = new SexTranslation(3, "pl-PL", "mężczyzna");
 		male.setSexId(1);
 		male.setSexTranslations(Arrays.asList(maleEngTranslation, malePlTranslation));
 		Sex female = new Sex();
-		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-UK", true, "female");
-		SexTranslation femalePlTranslation = new SexTranslation(4, "pl-PL", false, "kobieta");
+		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-GB", "female");
+		SexTranslation femalePlTranslation = new SexTranslation(4, "pl-PL",  "kobieta");
 		female.setSexId(2);
 		female.setSexTranslations(Arrays.asList(femaleEngTranslation, femalePlTranslation));
 		
@@ -36,8 +36,8 @@ public class SexDaoTest extends GenericDaoTestUtils<Sex>{
 	@Test
 	public void whenFindById2_ThenReturnFemale() throws Exception {
 		Sex female = new Sex();
-		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-UK", true, "female");
-		SexTranslation femalePlTranslation = new SexTranslation(4, "pl-PL", false, "kobieta");
+		SexTranslation femaleEngTranslation = new SexTranslation(2, "en-GB", "female");
+		SexTranslation femalePlTranslation = new SexTranslation(4, "pl-PL", "kobieta");
 		female.setSexId(2);
 		female.setSexTranslations(Arrays.asList(femaleEngTranslation, femalePlTranslation));
 		Sex female2 = super.whenFindById_ThenReturnEntity(sexDao, 2);

@@ -4,7 +4,7 @@
 
     <!-- Console Appender -->
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} casd [%t] %-5level %logger{36} - %msg%n" />
     </Console>
 
     <!-- File Appender -->
@@ -28,25 +28,23 @@
     </Logger>
 
     <!-- Log SQL statements  LOGGER Z TEGO PAKIETU BEDZIE LOGOWAL WSZYSTKO NA POZIOMIE DEBUG -->
-    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+    <Logger name="org.hibernate.SQL" level="info" additivity="false">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Logger>
 
     <!-- Log JDBC bind parameters  LOGGER Z TEGO PAKIETU BEDZIE LOGOWAL WSZYSTKO NA POZIOMIE TRACE -->
-    <Logger name="org.hibernate.type.descriptor.sql" level="debug" additivity="false">
+    <Logger name="org.hibernate.type.descriptor.sql" level="info" additivity="false">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Logger>
     
     <!-- Log custom packages -->
-    <Logger name="com.boraji.tutorial.hibernate" level="debug" additivity="false">
+    <Logger name="com.boraji.tutorial.hibernate" level="info" additivity="false">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />
     </Logger>
     
-
-	<!-- LEVEL DZIALANIA ROOT LOGGERA TO ERROR -->
     <Root level="info">
       <AppenderRef ref="Console" />
       <AppenderRef ref="File" />

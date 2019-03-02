@@ -6,6 +6,6 @@ public interface Translationable<T extends Translation> {
 	
 	public List<T> getTranslations();
 	
-	public void setContent(String content);
+	public void setTranslatedContent(String content);
 
 }

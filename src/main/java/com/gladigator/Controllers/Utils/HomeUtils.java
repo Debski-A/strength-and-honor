@@ -1,18 +1,33 @@
 package com.gladigator.Controllers.Utils;
 
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.gladigator.Entities.Post;
+import com.gladigator.Models.PostDto;
 
 @Component
 public class HomeUtils {
 
 	private static final Logger LOG = LogManager.getLogger(HomeUtils.class);
 
-	public Post preparePostEntity(String content) {
-		return null;
+	public Post prepareLanguageSpecificPostEntity(PostDto body, Locale locale) {
+		String content = body.getContent().replace("content=", "");
+		Post post = Post.builder().postId(body.getPostId()).language(locale.toLanguageTag()).translatedContent(content).build();
+		LOG.debug("Prepared post entity = {}", post);
+		return post;
+	}
+	
+	
+	public List<PostDto> prepareLanguageSpecificPostsDtos(List<Post> posts, Locale locale) {
+		List<Post> languageSpecificPosts = posts.stream().filter(post -> post.getLanguage().equals(locale.toLanguageTag())).collect(Collectors.toList());
+		List<PostDto> postsDtos = languageSpecificPosts.stream().map(post -> PostDto.builder().postId(post.getPostId()).content(post.getTranslatedContent()).build()).collect(Collectors.toList());
+		return postsDtos;
 	}
 
 }

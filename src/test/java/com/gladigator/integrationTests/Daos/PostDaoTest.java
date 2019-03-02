@@ -2,13 +2,13 @@ package com.gladigator.integrationTests.Daos;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-
+import static org.hamcrest.Matchers.*;
 import org.hibernate.Session;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gladigator.Daos.PostDao;
 import com.gladigator.Daos.PostDaoImpl;
 import com.gladigator.Entities.Post;
-import com.gladigator.Entities.PostTranslation;
 
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,24 +32,14 @@ public class PostDaoTest {
 	@Test
 	public void shouldSaveDataToDatabase() throws Exception {
 		//given
-		Post newPost = new Post();
-		PostTranslation postTranslationPL= new PostTranslation();
-		postTranslationPL.setTranslatedContent("Kolejny polski post");
-		postTranslationPL.setLanguage("pl-PL");
-		postTranslationPL.setIsDefault(false);
-		PostTranslation postTranslationENG= new PostTranslation();
-		postTranslationENG.setTranslatedContent("Another English post");
-		postTranslationENG.setLanguage("en-UK");
-		postTranslationENG.setIsDefault(true);
-		newPost.setPostTranslations(Arrays.asList(postTranslationENG, postTranslationPL));
+		Post newPost = Post.builder().language("pl-PL").translatedContent("Kolejny polski post").build();
 		//when
 		dao.saveOrUpdate(newPost);
 		//then
 		if (dao instanceof PostDaoImpl) {
 			Session session = ((PostDaoImpl)dao).getSession();
-			Post postFromDatabase = session.get(Post.class, 2); //2 bo jeden row byl juz dodany w import.sql
-			boolean predicateResult = postFromDatabase.getTranslations().stream().anyMatch(e -> e.getTranslatedContent().equals("Kolejny polski post"));
-			assertTrue(predicateResult);
+			Post postFromDatabase = session.get(Post.class, 3); //2 bo jeden row byl juz dodany w import.sql
+			assertThat(postFromDatabase.getTranslatedContent(), equalTo("Kolejny polski post"));
 		}
 	}
 	
@@ -91,5 +80,21 @@ public class PostDaoTest {
 		//then
 		assertTrue(postsSet.containsAll(Arrays.asList(post2, post3, post4, post5, post6)));
 		assertFalse(postsSet.contains(post7));
+	}
+	
+	@Test
+	public void shouldGetTwoPosts() throws Exception {
+		//given
+		//post1 is inserted with import.sql
+		Post post2 = new Post();
+		dao.saveOrUpdate(post2);
+		
+		//when
+		Integer offset = 5;
+		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
+		HashSet<Post> postsSet = new HashSet<>(posts);
+		
+		//then
+		assertThat(postsSet, hasSize(2));
 	}
 }

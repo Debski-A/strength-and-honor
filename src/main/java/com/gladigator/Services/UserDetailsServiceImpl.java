@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gladigator.Daos.BodyTypeDao;
 import com.gladigator.Daos.FrequencyOfActivityDao;
 import com.gladigator.Daos.SexDao;
+import com.gladigator.Entities.FrequencyOfActivity;
 import com.gladigator.Entities.Translation;
 import com.gladigator.Entities.Translationable;
 import com.gladigator.Exceptions.ServiceException;
@@ -48,22 +49,17 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		} catch (Exception ex) {
 			throw new ServiceException("An Exception occurred", ex);
 		}
-		
 		return listOfSelectives;
 	}
 	
 	@Override
 	public void setTranslationAccordingToLocale(List<? extends Translationable<Translation>> list, Locale locale) {
 		for (Translationable<Translation> entity : list) {
-			entity.setContent(entity.getTranslations()
+			entity.setTranslatedContent(entity.getTranslations()
 					.stream()
 					.filter(e -> locale.toLanguageTag().equals(e.getLanguage()))
 					.findFirst()
-					.orElse(entity.getTranslations()
-							.stream()
-							.filter(e -> e.getIsDefault())
-							.findFirst()
-							.get())
+					.get()
 					.getTranslatedContent());
 		}
 	}

@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -26,31 +30,5 @@ public class Role {
 
 	@ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<User> users;
-	
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
-
-	public Integer getRoleId() {
-		return roleId;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	@Override
-	public String toString() {
-		return "Role [roleId=" + roleId + ", role=" + role + "]";
-	}
-	
 	
 }

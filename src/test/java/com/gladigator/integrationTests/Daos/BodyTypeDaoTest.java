@@ -22,31 +22,31 @@ public class BodyTypeDaoTest extends GenericDaoTestUtils<BodyType> {
 	@Test
 	public void whenGetAll_ThenReturnListOfBodyTypes() throws Exception {
 		BodyType none = new BodyType();
-		BodyTypeTranslation noneEngTranslation = new BodyTypeTranslation(1, "en-UK", true, "none");
-		BodyTypeTranslation nonePlTranslation = new BodyTypeTranslation(5, "pl-PL", false, "nieokreslono");
+		BodyTypeTranslation noneEngTranslation = new BodyTypeTranslation(1, "en-GB", "none");
+		BodyTypeTranslation nonePlTranslation = new BodyTypeTranslation(5, "pl-PL", "nieokreslono");
 		none.setBodyTypeId(1);
 		none.setBodyTypeTranslations(Arrays.asList(noneEngTranslation, nonePlTranslation));
 		
 		BodyType meso = new BodyType();
-		BodyTypeTranslation mesoEngTranslation = new BodyTypeTranslation(3, "en-UK", true, "mesomorph");
-		BodyTypeTranslation mesoPlTranslation = new BodyTypeTranslation(7, "pl-PL", false, "mezomorficzny");
+		BodyTypeTranslation mesoEngTranslation = new BodyTypeTranslation(3, "en-GB", "mesomorph");
+		BodyTypeTranslation mesoPlTranslation = new BodyTypeTranslation(7, "pl-PL", "mezomorficzny");
 		meso.setBodyTypeId(3);
 		meso.setBodyTypeTranslations(Arrays.asList(mesoEngTranslation, mesoPlTranslation));
 		
 		BodyType ecto = new BodyType();
-		BodyTypeTranslation ectoEngTranslation = new BodyTypeTranslation(2, "en-UK", true, "ectomorph");
-		BodyTypeTranslation ectoPlTranslation = new BodyTypeTranslation(6, "pl-PL", false, "ektomorficzny");
+		BodyTypeTranslation ectoEngTranslation = new BodyTypeTranslation(2, "en-GB", "ectomorph");
+		BodyTypeTranslation ectoPlTranslation = new BodyTypeTranslation(6, "pl-PL", "ektomorficzny");
 		ecto.setBodyTypeId(2);
 		ecto.setBodyTypeTranslations(Arrays.asList(ectoEngTranslation, ectoPlTranslation));
 		
 		BodyType endo = new BodyType();
-		BodyTypeTranslation endoEngTranslation = new BodyTypeTranslation(4, "en-UK", true, "endomorph");
-		BodyTypeTranslation endoPlTranslation = new BodyTypeTranslation(8, "pl-PL", false, "endomorficzny");
+		BodyTypeTranslation endoEngTranslation = new BodyTypeTranslation(4, "en-GB", "endomorph");
+		BodyTypeTranslation endoPlTranslation = new BodyTypeTranslation(8, "pl-PL", "endomorficzny");
 		endo.setBodyTypeId(4);
 		endo.setBodyTypeTranslations(Arrays.asList(endoEngTranslation, endoPlTranslation));
 		
-		String str1 = "<[BodyType [bodyTypeId=1, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=1, language=en-UK, isDefault=true, translatedDescription=none], BodyTypeTranslations [btTranslationId=5, language=pl-PL, isDefault=false, translatedDescription=nieokreslono]], description=null], BodyType [bodyTypeId=2, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=2, language=en-UK, isDefault=true, translatedDescription=ectomorph], BodyTypeTranslations [btTranslationId=6, language=pl-PL, isDefault=false, translatedDescription=ektomorficzny]], description=null], BodyType [bodyTypeId=3, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=3, language=en-UK, isDefault=true, translatedDescription=mesomorph], BodyTypeTranslations [btTranslationId=7, language=pl-PL, isDefault=false, translatedDescription=mezomorficzny]], description=null], BodyType [bodyTypeId=4, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=4, language=en-UK, isDefault=true, translatedDescription=endomorph], BodyTypeTranslations [btTranslationId=8, language=pl-PL, isDefault=false, translatedDescription=endomorficzny]], description=null]]>";
-		String str2 = "<[BodyType [bodyTypeId=1, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=1, language=en-UK, isDefault=true, translatedDescription=none], BodyTypeTranslations [btTranslationId=5, language=pl-PL, isDefault=false, translatedDescription=nieokreslono]], description=null], BodyType [bodyTypeId=2, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=2, language=en-UK, isDefault=true, translatedDescription=ectomorph], BodyTypeTranslations [btTranslationId=6, language=pl-PL, isDefault=false, translatedDescription=ektomorficzny]], description=null], BodyType [bodyTypeId=3, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=3, language=en-UK, isDefault=true, translatedDescription=mesomorph], BodyTypeTranslations [btTranslationId=7, language=pl-PL, isDefault=false, translatedDescription=mezomorficzny]], description=null], BodyType [bodyTypeId=4, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=4, language=en-UK, isDefault=true, translatedDescription=endomorph], BodyTypeTranslations [btTranslationId=8, language=pl-PL, isDefault=false, translatedDescription=endomorficzny]], description=null]]>";
+		String str1 = "<[BodyType [bodyTypeId=1, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=1, language=en-GB, isDefault=true, translatedDescription=none], BodyTypeTranslations [btTranslationId=5, language=pl-PL, isDefault=false, translatedDescription=nieokreslono]], description=null], BodyType [bodyTypeId=2, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=2, language=en-GB, isDefault=true, translatedDescription=ectomorph], BodyTypeTranslations [btTranslationId=6, language=pl-PL, isDefault=false, translatedDescription=ektomorficzny]], description=null], BodyType [bodyTypeId=3, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=3, language=en-GB, isDefault=true, translatedDescription=mesomorph], BodyTypeTranslations [btTranslationId=7, language=pl-PL, isDefault=false, translatedDescription=mezomorficzny]], description=null], BodyType [bodyTypeId=4, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=4, language=en-GB, isDefault=true, translatedDescription=endomorph], BodyTypeTranslations [btTranslationId=8, language=pl-PL, isDefault=false, translatedDescription=endomorficzny]], description=null]]>";
+		String str2 = "<[BodyType [bodyTypeId=1, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=1, language=en-GB, isDefault=true, translatedDescription=none], BodyTypeTranslations [btTranslationId=5, language=pl-PL, isDefault=false, translatedDescription=nieokreslono]], description=null], BodyType [bodyTypeId=2, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=2, language=en-GB, isDefault=true, translatedDescription=ectomorph], BodyTypeTranslations [btTranslationId=6, language=pl-PL, isDefault=false, translatedDescription=ektomorficzny]], description=null], BodyType [bodyTypeId=3, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=3, language=en-GB, isDefault=true, translatedDescription=mesomorph], BodyTypeTranslations [btTranslationId=7, language=pl-PL, isDefault=false, translatedDescription=mezomorficzny]], description=null], BodyType [bodyTypeId=4, bodyTypeTranslations=[BodyTypeTranslations [btTranslationId=4, language=en-GB, isDefault=true, translatedDescription=endomorph], BodyTypeTranslations [btTranslationId=8, language=pl-PL, isDefault=false, translatedDescription=endomorficzny]], description=null]]>";
 		
 		System.out.println(str1.equals(str2));
 		
@@ -64,8 +64,8 @@ public class BodyTypeDaoTest extends GenericDaoTestUtils<BodyType> {
 	@Test
 	public void whenFindById2_ThenReturnBodyTypeEctomorphic() throws Exception {
 		BodyType ecto = new BodyType();
-		BodyTypeTranslation ectoEngTranslation = new BodyTypeTranslation(2, "en-UK", true, "ectomorph");
-		BodyTypeTranslation ectoPlTranslation = new BodyTypeTranslation(6, "pl-PL", false, "ektomorficzny");
+		BodyTypeTranslation ectoEngTranslation = new BodyTypeTranslation(2, "en-GB", "ectomorph");
+		BodyTypeTranslation ectoPlTranslation = new BodyTypeTranslation(6, "pl-PL", "ektomorficzny");
 		ecto.setBodyTypeId(2);
 		ecto.setBodyTypeTranslations(Arrays.asList(ectoEngTranslation, ectoPlTranslation));
 		

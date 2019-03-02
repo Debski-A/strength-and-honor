@@ -12,7 +12,7 @@
 	<mvc:resources mapping="/static/**" location="classpath:static/" />
 
 	<!-- TemplateResolver <- TemplateEngine <- ViewResolver -->
-
+	
 	<bean id="templateResolver"
 		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
 		<property name="characterEncoding" value="UTF-8" />
@@ -43,9 +43,9 @@
 
 	<!-- LOCALE RESOLVER FOR TESTING i18n -->
 	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-		<property name="defaultLocale" value="pl_PL" />
-		<!-- <property name="defaultLocale" value="en_UK"/> FOR ENGLISH -->
+		class="com.gladigator.Configs.ApplicationLocaleResolver">
+		<!-- <property name="defaultLocale" value="pl_PL" />  -->
+		<property name="defaultLocale" value="en_GB"/> 
 	</bean>
 
 	<mvc:interceptors>

@@ -28,6 +28,11 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
+	/**
+	 * Offset liczony jest od konca agregacji, czyli np jak mamy post1, post2, post3
+	 * to offset = 2 zwroci post2 i post 3, offset = 3 zwroci post1, post2 i post3 
+	 * a offset=0 zwroci pusta liste
+	 */
 	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset) {
 		Integer start = calculateStartInterval(offset);
 		TypedQuery<Post> query = getSession().createQuery("from Post", Post.class);
@@ -43,7 +48,9 @@ public class PostDaoImpl implements PostDao {
 		String countQ = "select count (postId) from Post";
 		TypedQuery<Long> countQuery = getSession().createQuery(countQ, Long.class);
 		Integer countResults = countQuery.getSingleResult().intValue();
-		return countResults - offset;
+		int result = countResults - offset;
+		if (result < 0) return 0;
+		return result;
 	}
 
 	@Override

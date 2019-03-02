@@ -58,64 +58,20 @@
 				</configuration>
 			</plugin>
 
-			<!-- JOOQ 
-			<plugin>
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq-codegen-maven</artifactId>
-
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-
-				<dependencies />
-
-				<configuration>
-					<jdbc>
-						<driver>com.mysql.cj.jdbc.Driver</driver>
-						<url>jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET</url>
-						<user>SaH_user</user>
-						<password>herflik1</password>
-					</jdbc>
-
-					<generator>
-						<database>
-							<name>org.jooq.meta.mysql.MySQLDatabase</name>
-							<includes>.*</includes>
-							<excludes></excludes>
-							<inputSchema>sah_db</inputSchema>
-						</database>
-						<target>
-							<packageName>com.gladigator.Jooq</packageName>
-							<directory>target/generated-sources/jooq/production</directory>
-						</target>
-					</generator>
-				</configuration> 
-				
-				<configuration>
-					<jdbc>
-						<driver>org.h2.Driver</driver>
-						<url>jdbc:h2:mem:sah_db;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS sah_db</url>
-						<user>sa</user>
-						<password></password>
-					</jdbc>
-					<generator>
-						<database>
-							<name>org.jooq.meta.h2.H2Database</name>
-							<includes>.*</includes>
-							<excludes></excludes>
-							<inputSchema>PUBLIC</inputSchema>
-						</database>
-						<target>
-							<packageName>com.gladigator.Jooq.h2</packageName>
-							<directory>target/generated-sources/jooq/test</directory>
-						</target>
-					</generator>
-				</configuration>
-			</plugin>-->
+			<!-- JOOQ <plugin> <groupId>org.jooq</groupId> <artifactId>jooq-codegen-maven</artifactId> 
+				<executions> <execution> <goals> <goal>generate</goal> </goals> </execution> 
+				</executions> <dependencies /> <configuration> <jdbc> <driver>com.mysql.cj.jdbc.Driver</driver> 
+				<url>jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET</url> <user>SaH_user</user> 
+				<password>herflik1</password> </jdbc> <generator> <database> <name>org.jooq.meta.mysql.MySQLDatabase</name> 
+				<includes>.*</includes> <excludes></excludes> <inputSchema>sah_db</inputSchema> 
+				</database> <target> <packageName>com.gladigator.Jooq</packageName> <directory>target/generated-sources/jooq/production</directory> 
+				</target> </generator> </configuration> <configuration> <jdbc> <driver>org.h2.Driver</driver> 
+				<url>jdbc:h2:mem:sah_db;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS 
+				sah_db</url> <user>sa</user> <password></password> </jdbc> <generator> <database> 
+				<name>org.jooq.meta.h2.H2Database</name> <includes>.*</includes> <excludes></excludes> 
+				<inputSchema>PUBLIC</inputSchema> </database> <target> <packageName>com.gladigator.Jooq.h2</packageName> 
+				<directory>target/generated-sources/jooq/test</directory> </target> </generator> 
+				</configuration> </plugin> -->
 		</plugins>
 	</build>
 
@@ -184,7 +140,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
-		
+
 		<!-- Eclipse nie moze udzwignac devtools -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
 			</dependency> -->
@@ -328,7 +284,7 @@
 			<artifactId>log4j-core</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- x<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 		</dependency>
@@ -341,7 +297,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- Java Mail - posiada potrzebna zaleznosc do JavaMailSender ze Srpinga -->
 		<dependency>
@@ -354,6 +310,14 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 
 	</dependencies>
 </project>
