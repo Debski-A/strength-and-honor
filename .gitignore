@@ -1,3 +1,4 @@
+logs/
 target/
 src/main/generated/
 !.mvn/wrapper/maven-wrapper.jar
