@@ -1,7 +1,7 @@
 const editor = pell.init({
   element: document.getElementById('editor'),
   onChange: html => {
-    document.getElementById('html-output').innerHTML = html
+    // do nothing onChange
   },
   defaultParagraphSeparator: 'p',
   styleWithCSS: false,
@@ -17,22 +17,43 @@ const editor = pell.init({
     'image',
     'link',
     {
-		name: 'publishPL',
-		icon: 'PublishPL',
-		title: 'PublishPL',
+		name: 'justifyLeft',
+		icon: 'JL',
+		title: 'Justify Left',
+		result: () => pell.exec('justifyLeft')
+    },
+    {
+		name: 'justifyCenter',
+		icon: 'JC',
+		title: 'Justify Center',
+		result: () => pell.exec('justifyCenter')
+    },
+    {
+		name: 'justifyRight',
+		icon: 'JR',
+		title: 'Justify Right',
+		result: () => pell.exec('justifyRight')
+    },
+    {
+		name: 'publish',
+		icon: 'Publish',
+		title: 'Publish',
 		result: () => {
 			var content = {};
-			content['content'] =  document.getElementById('html-output').innerHTML;
-			console.log(content);
+			content['content'] =  editor.content.innerHTML;
 			//content['postId'] = jesli bedzie podane id to update zamiast save
 			$.ajax({
 				url: 'post',
 				type: 'POST',
-				dataType : 'json',
-				'contentType': 'application/json',
+				async: true,
+				contentType: "application/json; charset=utf-8",
 				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 				data: JSON.stringify(content),
-				success : function (data) {
+				success : function () {
+					console.log('success');
+					window.location.href = '/';
+				},
+				error: function (data) {
 					console.log(data);
 				}
 			});
@@ -47,6 +68,3 @@ const editor = pell.init({
   }
 })
 
-// editor.content<HTMLElement>
-// To change the editor's content:
-editor.content.innerHTML = '<b><u><i>Initial content!</i></u></b>'

@@ -30,5 +30,17 @@ public class Role {
 
 	@ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<User> users;
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Role [roleId=");
+		builder.append(roleId);
+		builder.append(", role=");
+		builder.append(role);
+		builder.append("]");
+		return builder.toString();
+	}
+	
 	
 }

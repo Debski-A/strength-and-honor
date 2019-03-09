@@ -1,7 +1,7 @@
 package com.gladigator.Services;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ import com.gladigator.Exceptions.ServiceException;
 @Service
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
-	private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserDao userDao;

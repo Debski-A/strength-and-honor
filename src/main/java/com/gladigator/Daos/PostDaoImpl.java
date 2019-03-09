@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ import com.gladigator.Exceptions.RepositoryException;
 @Repository
 public class PostDaoImpl implements PostDao {
 
-	private static final Logger LOG = LogManager.getLogger(PostDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PostDaoImpl.class);
 
 	@Autowired
 	protected SessionFactory sessionFactory;

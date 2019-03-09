@@ -8,8 +8,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
@@ -28,9 +28,7 @@ public class RegisterUtils {
 	@Autowired
 	private MessageSource messageSource;
 	
-	private static final Logger LOG = LogManager.getLogger(RegisterUtils.class);
-	
-	private static final String SERVER_DOMAIN = "adam-debski.com";
+	private static final Logger LOG = LoggerFactory.getLogger(RegisterUtils.class);
 	
 	public String createLink(HttpServletRequest request, String confirmationToken) {
 		//String appUrl = request.getScheme() + "://" + gethostName(request) + ":" + request.getLocalPort() + request.getContextPath();
@@ -50,17 +48,6 @@ public class RegisterUtils {
 			appUrl = request.getScheme() + "://" + domainName + request.getContextPath();
 		}
 		return appUrl;
-	}
-	
-	private String gethostName(HttpServletRequest request) {
-		String hostName = null;
-		try {
-			hostName = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException e) {
-			LOG.error(e);
-			hostName = request.getServerName();
-		}
-		return hostName;
 	}
 	
 	public String generateToken() {

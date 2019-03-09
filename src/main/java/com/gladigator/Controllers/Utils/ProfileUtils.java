@@ -7,8 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ import com.gladigator.Services.UserService;
 @Component
 public class ProfileUtils {
 
-	private static final Logger LOG = LogManager.getLogger(ProfileUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ProfileUtils.class);
 
 	@Autowired
 	private UserDetailsService userDetailsService;

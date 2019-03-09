@@ -1,5 +1,7 @@
 package com.gladigator.integrationTests.Daos;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -8,8 +10,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import static org.hamcrest.Matchers.*;
+
 import org.hibernate.Session;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,37 +31,49 @@ public class PostDaoTest {
 
 	@Autowired
 	private PostDao dao;
-	
+
+	@Before
+	public void before() {
+		((PostDaoImpl) dao).getSession().createNativeQuery("ALTER TABLE posts ALTER COLUMN id_post RESTART WITH 1")
+				.executeUpdate();
+	}
+
 	@Test
 	public void shouldSaveDataToDatabase() throws Exception {
-		//given
+		// given
 		Post newPost = Post.builder().language("pl-PL").translatedContent("Kolejny polski post").build();
-		//when
+		// when
 		dao.saveOrUpdate(newPost);
-		//then
+		// then
 		if (dao instanceof PostDaoImpl) {
-			Session session = ((PostDaoImpl)dao).getSession();
-			Post postFromDatabase = session.get(Post.class, 3); //2 bo jeden row byl juz dodany w import.sql
+			Session session = ((PostDaoImpl) dao).getSession();
+			Post postFromDatabase = session.get(Post.class, 1);
 			assertThat(postFromDatabase.getTranslatedContent(), equalTo("Kolejny polski post"));
 		}
 	}
-	
+
 	@Test
 	public void shouldDeletePostFromDatabase() throws Exception {
-		//when
+		//given
+		Post newPost = new Post();
+		dao.saveOrUpdate(newPost);
+		// when
 		dao.deleteById(1);
-		//then
+		// then
 		if (dao instanceof PostDaoImpl) {
-			Session session = ((PostDaoImpl)dao).getSession();
+			Session session = ((PostDaoImpl) dao).getSession();
+			session.flush();
+			session.detach(newPost);
 			Post postFromDatabase = session.get(Post.class, 1);
 			assertNull(postFromDatabase);
 		}
 	}
-	
+
 	@Test
 	public void shouldGetFiveLatestPostsCountedFromGivenOffset() throws Exception {
-		//given
-		//post1 is inserted with import.sql
+		// given
+		Post post1 = new Post();
+		dao.saveOrUpdate(post1);
 		Post post2 = new Post();
 		dao.saveOrUpdate(post2);
 		Post post3 = new Post();
@@ -69,32 +84,31 @@ public class PostDaoTest {
 		dao.saveOrUpdate(post5);
 		Post post6 = new Post();
 		dao.saveOrUpdate(post6);
-		Post post7 = new Post();
-		dao.saveOrUpdate(post7);
-		
-		//when
+
+		// when
 		Integer offset = 6;
 		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
+
 		HashSet<Post> postsSet = new HashSet<>(posts);
-		
-		//then
-		assertTrue(postsSet.containsAll(Arrays.asList(post2, post3, post4, post5, post6)));
-		assertFalse(postsSet.contains(post7));
+
+		// then
+		assertTrue(postsSet.containsAll(Arrays.asList(post1, post2, post3, post4, post5)));
+		assertFalse(postsSet.contains(post6));
 	}
-	
+
 	@Test
 	public void shouldGetTwoPosts() throws Exception {
-		//given
-		//post1 is inserted with import.sql
+		// given
+		Post post1 = new Post();
 		Post post2 = new Post();
+		dao.saveOrUpdate(post1);
 		dao.saveOrUpdate(post2);
-		
-		//when
+
+		// when
 		Integer offset = 5;
 		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
 		HashSet<Post> postsSet = new HashSet<>(posts);
-		
-		//then
+		// then
 		assertThat(postsSet, hasSize(2));
 	}
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
@@ -9,77 +11,51 @@
 
 
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="com.gladigator.Daos">
+	<context:component-scan
+		base-package="com.gladigator.Daos">
 	</context:component-scan>
 
-	<!-- <beans profile="test">
-		<jee:jndi-lookup jndi-name="jdbc/sah_db" id="dataSource"
-			expected-type="javax.sql.DataSource">
-		</jee:jndi-lookup>
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET" />
+		<property name="maximumPoolSize" value="10" />
+		<property name="idleTimeout" value="600000" />
+		<property name="username" value="SaH_user" />
+		<property name="password" value="herflik1" />
 
-		<bean id="sessionFactory"
-			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-			<property name="dataSource" ref="dataSource" />
-			<property name="packagesToScan" value="com.gladigator.Entities" />
-			<property name="hibernateProperties">
-				<props>
-					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-					<prop key="hibernate.show_sql">true</prop>
-				</props>
-			</property>
-		</bean>
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="cachePrepStmts">true</prop>
+				<prop key="prepStmtCacheSize">250</prop>
+				<prop key="prepStmtCacheSqlLimit">2048</prop>
+			</props>
+		</property>
+	</bean>
 
-		<bean id="transactionManager"
-			class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-			<property name="sessionFactory" ref="sessionFactory" />
-		</bean>
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
 
-		<tx:annotation-driven />
-	</beans>  -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan"
+			value="com.gladigator.Entities" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
 
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
-	<!-- <beans profile="production">  -->
-
-		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET" />
-			<property name="maximumPoolSize" value="10" />
-			<property name="idleTimeout" value="600000" />
-			<property name="username" value="SaH_user"/>
-			<property name="password" value="herflik1"/>
-
-			<property name="dataSourceProperties">
-				<props>
-					<prop key="cachePrepStmts">true</prop>
-					<prop key="prepStmtCacheSize">250</prop>
-					<prop key="prepStmtCacheSqlLimit">2048</prop>
-				</props>
-			</property>
-		</bean>
-
-		<!-- HikariCP configuration -->
-		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-			destroy-method="close">
-			<constructor-arg ref="hikariConfig" />
-		</bean>
-
-		<bean id="sessionFactory"
-			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-			<property name="dataSource" ref="dataSource" />
-			<property name="packagesToScan" value="com.gladigator.Entities" />
-			<property name="hibernateProperties">
-				<props>
-					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-					<prop key="hibernate.show_sql">true</prop>
-				</props>
-			</property>
-		</bean>
-
-		<bean id="transactionManager"
-			class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-			<property name="sessionFactory" ref="sessionFactory" />
-		</bean>
-
-		<tx:annotation-driven />
-	<!-- </beans>  -->
+	<tx:annotation-driven />
 </beans>

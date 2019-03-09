@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import com.gladigator.Services.UserService;
 @Controller
 public class RegisterController {
 	
-	private static final Logger LOG = LogManager.getLogger(RegisterController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RegisterController.class);
 
 	@Autowired
 	private UserService userService;

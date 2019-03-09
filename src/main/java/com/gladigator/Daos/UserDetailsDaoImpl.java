@@ -1,8 +1,8 @@
 package com.gladigator.Daos;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.gladigator.Entities.UserDetails;
@@ -15,7 +15,7 @@ public class UserDetailsDaoImpl extends GenericDaoImpl<UserDetails> implements U
 		super(UserDetails.class);
 	}
 
-	private static final Logger LOG = LogManager.getLogger(UserDetailsDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UserDetailsDaoImpl.class);
 	
 	@SuppressWarnings("rawtypes")
 	public void deleteUserDetailsById(Integer id) {

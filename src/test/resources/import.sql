@@ -43,9 +43,6 @@ INSERT INTO sex_translations (id_sex_translations, language, description, id_sex
 INSERT INTO sex_translations (id_sex_translations, language, description, id_sex) VALUES (3, 'pl-PL', 'mężczyzna', 1);
 INSERT INTO sex_translations (id_sex_translations, language, description, id_sex) VALUES (4, 'pl-PL', 'kobieta', 2);
 
-ALTER TABLE posts ALTER COLUMN id_post RESTART WITH 1
-
-INSERT INTO posts (id_post, language, content) VALUES (1, 'pl-PL', 'Post po polsku');
 
 --User Adam
 --INSERT INTO users (id_user, username, password, email, enabled) VALUES (1, 'adam', 'test', 'adam@gmail.com', true);

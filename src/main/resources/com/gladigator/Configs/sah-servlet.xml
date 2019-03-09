@@ -11,8 +11,6 @@
 
 	<mvc:resources mapping="/static/**" location="classpath:static/" />
 
-	<!-- TemplateResolver <- TemplateEngine <- ViewResolver -->
-	
 	<bean id="templateResolver"
 		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
 		<property name="characterEncoding" value="UTF-8" />
@@ -41,7 +39,6 @@
 		<property name="basename" value="classpath:i18n/messages" />
 	</bean>
 
-	<!-- LOCALE RESOLVER FOR TESTING i18n -->
 	<bean id="localeResolver"
 		class="com.gladigator.Configs.ApplicationLocaleResolver">
 		<!-- <property name="defaultLocale" value="pl_PL" />  -->
@@ -59,8 +56,6 @@
 
 	<context:component-scan base-package="com.gladigator.Controllers"></context:component-scan>
 
-	<!-- Scans within the base package of the application for @Component classes 
-		to configure as beans -->
 	<context:annotation-config />
 	
 </beans>

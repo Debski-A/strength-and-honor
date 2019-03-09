@@ -5,4 +5,21 @@
 5. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
 
-PostDaoTest Czemu 3 a nie 2 ?????
+Edycja napisanych juz postów
+
+Usuwanie napisanych już postów
+
+Oddzielenie postów od siebie, potrzebny jest biały pas oddzielający post od posta
+
+Zapisywanie Autora postu i daty do bazy aby pózniej wyswietlac te informacje
+w footerze postu
+
+*EXTRA* Kopiowany obraz w poscie powinien sie zapisywac gdzies na serwerze, a pozniej
+byc z tego miejsca pobierany (obecnie obrazy pobierane sa z zew. zrodel. W momencie
+kiedy zrodlo nie bedzie dostepne obraz nie bedzie wyswietlany)
+
+Umożliwienie dodawania komentarzy do postów przez zalogowanych uzytkownikow
+
+zaimplementować chat dla uzytkownikow
+
+Entities -> User i UserDetails nie uzywa jeszcze Lombok'a

@@ -45,18 +45,15 @@
 
 		<!-- content -->
 		<div class="container-fluid">
-			<div th:if="${postInvoked}">
-				<div id="html-output" style="white-space: pre-wrap;"></div>
-			</div>
-
-			<table>
-				<th:block th:each="post : ${posts}">
-					<tr>
-						<td>
-							<div th:text="${post.content}"></div>
-						</td>
-					</tr>
-				</th:block>
+			<table class="table">
+				<tr th:each="post : ${posts}">
+					<td class="post-content">
+						<div th:utext="${post.content}"></div>
+						<div class="post-footer">
+							<span>2019-02-28</span>, <span>Adam Dębski</span>
+						</div>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -68,9 +65,11 @@
 		</div>
 	</footer>
 
-	<script src="https://unpkg.com/pell"></script>
-	<span th:if="${postInvoked}"><script
-			th:src="@{/static/js/pell.js}"></script></span>
+
+	<span th:if="${postInvoked}"> <script
+			th:src="@{/static/js/pell-core.min.js}"></script> <script
+			th:src="@{/static/js/pell.js}"></script>
+	</span>
 
 </body>
 </html>

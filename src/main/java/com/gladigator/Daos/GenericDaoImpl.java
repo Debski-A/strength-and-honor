@@ -6,18 +6,18 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gladigator.Exceptions.RepositoryException;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T>{
 	
-	private static final Logger LOG = LogManager.getLogger(GenericDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(GenericDaoImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;

@@ -32,7 +32,7 @@ public class HomeUtilsTest {
 	@Test
 	public void shouldPreparePostEntityWithEnglishContent() throws Exception {
 		//given
-		PostDto postDto = new PostDto("content=Some content");
+		PostDto postDto = new PostDto("Some content");
 		Locale locale = Locale.UK;
 		//when	
 		Post preparedPostEntity = homeUtils.prepareLanguageSpecificPostEntity(postDto, locale);
@@ -55,6 +55,6 @@ public class HomeUtilsTest {
 		PostDto expectedDto2 = PostDto.builder().postId(2).content("Another post").build();
 		//then
 		assertThat(preparedDtos, hasSize(2));
-		assertThat(preparedDtos, contains(equalTo(expectedDto1), equalTo(expectedDto2)));
+		assertThat(preparedDtos, contains(equalTo(expectedDto2), equalTo(expectedDto1)));
 	}
 }

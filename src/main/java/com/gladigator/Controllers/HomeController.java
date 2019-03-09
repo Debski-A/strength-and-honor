@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gladigator.Controllers.Utils.HomeUtils;
@@ -50,12 +50,13 @@ public class HomeController {
 		return "homepage";
 	}
 
-	@PostMapping(value = "/post", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String saveDivContentToDatabase(@RequestBody PostDto body, Locale locale) {
+	@PostMapping(value = "/post")
+	public @ResponseBody PostDto saveDivContentToDatabase(@RequestBody PostDto body, Locale locale) {
 		Post preparePostEntity = utils.prepareLanguageSpecificPostEntity(body, locale);
 		postService.saveOrUpdate(preparePostEntity);
 		
-		return "homepage";
+		//You can't redirect from AJAX to different PAGE. You need to handle it via Script only. 
+		return null;
 	}
 
 }
