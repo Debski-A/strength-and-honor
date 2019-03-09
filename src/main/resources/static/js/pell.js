@@ -41,6 +41,7 @@ const editor = pell.init({
 		result: () => {
 			var content = {};
 			content['content'] =  editor.content.innerHTML;
+			content['latestUpdate'] = currentDate();
 			//content['postId'] = jesli bedzie podane id to update zamiast save
 			$.ajax({
 				url: 'post',
@@ -68,3 +69,16 @@ const editor = pell.init({
   }
 })
 
+function currentDate() {
+	var d = new Date();
+
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+
+
+	var output = d.getFullYear() + '-' +
+	    ((''+month).length<2 ? '0' : '') + month + '-' +
+	    ((''+day).length<2 ? '0' : '') + day;
+	
+	return output;
+}

@@ -50,7 +50,7 @@
 					<td class="post-content">
 						<div th:utext="${post.content}"></div>
 						<div class="post-footer">
-							<span>2019-02-28</span>, <span>Adam Dębski</span>
+							<span th:text="${post.latestUpdate}">2019-02-28</span>, <span th:text="${post.owner}">Adam Dębski</span>
 						</div>
 					</td>
 				</tr>

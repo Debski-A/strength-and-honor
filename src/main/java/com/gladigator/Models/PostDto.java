@@ -14,9 +14,13 @@ public class PostDto {
 	public PostDto(String content) {
 		this.content = content;
 	}
+	private Integer postId;
 	
 	private String content;
 	
-	private Integer postId;
+	private String latestUpdate;
+	
+	private String owner;
+	
 
 }

@@ -1,5 +1,7 @@
 package com.gladigator.Entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,5 +32,11 @@ public class Post {
 	
 	@Column(name="content")
 	private String translatedContent;
+	
+	@Column(name="latest_update")
+	private LocalDate latestUpdate;
+	
+	@Column(name="owner")
+	private String owner;
 
 }

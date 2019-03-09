@@ -92,7 +92,7 @@ public class HomeControllerTest {
 	@Transactional
 	@Test
 	public void test() throws Exception {
-		mockMvc.perform(post("/post").content("{ \"content\": \"some content\" }").with(csrf()).contentType(MediaType.APPLICATION_JSON_UTF8).locale(Locale.UK))
+		mockMvc.perform(post("/post").principal(() -> "Admin").content("{ \"content\": \"some content\", \"latestUpdate\": \"2019-03-04\" }").with(csrf()).contentType(MediaType.APPLICATION_JSON_UTF8).locale(Locale.UK))
 				.andExpect(status().isOk());
 	}
 

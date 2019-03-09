@@ -1,5 +1,6 @@
 package com.gladigator.Controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +52,9 @@ public class HomeController {
 	}
 
 	@PostMapping(value = "/post")
-	public @ResponseBody PostDto saveDivContentToDatabase(@RequestBody PostDto body, Locale locale) {
+	public @ResponseBody PostDto saveDivContentToDatabase(@RequestBody PostDto body, Principal principal, Locale locale) {
+		String authenticatedUser = principal.getName();
+		body.setOwner(authenticatedUser);
 		Post preparePostEntity = utils.prepareLanguageSpecificPostEntity(body, locale);
 		postService.saveOrUpdate(preparePostEntity);
 		
