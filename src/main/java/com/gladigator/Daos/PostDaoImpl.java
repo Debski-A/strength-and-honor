@@ -41,6 +41,7 @@ public class PostDaoImpl implements PostDao {
 		List<Post> posts = query.getResultList();
 		
 		LOG.info("Got {} last entities starting from row {}", posts.size(), start);
+		LOG.debug("Posts list: {}", posts);
 		return posts;
 	}
 
