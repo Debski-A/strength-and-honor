@@ -87,7 +87,8 @@ public class PostDaoTest {
 
 		// when
 		Integer offset = 6;
-		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
+		Integer numberOfPosts = 6;
+		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset, numberOfPosts);
 
 		HashSet<Post> postsSet = new HashSet<>(posts);
 
@@ -106,9 +107,22 @@ public class PostDaoTest {
 
 		// when
 		Integer offset = 5;
-		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
+		Integer numberOfPosts = 2;
+		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset, numberOfPosts);
 		HashSet<Post> postsSet = new HashSet<>(posts);
 		// then
 		assertThat(postsSet, hasSize(2));
+	}
+	
+	@Test
+	public void countNumberOfPostsShouldReturn5() throws Exception {
+		//given
+		for (int i = 0; i < 5; i++) {
+			dao.saveOrUpdate(new Post());
+		}
+		//when
+		Integer result = dao.countNumberOfPosts();
+		//then
+		assertThat(result, equalTo(5));
 	}
 }

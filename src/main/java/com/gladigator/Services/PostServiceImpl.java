@@ -16,10 +16,15 @@ public class PostServiceImpl implements PostService {
 	
 	@Autowired
 	private PostDao postDao;
+	
+	@Override
+	public Integer countNumberOfPosts() {
+		return postDao.countNumberOfPosts();
+	}
 
 	@Override
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset) {
-		return postDao.getFiveLatestPostsCountedFromGivenOffset(offset);
+	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset, Integer numberOfPosts) {
+		return postDao.getFiveLatestPostsCountedFromGivenOffset(offset, numberOfPosts);
 	}
 
 	@Override

@@ -26,6 +26,15 @@ public class PostDaoImpl implements PostDao {
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
+	
+	public Integer countNumberOfPosts() {
+		String countQ = "select count (postId) from Post";
+		TypedQuery<Long> countQuery = getSession().createQuery(countQ, Long.class);
+		Integer countResults = countQuery.getSingleResult().intValue();
+		LOG.debug("Number of posts in db = {}", countResults);
+		
+		return countResults;
+	}
 
 	@Override
 	/**
@@ -33,8 +42,8 @@ public class PostDaoImpl implements PostDao {
 	 * to offset = 2 zwroci post2 i post 3, offset = 3 zwroci post1, post2 i post3 
 	 * a offset=0 zwroci pusta liste
 	 */
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset) {
-		Integer start = calculateStartInterval(offset);
+	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset, Integer numberOfPosts) {
+		Integer start = calculateStartInterval(offset, numberOfPosts);
 		TypedQuery<Post> query = getSession().createQuery("from Post", Post.class);
 		query.setFirstResult(start);
 		query.setMaxResults(5);
@@ -44,12 +53,9 @@ public class PostDaoImpl implements PostDao {
 		LOG.debug("Posts list: {}", posts);
 		return posts;
 	}
-
-	private Integer calculateStartInterval(Integer offset) {
-		String countQ = "select count (postId) from Post";
-		TypedQuery<Long> countQuery = getSession().createQuery(countQ, Long.class);
-		Integer countResults = countQuery.getSingleResult().intValue();
-		int result = countResults - offset;
+	
+	private Integer calculateStartInterval(Integer offset, Integer numberOfPosts) {
+		int result = numberOfPosts - offset;
 		if (result < 0) return 0;
 		return result;
 	}

@@ -9,6 +9,8 @@ Edycja napisanych juz postów
 
 Usuwanie napisanych już postów
 
+5 postów na strone
+
 Oddzielenie postów od siebie, potrzebny jest biały pas oddzielający post od posta
 
 *EXTRA* Kopiowany obraz w poscie powinien sie zapisywac gdzies na serwerze, a pozniej
