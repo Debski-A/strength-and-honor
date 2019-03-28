@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.Session;
 import org.junit.Before;
@@ -72,57 +73,68 @@ public class PostDaoTest {
 	@Test
 	public void shouldGetFiveLatestPostsCountedFromGivenOffset() throws Exception {
 		// given
-		Post post1 = new Post();
+		Post post1 = Post.builder().language("pl-PL").build();
 		dao.saveOrUpdate(post1);
-		Post post2 = new Post();
+		Post post2 = Post.builder().language("pl-PL").build();
 		dao.saveOrUpdate(post2);
-		Post post3 = new Post();
+		Post post3 = Post.builder().language("pl-PL").build();
 		dao.saveOrUpdate(post3);
-		Post post4 = new Post();
+		Post post4 = Post.builder().language("en-GB").build();
 		dao.saveOrUpdate(post4);
-		Post post5 = new Post();
+		Post post5 = Post.builder().language("pl-PL").build();
 		dao.saveOrUpdate(post5);
-		Post post6 = new Post();
+		Post post6 = Post.builder().language("pl-PL").build();
 		dao.saveOrUpdate(post6);
+		Post post7 = Post.builder().language("en-GB").build();
+		dao.saveOrUpdate(post7);
+		Post post8 = Post.builder().language("en-GB").build();
+		dao.saveOrUpdate(post8);
+		Post post9 = Post.builder().language("pl-PL").build();
+		dao.saveOrUpdate(post9);
 
 		// when
 		Integer offset = 6;
-		Integer numberOfPosts = 6;
-		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset, numberOfPosts);
+		Locale locale = Locale.forLanguageTag("pl-PL");
+		List<Post> posts = dao.getFiveLatestLanguageSpecificPostsCountedFromGivenOffset(offset, locale);
 
 		HashSet<Post> postsSet = new HashSet<>(posts);
 
 		// then
-		assertTrue(postsSet.containsAll(Arrays.asList(post1, post2, post3, post4, post5)));
-		assertFalse(postsSet.contains(post6));
+		assertTrue(postsSet.containsAll(Arrays.asList(post1, post2, post3, post5, post6)));
+		assertFalse(postsSet.containsAll(Arrays.asList(post4, post7, post8, post9)));
 	}
 
 	@Test
 	public void shouldGetTwoPosts() throws Exception {
 		// given
-		Post post1 = new Post();
-		Post post2 = new Post();
+		Post post1 = Post.builder().language("pl-PL").build();
+		Post post2 = Post.builder().language("pl-PL").build();
+		Post post3 = Post.builder().language("en-GB").build();
+		Post post4 = Post.builder().language("en-GB").build();
 		dao.saveOrUpdate(post1);
 		dao.saveOrUpdate(post2);
+		dao.saveOrUpdate(post3);
+		dao.saveOrUpdate(post4);
 
 		// when
 		Integer offset = 5;
-		Integer numberOfPosts = 2;
-		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset, numberOfPosts);
+		Locale locale = Locale.forLanguageTag("en-GB");
+		List<Post> posts = dao.getFiveLatestLanguageSpecificPostsCountedFromGivenOffset(offset, locale);
 		HashSet<Post> postsSet = new HashSet<>(posts);
 		// then
 		assertThat(postsSet, hasSize(2));
 	}
 	
 	@Test
-	public void countNumberOfPostsShouldReturn5() throws Exception {
+	public void countNumberOfPostsShouldReturn2() throws Exception {
 		//given
-		for (int i = 0; i < 5; i++) {
-			dao.saveOrUpdate(new Post());
-		}
+		dao.saveOrUpdate(Post.builder().language("pl-PL").build());
+		dao.saveOrUpdate(Post.builder().language("pl-PL").build());
+		dao.saveOrUpdate(Post.builder().language("en-GB").build());
+		Locale pl = Locale.forLanguageTag("pl-PL");
 		//when
-		Integer result = dao.countNumberOfPosts();
+		Integer result = dao.countNumberOfLanguageSpecificPosts(pl);
 		//then
-		assertThat(result, equalTo(5));
+		assertThat(result, equalTo(2));
 	}
 }

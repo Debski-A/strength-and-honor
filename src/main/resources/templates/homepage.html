@@ -42,6 +42,8 @@
 		<div th:if="${postInvoked}">
 			<div id="editor" class="pell"></div>
 		</div>
+		
+		<input type="hidden" id="numberOfPosts" th:value="${numberOfPosts}"/>
 
 		<!-- content -->
 		<div class="container-fluid">
@@ -61,11 +63,8 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
-					Tu dodaj ilosc stron przy pomocy obiektu z modelu (numberOfPages). 
-					Zaimplementuj logike w homepage.js
-				</tr>
 			</table>
+			<div id="selectPageButtons" style="text-align: center;"></div>
 		</div>
 	</div>
 

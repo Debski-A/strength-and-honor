@@ -13,8 +13,8 @@ public class ApplicationLocaleResolver extends CookieLocaleResolver {
 	
 	public ApplicationLocaleResolver() {
 		managedLocales = new HashSet<>();
-		managedLocales.add(new Locale("pl", "PL"));
-		managedLocales.add(new Locale("en", "GB"));
+		managedLocales.add(Locale.forLanguageTag("pl-PL"));
+		managedLocales.add(Locale.forLanguageTag("en-GB"));
 	}
 
 	@Override

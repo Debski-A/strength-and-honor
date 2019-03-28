@@ -1,6 +1,7 @@
 package com.gladigator.Daos;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.TypedQuery;
 
@@ -26,37 +27,41 @@ public class PostDaoImpl implements PostDao {
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
-	public Integer countNumberOfPosts() {
-		String countQ = "select count (postId) from Post";
+
+	public Integer countNumberOfLanguageSpecificPosts(Locale locale) {
+		String countQ = "SELECT COUNT (p) FROM Post p WHERE p IN (SELECT p FROM Post p WHERE p.language = '"
+				+ locale.toLanguageTag() + "')";
 		TypedQuery<Long> countQuery = getSession().createQuery(countQ, Long.class);
 		Integer countResults = countQuery.getSingleResult().intValue();
 		LOG.debug("Number of posts in db = {}", countResults);
-		
+
 		return countResults;
 	}
 
 	@Override
 	/**
 	 * Offset liczony jest od konca agregacji, czyli np jak mamy post1, post2, post3
-	 * to offset = 2 zwroci post2 i post 3, offset = 3 zwroci post1, post2 i post3 
-	 * a offset=0 zwroci pusta liste
+	 * to offset = 2 zwroci post2 i post 3, offset = 3 zwroci post1, post2 i post3 a
+	 * offset=0 zwroci pusta liste.
 	 */
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset, Integer numberOfPosts) {
+	public List<Post> getFiveLatestLanguageSpecificPostsCountedFromGivenOffset(Integer offset, Locale locale) {
+		Integer numberOfPosts = countNumberOfLanguageSpecificPosts(locale);
 		Integer start = calculateStartInterval(offset, numberOfPosts);
-		TypedQuery<Post> query = getSession().createQuery("from Post", Post.class);
+		TypedQuery<Post> query = getSession().createQuery("from Post where language = '" + locale.toLanguageTag() + "'",
+				Post.class);
 		query.setFirstResult(start);
 		query.setMaxResults(5);
 		List<Post> posts = query.getResultList();
-		
+
 		LOG.info("Got {} last entities starting from row {}", posts.size(), start);
 		LOG.debug("Posts list: {}", posts);
 		return posts;
 	}
-	
+
 	private Integer calculateStartInterval(Integer offset, Integer numberOfPosts) {
 		int result = numberOfPosts - offset;
-		if (result < 0) return 0;
+		if (result < 0)
+			return 0;
 		return result;
 	}
 

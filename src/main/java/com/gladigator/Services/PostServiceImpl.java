@@ -1,6 +1,7 @@
 package com.gladigator.Services;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -18,13 +19,13 @@ public class PostServiceImpl implements PostService {
 	private PostDao postDao;
 	
 	@Override
-	public Integer countNumberOfPosts() {
-		return postDao.countNumberOfPosts();
+	public Integer countNumberOfLanguageSpecificPosts(Locale locale) {
+		return postDao.countNumberOfLanguageSpecificPosts(locale);
 	}
 
 	@Override
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset, Integer numberOfPosts) {
-		return postDao.getFiveLatestPostsCountedFromGivenOffset(offset, numberOfPosts);
+	public List<Post> getFiveLatestLanguageSpecificPostsCountedFromGivenOffset(Integer offset, Locale locale) {
+		return postDao.getFiveLatestLanguageSpecificPostsCountedFromGivenOffset(offset, locale);
 	}
 
 	@Override

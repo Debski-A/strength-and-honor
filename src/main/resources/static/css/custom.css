@@ -26,12 +26,30 @@ body {
 	background-color: #eee;
 }
 
+.pageNavigationButton {
+	/*border-radius: 50%;*/
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-left: 50px solid #EEEEEE;
+	border-bottom: 25px solid transparent;
+}
+
+.pageNavigationInput {
+	width: 25px;
+	height: 100%;
+	border-radius: 25px;
+	background: #EEEEEE;
+	text-align: center;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 img {
 	max-width: 100%;
 	max-height: 100%;
 }
+
 body>.container {
 	padding: 15px 15px 0;
 }
@@ -79,7 +97,6 @@ code {
 }
 
 /* Post div */
-
 .post-content {
 	background-color: #eee;
 	padding: 30px !important;

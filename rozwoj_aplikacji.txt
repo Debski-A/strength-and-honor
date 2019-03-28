@@ -7,7 +7,7 @@
 
 Edycja napisanych juz postów
 
-Usuwanie napisanych już postów
+trojkatne page navigation buttony css -> https://css-tricks.com/the-shapes-of-css/
 
 5 postów na strone
 

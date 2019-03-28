@@ -48,18 +48,15 @@ public class HomeUtilsTest {
 	}
 
 	@Test
-	public void shouldPreparePostDtosOnlyForProvidedLocale() throws Exception {
+	public void shouldPreparePostDtos() throws Exception {
 		// given
-		Locale providedLocale = Locale.UK;
 		Post englishPost = Post.builder().postId(1).language("en-GB").translatedContent("English post")
 				.latestUpdate(LocalDate.parse("2019-03-04")).build();
 		Post englishPost2 = Post.builder().postId(2).language("en-GB").translatedContent("Another post")
 				.latestUpdate(LocalDate.parse("2019-03-04")).build();
-		Post polishPost = Post.builder().postId(3).language("pl-PL").translatedContent("Post po polsku")
-				.latestUpdate(LocalDate.parse("2019-03-04")).build();
 		// when
 		List<PostDto> preparedDtos = homeUtils
-				.prepareLanguageSpecificPostsDtos(Arrays.asList(englishPost, englishPost2, polishPost), providedLocale);
+				.preparePostsDtos(Arrays.asList(englishPost, englishPost2));
 		PostDto expectedDto1 = PostDto.builder().postId(1).content("English post").latestUpdate("2019-03-04").build();
 		PostDto expectedDto2 = PostDto.builder().postId(2).content("Another post").latestUpdate("2019-03-04").build();
 		// then
