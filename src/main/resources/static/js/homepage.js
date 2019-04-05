@@ -1,7 +1,11 @@
 var globalNumberOfPosts;
+var currentPage;
 
 $(document).ready(function(){
 	globalNumberOfPosts = $('#numberOfPosts').val();
+	if (currentPage === null) {
+		currentPage = 1;
+	}
 	generatePageNavigationButtons();
 });
 
@@ -20,9 +24,9 @@ function generatePageNavigationButtons() {
 		var firstPageButton =  $('<button/>', {
 	        text: firstPage, 
 	        id: 'firstPageButton',
-	        class: 'pageNavigationButton btn btn-sm',
+	        class: 'pageNavigation',
 	        click: function () { 
-	        	alert('firstPageButton clicked'); 
+	        	window.location.href = '/';
 	        }
 	    });
 		
@@ -31,15 +35,16 @@ function generatePageNavigationButtons() {
 	        text: '...',
 	        placeholder: '...',
 	        id: 'inputInMiddle',
-	        class: 'pageNavigationInput'
+	        class: 'pageNavigation'
 	    });
 		
 		var lastPageButton =  $('<button/>', {
 	        text: lastPage, 
 	        id: 'lastPageButton',
-	        class: 'pageNavigationButton btn btn-sm',
+	        class: 'pageNavigation',
 	        click: function () { 
-	        	alert('lastPageButton clicked'); 
+	        	var offset = calculateOffsetForLastPage(lastPage);
+	        	window.location.href = '/?offset=' + offset; 
 	        }
 	    });
 		
@@ -49,13 +54,16 @@ function generatePageNavigationButtons() {
 	}
 }
 
+function calculateOffsetForLastPage(lastPage) {
+	return lastPage * 5;
+}
+
 function editPost() {
 	console.log("In editPost");
 	
 }
 
 function deletePost(postId) {
-	console.log("deletePost, postId = " + postId + " csrf = " +  $("input[name='_csrf']").val());
 	$.ajax({
 		url: '/post?postId=' + postId,
 		type: 'DELETE',
