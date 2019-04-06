@@ -7,12 +7,11 @@
 
 Edycja napisanych juz postów
 
-Usuwanie napisanych już postów
+trojkatne page navigation buttony css -> https://css-tricks.com/the-shapes-of-css/
+
+5 postów na strone
 
 Oddzielenie postów od siebie, potrzebny jest biały pas oddzielający post od posta
-
-Zapisywanie Autora postu i daty do bazy aby pózniej wyswietlac te informacje
-w footerze postu
 
 *EXTRA* Kopiowany obraz w poscie powinien sie zapisywac gdzies na serwerze, a pozniej
 byc z tego miejsca pobierany (obecnie obrazy pobierane sa z zew. zrodel. W momencie

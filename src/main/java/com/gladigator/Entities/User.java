@@ -65,5 +65,14 @@ public class User {
 	            joinColumns = @JoinColumn(name = "id_user"),
 	            inverseJoinColumns = @JoinColumn(name = "id_role"))
 	private List<Role> roles;
-	
+
+	public User(String username, String password, String email, String token, Boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.confirmationToken = token;
+	}
+
+
 }

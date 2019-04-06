@@ -56,6 +56,7 @@ const editor = pell.init({
 				},
 				error: function (data) {
 					console.log(data);
+					window.location.href = '/login';
 				}
 			});
 		}

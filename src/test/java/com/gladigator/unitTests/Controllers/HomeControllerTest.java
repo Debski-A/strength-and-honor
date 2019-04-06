@@ -34,7 +34,7 @@ public class HomeControllerTest {
 		//given
 		ModelAndView mav = new ModelAndView("homepage");
 		
-		assertThat(controller.showHomePage(null, new Locale("pl", "PL")).getView(), equalTo(mav.getView()));
+		assertThat(controller.showHomePage(null, Locale.forLanguageTag("pl-PL")).getView(), equalTo(mav.getView()));
 	}
 	
 	@Test

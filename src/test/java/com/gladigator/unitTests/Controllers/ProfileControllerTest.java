@@ -66,7 +66,7 @@ public class ProfileControllerTest {
 	public void before() {
 		userDetails = new UserDetails();
 		when(profileUtils.obtainUserDetails(principal)).thenReturn(userDetails);
-		locale = new Locale("pl-PL");
+		locale = Locale.forLanguageTag("pl-PL");
 	}
 
 	@Test

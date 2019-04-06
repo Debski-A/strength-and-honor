@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.*;
-
 import org.hibernate.Session;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +66,6 @@ public class PostDaoTest {
 		}
 	}
 
-
 	@Test
 	public void shouldReturnAllPolishPosts() {
 		//given
@@ -81,7 +79,6 @@ public class PostDaoTest {
 			dao.saveOrUpdate(post);
 		}
 		Locale pl = Locale.forLanguageTag("pl-PL");
-
 		//when
 		List<Post> allPolishPosts = dao.getAllPostsAccordingToLocale(pl);
 
@@ -89,6 +86,5 @@ public class PostDaoTest {
 		assertThat(allPolishPosts.size(), equalTo(5));
 		assertTrue(allPolishPosts.stream().allMatch(e -> "pl-PL".equals(e.getLanguage())));
 	}
-
 
 }

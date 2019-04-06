@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Parameter;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -76,4 +77,18 @@ public class UserDetails {
 	@JoinColumn(name = "id_sex")
 	private Sex sex;
 
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("userId", userId)
+				.append("height", height)
+				.append("weight", weight)
+				.append("age", age)
+				.append("bmi", bmi)
+				.append("bmr", bmr)
+				.append("frequencyOfActivity", frequencyOfActivity)
+				.append("bodyType", bodyType)
+				.append("sex", sex)
+				.toString();
+	}
 }

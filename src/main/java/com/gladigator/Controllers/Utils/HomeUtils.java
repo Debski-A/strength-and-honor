@@ -26,10 +26,8 @@ public class HomeUtils {
 		return post;
 	}
 
-	public List<PostDto> prepareLanguageSpecificPostsDtos(List<Post> posts, Locale locale) {
-		List<Post> languageSpecificPosts = posts.stream()
-				.filter(post -> post.getLanguage().equals(locale.toLanguageTag())).collect(Collectors.toList());
-		List<PostDto> postsDtos = languageSpecificPosts.stream()
+	public List<PostDto> preparePostsDtos(List<Post> posts) {
+		List<PostDto> postsDtos = posts.stream()
 				.map(post -> PostDto.builder().postId(post.getPostId()).content(post.getTranslatedContent())
 						.latestUpdate(post.getLatestUpdate().toString()).owner(post.getOwner()).build())
 				.collect(Collectors.toList());

@@ -72,14 +72,6 @@ public class UserDaoTest {
 
 	////////////// getUserById(Integer id)
 	@Test
-	public void givenUser_WhenGetUserById_ThenReturnUserFromDB() throws Exception {
-		userDao.saveOrUpdate(newUser);
-		sessionFactory.getCurrentSession().detach(newUser); 
-		User userFromDB = userDao.findById(1);
-		assertThat(userFromDB, equalTo(newUser));
-	}
-
-	@Test
 	public void whenGetUserById_AndNoUserInDB_ThenThrowRepositoryException() throws Exception {
 		Integer id = 1;
 		exception.expect(RepositoryException.class);

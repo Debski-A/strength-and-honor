@@ -42,19 +42,29 @@
 		<div th:if="${postInvoked}">
 			<div id="editor" class="pell"></div>
 		</div>
+		
+		<input type="hidden" id="numberOfPosts" th:value="${numberOfPosts}"/>
 
 		<!-- content -->
 		<div class="container-fluid">
 			<table class="table">
 				<tr th:each="post : ${posts}">
 					<td class="post-content">
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<button th:text="#{homepage.postEdit}" class="btn btn-dark"
+								onClick="editPost()">Edit</button>
+							<button th:text="#{homepage.postDelete}" class="btn btn-dark"
+								th:onclick="'javascript:deletePost(' + ${post.postId} + ');'">Delete</button>
+						</div>
 						<div th:utext="${post.content}"></div>
 						<div class="post-footer">
-							<span th:text="${post.latestUpdate}">2019-02-28</span>, <span th:text="${post.owner}">Adam Dębski</span>
+							<span th:text="${post.latestUpdate}">2019-02-28</span>, <span
+								th:text="${post.owner}">Adam Dębski</span>
 						</div>
 					</td>
 				</tr>
 			</table>
+			<div id="selectPageButtons" style="text-align: center;"></div>
 		</div>
 	</div>
 
@@ -71,5 +81,7 @@
 			th:src="@{/static/js/pell.js}"></script>
 	</span>
 
+	<script src="../../static/js/homepage.js"
+		th:src="@{/static/js/homepage.js}"></script>
 </body>
 </html>

@@ -31,32 +31,6 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	/**
-	 * Offset liczony jest od konca agregacji, czyli np jak mamy post1, post2, post3
-	 * to offset = 2 zwroci post2 i post 3, offset = 3 zwroci post1, post2 i post3 
-	 * a offset=0 zwroci pusta liste
-	 */
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset) {
-		Integer start = calculateStartInterval(offset);
-		TypedQuery<Post> query = getSession().createQuery("from Post", Post.class);
-		query.setFirstResult(start);
-		query.setMaxResults(5);
-		List<Post> posts = query.getResultList();
-		
-		LOG.info("Got {} last entities starting from row {}", posts.size(), start);
-		return posts;
-	}
-
-	private Integer calculateStartInterval(Integer offset) {
-		String countQ = "select count (postId) from Post";
-		TypedQuery<Long> countQuery = getSession().createQuery(countQ, Long.class);
-		Integer countResults = countQuery.getSingleResult().intValue();
-		int result = countResults - offset;
-		if (result < 0) return 0;
-		return result;
-	}
-
-	@Override
 	public void saveOrUpdate(Post post) {
 		try {
 			getSession().saveOrUpdate(post);
@@ -80,12 +54,6 @@ public class PostDaoImpl implements PostDao {
 		Criteria criteria = getSession().createCriteria(Post.class);
 		criteria.add(Restrictions.eq("language", locale.toLanguageTag()));
 		return criteria.list();
-	}
-
-	@Override
-	public List<Post> getFivePostsAccordingToGivenPageNumber(List<Post> allPosts, Integer pageNumber) {
-
-		return null;
 	}
 
 }

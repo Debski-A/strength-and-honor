@@ -54,7 +54,7 @@
 					<schemaIncludes>
 						<include>*.wsdl</include>
 					</schemaIncludes>
-					<clearOutputDir>true</clearOutputDir>
+					<!--<clearOutputDir>true</clearOutputDir> -->
 				</configuration>
 			</plugin>
 

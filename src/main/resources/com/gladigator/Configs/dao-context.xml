@@ -19,7 +19,7 @@
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET" />
+			value="jdbc:mysql://localhost:3306/sah_db?serverTimezone=CET&amp;characterEncoding=utf8" />
 		<property name="maximumPoolSize" value="10" />
 		<property name="idleTimeout" value="600000" />
 		<property name="username" value="SaH_user" />

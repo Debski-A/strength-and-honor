@@ -2,6 +2,7 @@ package com.gladigator.Services;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +18,11 @@ import com.gladigator.Entities.Post;
 public class PostServiceImpl implements PostService {
 	
 	private PostDao postDao;
+	
+	@Override
+	public Integer countNumberOfLanguageSpecificPosts(Locale locale) {
+		return postDao.getAllPostsAccordingToLocale(LocaleContextHolder.getLocale()).size();
+	}
 
 	public PostServiceImpl(PostDao postDao) {
 		this.postDao = postDao;

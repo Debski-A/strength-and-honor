@@ -44,13 +44,7 @@ public class UserDetailsDaoTest {
 		sessionFactory.getCurrentSession().createNativeQuery("ALTER TABLE users ALTER COLUMN id_user RESTART WITH 1").executeUpdate(); //RESETUJE ID AUTOINCREMENT
 		String token = UUID.randomUUID().toString();
 		User user = new User("Roger", "rogeiro", "roger@gmail.com", token, true);
-		userDetails = new UserDetails.UserDetailsBuilder()
-				.setAge(27)
-				.setHeight(193)
-				.setWeight(97)
-				.setBmi(333D)
-				.setBmr(444D)
-				.build();
+		userDetails = UserDetails.builder().age(27).height(193).weight(97).bmr(333D).bmr(444D).build();
 		userDetails.setUser(user); // musze dodac zaleznosc od User poniewaz ID w UserDetails pobierane jest z pola User. Jesli ustawie id recznie to saveOrUpdate bedzie zawsze wywolywac update
 	}
 
