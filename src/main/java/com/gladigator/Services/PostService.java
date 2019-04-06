@@ -6,8 +6,9 @@ import com.gladigator.Entities.Post;
 
 public interface PostService {
 	
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset);
-	public void saveOrUpdate(Post post);
-	public void deleteById(Integer id);
+
+	List<Post> getFivePostsAccordingToGivenPageNumber(Integer pageNumber);
+	void saveOrUpdate(Post post);
+	void deleteById(Integer id);
 
 }

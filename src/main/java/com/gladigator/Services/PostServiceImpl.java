@@ -1,10 +1,12 @@
 package com.gladigator.Services;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.gladigator.Daos.PostDao;
@@ -14,12 +16,31 @@ import com.gladigator.Entities.Post;
 @Service
 public class PostServiceImpl implements PostService {
 	
-	@Autowired
 	private PostDao postDao;
 
+	public PostServiceImpl(PostDao postDao) {
+		this.postDao = postDao;
+	}
+
 	@Override
-	public List<Post> getFiveLatestPostsCountedFromGivenOffset(Integer offset) {
-		return postDao.getFiveLatestPostsCountedFromGivenOffset(offset);
+	public List<Post> getFivePostsAccordingToGivenPageNumber(Integer pageNumber) {
+		// get all posts for current locale LocaleContextHolder.getLocale();
+		List<Post> allPosts = postDao.getAllPostsAccordingToLocale(LocaleContextHolder.getLocale());
+		// get five posts according to pageNumber
+		List<Post> fivePosts = getFivePostsAccordingToGivenPageNumber(allPosts, pageNumber);
+		return fivePosts;
+	}
+
+	private List<Post> getFivePostsAccordingToGivenPageNumber(List<Post> allPosts, Integer pageNumber) {
+		// reverse to get posts from youngest to oldest
+		Collections.reverse(allPosts);
+		int bottomIndex = pageNumber * 5 - 5;
+		int topIndex = pageNumber * 5;
+		if (topIndex > allPosts.size()) {
+			topIndex = allPosts.size();
+		}
+
+		return allPosts.subList(bottomIndex, topIndex);
 	}
 
 	@Override

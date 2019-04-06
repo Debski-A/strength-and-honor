@@ -30,7 +30,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public ModelAndView showHomePage(@RequestParam(required = false) Integer pageNumber, Locale locale) {
-		List<Post> posts = postService.getFiveLatestPostsCountedFromGivenOffset(5);
+		List<Post> posts = postService.getFivePostsAccordingToGivenPageNumber(pageNumber);
 		List<PostDto> postModels = utils.prepareLanguageSpecificPostsDtos(posts, locale);
 		ModelAndView modelAndView = new ModelAndView("homepage");
 		modelAndView.addObject("posts", postModels);

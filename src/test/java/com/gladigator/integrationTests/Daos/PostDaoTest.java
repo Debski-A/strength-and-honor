@@ -7,9 +7,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.Session;
 import org.junit.Before;
@@ -69,46 +67,28 @@ public class PostDaoTest {
 		}
 	}
 
-	@Test
-	public void shouldGetFiveLatestPostsCountedFromGivenOffset() throws Exception {
-		// given
-		Post post1 = new Post();
-		dao.saveOrUpdate(post1);
-		Post post2 = new Post();
-		dao.saveOrUpdate(post2);
-		Post post3 = new Post();
-		dao.saveOrUpdate(post3);
-		Post post4 = new Post();
-		dao.saveOrUpdate(post4);
-		Post post5 = new Post();
-		dao.saveOrUpdate(post5);
-		Post post6 = new Post();
-		dao.saveOrUpdate(post6);
-
-		// when
-		Integer offset = 6;
-		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
-
-		HashSet<Post> postsSet = new HashSet<>(posts);
-
-		// then
-		assertTrue(postsSet.containsAll(Arrays.asList(post1, post2, post3, post4, post5)));
-		assertFalse(postsSet.contains(post6));
-	}
 
 	@Test
-	public void shouldGetTwoPosts() throws Exception {
-		// given
-		Post post1 = new Post();
-		Post post2 = new Post();
-		dao.saveOrUpdate(post1);
-		dao.saveOrUpdate(post2);
+	public void shouldReturnAllPolishPosts() {
+		//given
+		List<Post> postsToSave = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			postsToSave.add(Post.builder().language("pl-PL").build());
+			postsToSave.add(Post.builder().language("en-GB").build());
+		}
+		Collections.shuffle(postsToSave);
+		for (Post post : postsToSave) {
+			dao.saveOrUpdate(post);
+		}
+		Locale pl = Locale.forLanguageTag("pl-PL");
 
-		// when
-		Integer offset = 5;
-		List<Post> posts = dao.getFiveLatestPostsCountedFromGivenOffset(offset);
-		HashSet<Post> postsSet = new HashSet<>(posts);
-		// then
-		assertThat(postsSet, hasSize(2));
+		//when
+		List<Post> allPolishPosts = dao.getAllPostsAccordingToLocale(pl);
+
+		//then
+		assertThat(allPolishPosts.size(), equalTo(5));
+		assertTrue(allPolishPosts.stream().allMatch(e -> "pl-PL".equals(e.getLanguage())));
 	}
+
+
 }

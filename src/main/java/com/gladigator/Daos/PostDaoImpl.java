@@ -1,11 +1,14 @@
 package com.gladigator.Daos;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.TypedQuery;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +73,19 @@ public class PostDaoImpl implements PostDao {
 		if (query.executeUpdate() == 0)
 			throw new RepositoryException("Couldn't delete Post with ID = " + id + ". No such Entity");
 		LOG.info("Deleted Post from database");
+	}
+
+	@Override
+	public List<Post> getAllPostsAccordingToLocale(Locale locale) {
+		Criteria criteria = getSession().createCriteria(Post.class);
+		criteria.add(Restrictions.eq("language", locale.toLanguageTag()));
+		return criteria.list();
+	}
+
+	@Override
+	public List<Post> getFivePostsAccordingToGivenPageNumber(List<Post> allPosts, Integer pageNumber) {
+
+		return null;
 	}
 
 }

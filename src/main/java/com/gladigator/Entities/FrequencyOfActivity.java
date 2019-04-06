@@ -32,11 +32,11 @@ public class FrequencyOfActivity implements Translationable<FrequencyOfActivityT
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_foa")
-	@Getter(AccessLevel.PRIVATE)
+	@Getter(AccessLevel.NONE)
 	private List<FrequencyOfActivityTranslation> foaTranslations;
 	
 	@Transient
-	@Setter(AccessLevel.PRIVATE)
+	@Setter(AccessLevel.NONE)
 	private String description;
 
 	@Override
