@@ -29,7 +29,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> getFivePostsAccordingToGivenPageNumber(Integer pageNumber) {
+	public List<Post> getFivePostsAccordingToGivenPageNumber(String pageNumber) {
 		// get all posts for current locale LocaleContextHolder.getLocale();
 		List<Post> allPosts = postDao.getAllPostsAccordingToLocale(LocaleContextHolder.getLocale());
 		// get five posts according to pageNumber
@@ -37,11 +37,13 @@ public class PostServiceImpl implements PostService {
 		return fivePosts;
 	}
 
-	private List<Post> getFivePostsAccordingToGivenPageNumber(List<Post> allPosts, Integer pageNumber) {
+	private List<Post> getFivePostsAccordingToGivenPageNumber(List<Post> allPosts, String pageNumber) {
 		// reverse to get posts from youngest to oldest
 		Collections.reverse(allPosts);
-		int bottomIndex = pageNumber * 5 - 5;
-		int topIndex = pageNumber * 5;
+
+		int pageNumberInt = Integer.valueOf(pageNumber);
+		int bottomIndex = pageNumberInt * 5 - 5;
+		int topIndex = pageNumberInt * 5;
 		if (topIndex > allPosts.size()) {
 			topIndex = allPosts.size();
 		}

@@ -55,10 +55,7 @@ public class User {
 	private Boolean enabled;
 	
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private UserDetails userDetails;													//Zaladowane od razu bo - EAGER, 
-																						//Operacje PERSIST, REMOVE, REFRESH, MERGE, DETACH (DML - data manipulation language) 
-																						//beda rowniez wykonane na powiazanych encjach
-																						//w tym przypadku na UserDetails
+	private UserDetails userDetails;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_has_roles",

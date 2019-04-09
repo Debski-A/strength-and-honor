@@ -1,4 +1,4 @@
-﻿1. zDockerować projekt.
+1. zDockerować projekt.
 2. Wystawić na świat
 3. Dodać jakieś nowe ciekawe funkcjonalności
 4. Zrobić podział aplikacji, tzn. wystawić RESTowe API zamiast warstwy widoku z wykorzystaniem Thymeleaf
@@ -7,12 +7,6 @@
 
 Edycja napisanych juz postów
 
-trojkatne page navigation buttony css -> https://css-tricks.com/the-shapes-of-css/
-
-5 postów na strone
-
-Oddzielenie postów od siebie, potrzebny jest biały pas oddzielający post od posta
-
 *EXTRA* Kopiowany obraz w poscie powinien sie zapisywac gdzies na serwerze, a pozniej
 byc z tego miejsca pobierany (obecnie obrazy pobierane sa z zew. zrodel. W momencie
 kiedy zrodlo nie bedzie dostepne obraz nie bedzie wyswietlany)
@@ -20,5 +14,3 @@ kiedy zrodlo nie bedzie dostepne obraz nie bedzie wyswietlany)
 Umożliwienie dodawania komentarzy do postów przez zalogowanych uzytkownikow
 
 zaimplementować chat dla uzytkownikow
-
-Entities -> User i UserDetails nie uzywa jeszcze Lombok'a

@@ -3,7 +3,7 @@ var currentPage;
 
 $(document).ready(function(){
 	globalNumberOfPosts = $('#numberOfPosts').val();
-	if (currentPage === null) {
+	if (currentPage == null) {
 		currentPage = 1;
 	}
 	generatePageNavigationButtons();
@@ -35,27 +35,36 @@ function generatePageNavigationButtons() {
 	        text: '...',
 	        placeholder: '...',
 	        id: 'inputInMiddle',
-	        class: 'pageNavigation'
+	        class: 'pageNavigation',
 	    });
-		
+
 		var lastPageButton =  $('<button/>', {
 	        text: lastPage, 
 	        id: 'lastPageButton',
 	        class: 'pageNavigation',
 	        click: function () { 
-	        	var offset = calculateOffsetForLastPage(lastPage);
-	        	window.location.href = '/?offset=' + offset; 
+	        	window.location.href = '/?pageNumber=' + lastPage;
 	        }
 	    });
 		
 		$("#selectPageButtons").append(firstPageButton);
 		$("#selectPageButtons").append(inputInMiddle);
 		$("#selectPageButtons").append(lastPageButton);
+
+		$('#inputInMiddle').on('keyup', function(e) {
+            if (e.key === 'Enter') {
+        	    var providedPageNumber = $(this).val();
+        	    navigateToPage(providedPageNumber, firstPage, lastPage);
+        	}
+        });
 	}
 }
 
-function calculateOffsetForLastPage(lastPage) {
-	return lastPage * 5;
+function navigateToPage(providedPageNumber, firstPage, lastPage) {
+    if (providedPageNumber >= firstPage && providedPageNumber <= lastPage) {
+        currentPage = providedPageNumber;
+        window.location.href = '/?pageNumber=' + providedPageNumber;
+    }
 }
 
 function editPost() {

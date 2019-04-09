@@ -7,9 +7,9 @@ import com.gladigator.Entities.Post;
 
 public interface PostService {
 	
-	List<Post> getFivePostsAccordingToGivenPageNumber(Integer pageNumber);
+	List<Post> getFivePostsAccordingToGivenPageNumber(String pageNumber);
 	void saveOrUpdate(Post post);
 	void deleteById(Integer id);
-	public Integer countNumberOfLanguageSpecificPosts(Locale locale);
+	Integer countNumberOfLanguageSpecificPosts(Locale locale);
 
 }

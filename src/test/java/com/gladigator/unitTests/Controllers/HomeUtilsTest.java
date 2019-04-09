@@ -61,6 +61,6 @@ public class HomeUtilsTest {
 		PostDto expectedDto2 = PostDto.builder().postId(2).content("Another post").latestUpdate("2019-03-04").build();
 		// then
 		assertThat(preparedDtos, hasSize(2));
-		assertThat(preparedDtos, contains(equalTo(expectedDto2), equalTo(expectedDto1)));
+		assertThat(preparedDtos, contains(equalTo(expectedDto1), equalTo(expectedDto2)));
 	}
 }

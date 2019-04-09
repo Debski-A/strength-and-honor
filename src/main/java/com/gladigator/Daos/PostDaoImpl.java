@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -51,9 +54,12 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public List<Post> getAllPostsAccordingToLocale(Locale locale) {
-		Criteria criteria = getSession().createCriteria(Post.class);
-		criteria.add(Restrictions.eq("language", locale.toLanguageTag()));
-		return criteria.list();
+		CriteriaBuilder cb = getSession().getCriteriaBuilder();
+		CriteriaQuery<Post> cQuery = cb.createQuery(Post.class);
+		Root<Post> root = cQuery.from(Post.class);
+		cQuery.select(root).where(cb.equal(root.get("language"), locale.toLanguageTag()));
+		Query<Post> query = getSession().createQuery(cQuery);
+		return query.getResultList();
 	}
 
 }

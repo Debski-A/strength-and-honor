@@ -31,7 +31,6 @@ public class HomeUtils {
 				.map(post -> PostDto.builder().postId(post.getPostId()).content(post.getTranslatedContent())
 						.latestUpdate(post.getLatestUpdate().toString()).owner(post.getOwner()).build())
 				.collect(Collectors.toList());
-		Collections.reverse(postsDtos);
 		return postsDtos;
 	}
 

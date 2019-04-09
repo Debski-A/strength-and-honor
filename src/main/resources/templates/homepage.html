@@ -47,8 +47,8 @@
 
 		<!-- content -->
 		<div class="container-fluid">
-			<table class="table">
-				<tr th:each="post : ${posts}">
+			<table class="table spaced-td">
+				<tr th:each="post : ${posts}" class="spaceUnder">
 					<td class="post-content">
 						<div sec:authorize="hasRole('ROLE_ADMIN')">
 							<button th:text="#{homepage.postEdit}" class="btn btn-dark"

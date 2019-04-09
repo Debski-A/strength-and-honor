@@ -87,7 +87,7 @@ code {
 	margin-top: 7px;
 }
 
-/* Post div */
+/* Posts */
 .post-content {
 	background-color: #eee;
 	padding: 30px !important;
@@ -97,6 +97,11 @@ code {
 	float: right;
 	color: #777;
 	font-style: italic;
+}
+
+.spaced-td {
+    border-collapse:separate;
+    border-spacing: 0 1em;
 }
 
 /* Pell */

@@ -30,7 +30,7 @@ public class HomeController {
 	private HomeUtils utils;
 
 	@GetMapping("/")
-	public ModelAndView showHomePage(@RequestParam(required = false, defaultValue = "1") Integer pageNumber, Locale locale) {
+	public ModelAndView showHomePage(@RequestParam(required = false, defaultValue = "1", name = "pageNumber") String pageNumber, Locale locale) {
 		List<Post> posts = postService.getFivePostsAccordingToGivenPageNumber(pageNumber);
 		List<PostDto> postModels = utils.preparePostsDtos(posts);
 

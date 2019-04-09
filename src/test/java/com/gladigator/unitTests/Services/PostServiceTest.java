@@ -41,7 +41,7 @@ public class PostServiceTest {
     @Test
     public void shouldReturnPostsFrom7To12ForPageNumber1() {
         //when
-        List<Post> postsFrom7to12 = postService.getFivePostsAccordingToGivenPageNumber(1);
+        List<Post> postsFrom7to12 = postService.getFivePostsAccordingToGivenPageNumber("1");
 
         // then
         assertThat(postsFrom7to12.size(), equalTo(5));
@@ -54,7 +54,7 @@ public class PostServiceTest {
     @Test
     public void shouldReturnPostsFrom3To7ForPageNumber2() {
         //when
-        List<Post> postsFrom3to7 = postService.getFivePostsAccordingToGivenPageNumber(2);
+        List<Post> postsFrom3to7 = postService.getFivePostsAccordingToGivenPageNumber("2");
 
         // then
         assertThat(postsFrom3to7.size(), equalTo(5));
@@ -67,7 +67,7 @@ public class PostServiceTest {
     @Test
     public void shouldReturnPostsFrom1To2ForPageNumber3() {
         //when
-        List<Post> postsFrom1To2 = postService.getFivePostsAccordingToGivenPageNumber(3);
+        List<Post> postsFrom1To2 = postService.getFivePostsAccordingToGivenPageNumber("3");
 
         // then
         assertThat(postsFrom1To2.size(), equalTo(2));
