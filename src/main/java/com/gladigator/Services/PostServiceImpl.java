@@ -6,7 +6,10 @@ import java.util.Locale;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gladigator.Controllers.Utils.PostUtils;
+import com.gladigator.Models.PostDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -16,25 +19,31 @@ import com.gladigator.Entities.Post;
 @Transactional
 @Service
 public class PostServiceImpl implements PostService {
+
+	private static final Logger LOG = LoggerFactory.getLogger(PostServiceImpl.class);
 	
 	private PostDao postDao;
+	private PostUtils utils;
 	
 	@Override
 	public Integer countNumberOfLanguageSpecificPosts(Locale locale) {
 		return postDao.getAllPostsAccordingToLocale(LocaleContextHolder.getLocale()).size();
 	}
 
-	public PostServiceImpl(PostDao postDao) {
+	public PostServiceImpl(PostDao postDao, PostUtils utils) {
 		this.postDao = postDao;
+		this.utils = utils;
 	}
 
 	@Override
-	public List<Post> getFivePostsAccordingToGivenPageNumber(String pageNumber) {
-		// get all posts for current locale LocaleContextHolder.getLocale();
-		List<Post> allPosts = postDao.getAllPostsAccordingToLocale(LocaleContextHolder.getLocale());
-		// get five posts according to pageNumber
+	public List<PostDto> getFivePostsAccordingToGivenPageNumber(String pageNumber) {
+		Locale currentLocale = LocaleContextHolder.getLocale();
+		List<Post> allPosts = postDao.getAllPostsAccordingToLocale(currentLocale);
+		LOG.debug("All post for {} locale = {}", currentLocale.toLanguageTag(), allPosts);
 		List<Post> fivePosts = getFivePostsAccordingToGivenPageNumber(allPosts, pageNumber);
-		return fivePosts;
+		LOG.debug("Five posts according to page number {} = {}", pageNumber, fivePosts);
+		List<PostDto> fivePostDtos = utils.preparePostsDtos(fivePosts);
+		return fivePostDtos;
 	}
 
 	private List<Post> getFivePostsAccordingToGivenPageNumber(List<Post> allPosts, String pageNumber) {
@@ -47,13 +56,23 @@ public class PostServiceImpl implements PostService {
 		if (topIndex > allPosts.size()) {
 			topIndex = allPosts.size();
 		}
-
 		return allPosts.subList(bottomIndex, topIndex);
+	}
+
+	@Override
+	public void saveOrUpdate(PostDto postDto) {
+		Post post = utils.prepareLanguageSpecificPostEntity(postDto, LocaleContextHolder.getLocale());
+		saveOrUpdate(post);
 	}
 
 	@Override
 	public void saveOrUpdate(Post post) {
 		postDao.saveOrUpdate(post);
+	}
+
+	@Override
+	public Post findById(Integer id) {
+		return postDao.findById(id);
 	}
 
 	@Override

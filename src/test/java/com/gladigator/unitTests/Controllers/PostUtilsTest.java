@@ -10,25 +10,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.gladigator.Controllers.Utils.PostUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.gladigator.Controllers.Utils.HomeUtils;
 import com.gladigator.Entities.Post;
 import com.gladigator.Models.PostDto;
 
 @RunWith(MockitoJUnitRunner.class)
-public class HomeUtilsTest {
+public class PostUtilsTest {
 
 	@InjectMocks
-	private HomeUtils homeUtils;
+	private PostUtils postUtils;
 
 	@Before
 	public void before() {
-		homeUtils = new HomeUtils();
+		postUtils = new PostUtils();
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public class HomeUtilsTest {
 		postDto.setOwner("Admin");
 		Locale locale = Locale.UK;
 		// when
-		Post preparedPostEntity = homeUtils.prepareLanguageSpecificPostEntity(postDto, locale);
+		Post preparedPostEntity = postUtils.prepareLanguageSpecificPostEntity(postDto, locale);
 		// then
 		Post expectedPostEntity = Post.builder().translatedContent("Some content").language(Locale.UK.toLanguageTag())
 				.latestUpdate(LocalDate.parse("2019-03-04")).owner("Admin").build();
@@ -55,7 +55,7 @@ public class HomeUtilsTest {
 		Post englishPost2 = Post.builder().postId(2).language("en-GB").translatedContent("Another post")
 				.latestUpdate(LocalDate.parse("2019-03-04")).build();
 		// when
-		List<PostDto> preparedDtos = homeUtils
+		List<PostDto> preparedDtos = postUtils
 				.preparePostsDtos(Arrays.asList(englishPost, englishPost2));
 		PostDto expectedDto1 = PostDto.builder().postId(1).content("English post").latestUpdate("2019-03-04").build();
 		PostDto expectedDto2 = PostDto.builder().postId(2).content("Another post").latestUpdate("2019-03-04").build();

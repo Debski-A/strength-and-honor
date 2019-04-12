@@ -42,7 +42,7 @@ const editor = pell.init({
 			var content = {};
 			content['content'] =  editor.content.innerHTML;
 			content['latestUpdate'] = currentDate();
-			//content['postId'] = jesli bedzie podane id to update zamiast save
+			content['postId'] = $('#editedPostId').val()
 			$.ajax({
 				url: 'post',
 				type: 'POST',
@@ -61,6 +61,13 @@ const editor = pell.init({
 			});
 		}
     }
+//    ,
+//    {
+//        name: 'cancel',
+//        icon: 'Cancel',
+//        title: 'Cancel',
+//        result: () => window.location.href = '/';
+//    }
   ],
   classes: {
     actionbar: 'pell-actionbar-custom-name',
@@ -70,9 +77,13 @@ const editor = pell.init({
   }
 })
 
-function currentDate() {
-	var d = new Date();
+var editedPostContent = $('#editedPostContent').val()
+if (editedPostContent != null) {
+    editor.content.innerHTML = editedPostContent;
+}
 
+function currentDate() {
+	var d = new Date()
 	var month = d.getMonth()+1;
 	var day = d.getDate();
 

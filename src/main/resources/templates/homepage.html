@@ -39,20 +39,18 @@
 			</div>
 		</div>
 
-		<div th:if="${postInvoked}">
-			<div id="editor" class="pell"></div>
-		</div>
-		
-		<input type="hidden" id="numberOfPosts" th:value="${numberOfPosts}"/>
 
-		<!-- content -->
-		<div class="container-fluid">
-			<table class="table spaced-td">
+
+        <input type="hidden" id="numberOfPosts" th:value="${numberOfPosts}"/>
+
+        <!-- content -->
+        <div class="container-fluid">
+            <table class="table spaced-td">
 				<tr th:each="post : ${posts}" class="spaceUnder">
 					<td class="post-content">
 						<div sec:authorize="hasRole('ROLE_ADMIN')">
 							<button th:text="#{homepage.postEdit}" class="btn btn-dark"
-								onClick="editPost()">Edit</button>
+								th:onclick="'javascript:editPost(' + ${post.postId} + ');'">Edit</button>
 							<button th:text="#{homepage.postDelete}" class="btn btn-dark"
 								th:onclick="'javascript:deletePost(' + ${post.postId} + ');'">Delete</button>
 						</div>
@@ -67,6 +65,14 @@
 			<div id="selectPageButtons" style="text-align: center;"></div>
 		</div>
 	</div>
+
+    <div th:if="${postInvoked}">
+        <div th:if="${postToEdit} != null">
+            <input type="hidden" id="editedPostContent" th:value='${postToEdit.content}'/>
+            <input type="hidden" id="editedPostId" th:value='${postToEdit.postId}'/>
+        </div>
+        <div id="editor" class="pell"></div>
+    </div>
 
 	<!-- footer -->
 	<footer class="footer" th:replace="fragments/footer :: footer">

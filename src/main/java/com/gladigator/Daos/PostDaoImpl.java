@@ -1,25 +1,20 @@
 package com.gladigator.Daos;
 
-import java.util.List;
-import java.util.Locale;
-
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import org.hibernate.Criteria;
+import com.gladigator.Entities.Post;
+import com.gladigator.Exceptions.RepositoryException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gladigator.Entities.Post;
-import com.gladigator.Exceptions.RepositoryException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class PostDaoImpl implements PostDao {
@@ -60,6 +55,13 @@ public class PostDaoImpl implements PostDao {
 		cQuery.select(root).where(cb.equal(root.get("language"), locale.toLanguageTag()));
 		Query<Post> query = getSession().createQuery(cQuery);
 		return query.getResultList();
+	}
+
+	@Override
+	public Post findById(Integer id) {
+		Post post = getSession().get(Post.class, id);
+		LOG.info("Found post with id = {}", id);
+		return post;
 	}
 
 }

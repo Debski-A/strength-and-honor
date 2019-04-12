@@ -13,7 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gladigator.Controllers.HomeController;
-import com.gladigator.Controllers.Utils.HomeUtils;
+import com.gladigator.Controllers.Utils.PostUtils;
 import com.gladigator.Services.PostService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,7 +23,7 @@ public class HomeControllerTest {
 	private PostService postService;
 
 	@Mock
-	private HomeUtils utils;
+	private PostUtils utils;
 	
 	@InjectMocks
 	private HomeController controller;

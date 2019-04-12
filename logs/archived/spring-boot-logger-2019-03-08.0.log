@@ -52,6 +52,6 @@
 2019-03-08 19:01:32,009 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] Got 2 last entities starting from row 0
 2019-03-08 19:05:46,667 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [647] milliseconds.
 2019-03-08 19:05:49,154 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] Got 2 last entities starting from row 0
-2019-03-08 19:06:04,344 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-2] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p style="text-align: right;">xyz</p>)
+2019-03-08 19:06:04,344 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-2] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p style="text-align: right;">xyz</p>)
 2019-03-08 19:06:04,399 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-2] com.gladigator.Entities.Post entity has been saved
 2019-03-08 19:06:04,467 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-5] Got 3 last entities starting from row 0

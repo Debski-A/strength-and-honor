@@ -10,4 +10,6 @@ public interface PostDao {
 	public void saveOrUpdate(Post post);
 	public void deleteById(Integer id);
     List<Post> getAllPostsAccordingToLocale(Locale locale);
+
+    Post findById(Integer id);
 }

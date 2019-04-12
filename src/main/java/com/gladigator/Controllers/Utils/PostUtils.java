@@ -1,7 +1,6 @@
 package com.gladigator.Controllers.Utils;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -14,9 +13,9 @@ import com.gladigator.Entities.Post;
 import com.gladigator.Models.PostDto;
 
 @Component
-public class HomeUtils {
+public class PostUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(HomeUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PostUtils.class);
 
 	public Post prepareLanguageSpecificPostEntity(PostDto body, Locale locale) {
 		Post post = Post.builder().postId(body.getPostId()).language(locale.toLanguageTag())

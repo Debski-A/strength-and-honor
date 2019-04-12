@@ -2542,7 +2542,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2019-03-03 13:09:52,870 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 0 last entities starting from row 0
 2019-03-03 13:09:56,531 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [696] milliseconds.
 2019-03-03 13:10:01,572 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 0 last entities starting from row 0
-2019-03-03 13:11:51,898 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-8] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<h1><b><i><u>Mój pierwszy post</u></i></b></h1><p>Pierwszy post napisany przy pomocy pell.js. Opublikowany i zapisany w bazie</p>)
+2019-03-03 13:11:51,898 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-8] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<h1><b><i><u>Mój pierwszy post</u></i></b></h1><p>Pierwszy post napisany przy pomocy pell.js. Opublikowany i zapisany w bazie</p>)
 2019-03-03 13:11:51,950 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-8] com.gladigator.Entities.Post entity has been saved
 2019-03-03 13:11:56,433 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-7] Got 1 last entities starting from row 0
 2019-03-03 13:12:14,087 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-8] Got 1 last entities starting from row 0
@@ -3118,7 +3118,7 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 Not Found
 2019-03-03 13:30:58,856 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 1 last entities starting from row 0
 2019-03-03 13:31:02,814 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-10] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [691] milliseconds.
 2019-03-03 13:31:04,669 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] Got 1 last entities starting from row 0
-2019-03-03 13:33:16,351 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<h1 style="text-align: center;"><b><i><u>Kolejny post</u></i></b></h1><p style="text-align: center;">Tym razem z wykorzystaniem justify center i obrazkiem jeża</p><p style="text-align: center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Temno_siva_barva.JPG/1920px-Temno_siva_barva.JPG" alt="Znalezione obrazy dla zapytania hedgehog"><br></p>)
+2019-03-03 13:33:16,351 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<h1 style="text-align: center;"><b><i><u>Kolejny post</u></i></b></h1><p style="text-align: center;">Tym razem z wykorzystaniem justify center i obrazkiem jeża</p><p style="text-align: center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Temno_siva_barva.JPG/1920px-Temno_siva_barva.JPG" alt="Znalezione obrazy dla zapytania hedgehog"><br></p>)
 2019-03-03 13:33:16,428 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] com.gladigator.Entities.Post entity has been saved
 2019-03-03 13:33:16,458 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] Got 2 last entities starting from row 0
 2019-03-03 13:33:30,746 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-3] Got 2 last entities starting from row 0
@@ -3498,12 +3498,12 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 Not Found
 2019-03-03 18:01:11,794 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:01:11,808 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 14 ms
 2019-03-03 18:01:12,485 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [612] milliseconds.
-2019-03-03 18:01:25,263 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-7] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p style="text-align: right;">czeeci post!111</p>)
+2019-03-03 18:01:25,263 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-7] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p style="text-align: right;">czeeci post!111</p>)
 2019-03-03 18:01:25,504 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-7] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:01:25,554 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-9] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 18:01:25,704 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] Got 3 last entities starting from row 0
 2019-03-03 18:02:37,837 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 3 last entities starting from row 0
-2019-03-03 18:04:11,586 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-9] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>fdfsadf</p>)
+2019-03-03 18:04:11,586 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-9] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>fdfsadf</p>)
 2019-03-03 18:04:11,592 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:04:11,620 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 4 last entities starting from row 0
 2019-03-03 18:04:19,935 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(4)-127.0.0.1] Application shutdown requested.
@@ -3558,7 +3558,7 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 Not Found
 2019-03-03 18:04:51,731 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:04:51,747 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 15 ms
 2019-03-03 18:04:52,473 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [663] milliseconds.
-2019-03-03 18:05:47,381 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>dddhdh</p>)
+2019-03-03 18:05:47,381 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>dddhdh</p>)
 2019-03-03 18:06:02,534 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:06:31,353 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-9] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 18:06:39,184 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] Got 5 last entities starting from row 0
@@ -3572,7 +3572,7 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 Not Found
 2019-03-03 18:07:50,660 DEBUG com.gladigator.Daos.GenericDaoImpl [http-nio-8080-exec-1] List of all FrequencyOfActivity entities = [FrequencyOfActivity(frequencyOfActivityId=1, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=1, language=en-GB, translatedContent=none), FrequencyOfActivityTranslation(foaTranslationId=7, language=pl-PL, translatedContent=nieokreślono)], description=null), FrequencyOfActivity(frequencyOfActivityId=2, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=2, language=en-GB, translatedContent=very low), FrequencyOfActivityTranslation(foaTranslationId=8, language=pl-PL, translatedContent=bardzo mała)], description=null), FrequencyOfActivity(frequencyOfActivityId=3, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=3, language=en-GB, translatedContent=low), FrequencyOfActivityTranslation(foaTranslationId=9, language=pl-PL, translatedContent=mała)], description=null), FrequencyOfActivity(frequencyOfActivityId=4, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=4, language=en-GB, translatedContent=medium), FrequencyOfActivityTranslation(foaTranslationId=10, language=pl-PL, translatedContent=średnia)], description=null), FrequencyOfActivity(frequencyOfActivityId=5, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=5, language=en-GB, translatedContent=high), FrequencyOfActivityTranslation(foaTranslationId=11, language=pl-PL, translatedContent=duża)], description=null), FrequencyOfActivity(frequencyOfActivityId=6, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=6, language=en-GB, translatedContent=very high), FrequencyOfActivityTranslation(foaTranslationId=12, language=pl-PL, translatedContent=bardzo duża)], description=null)]
 2019-03-03 18:07:50,707 DEBUG com.gladigator.Services.UserDetailsServiceImpl [http-nio-8080-exec-1] listOfSelectives = {frequenciesListOfSelectives=[FrequencyOfActivity(frequencyOfActivityId=1, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=1, language=en-GB, translatedContent=none), FrequencyOfActivityTranslation(foaTranslationId=7, language=pl-PL, translatedContent=nieokreślono)], description=nieokreślono), FrequencyOfActivity(frequencyOfActivityId=2, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=2, language=en-GB, translatedContent=very low), FrequencyOfActivityTranslation(foaTranslationId=8, language=pl-PL, translatedContent=bardzo mała)], description=bardzo mała), FrequencyOfActivity(frequencyOfActivityId=3, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=3, language=en-GB, translatedContent=low), FrequencyOfActivityTranslation(foaTranslationId=9, language=pl-PL, translatedContent=mała)], description=mała), FrequencyOfActivity(frequencyOfActivityId=4, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=4, language=en-GB, translatedContent=medium), FrequencyOfActivityTranslation(foaTranslationId=10, language=pl-PL, translatedContent=średnia)], description=średnia), FrequencyOfActivity(frequencyOfActivityId=5, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=5, language=en-GB, translatedContent=high), FrequencyOfActivityTranslation(foaTranslationId=11, language=pl-PL, translatedContent=duża)], description=duża), FrequencyOfActivity(frequencyOfActivityId=6, foaTranslations=[FrequencyOfActivityTranslation(foaTranslationId=6, language=en-GB, translatedContent=very high), FrequencyOfActivityTranslation(foaTranslationId=12, language=pl-PL, translatedContent=bardzo duża)], description=bardzo duża)], bodyTypeListOfSelectives=[BodyType(bodyTypeId=1, bodyTypeTranslations=[BodyTypeTranslation(btTranslationId=1, language=en-GB, translatedContent=none), BodyTypeTranslation(btTranslationId=5, language=pl-PL, translatedContent=nieokreślono)], description=nieokreślono), BodyType(bodyTypeId=2, bodyTypeTranslations=[BodyTypeTranslation(btTranslationId=2, language=en-GB, translatedContent=ectomorph), BodyTypeTranslation(btTranslationId=6, language=pl-PL, translatedContent=ektomorficzny)], description=ektomorficzny), BodyType(bodyTypeId=3, bodyTypeTranslations=[BodyTypeTranslation(btTranslationId=3, language=en-GB, translatedContent=mesomorph), BodyTypeTranslation(btTranslationId=7, language=pl-PL, translatedContent=mezomorficzny)], description=mezomorficzny), BodyType(bodyTypeId=4, bodyTypeTranslations=[BodyTypeTranslation(btTranslationId=4, language=en-GB, translatedContent=endomorph), BodyTypeTranslation(btTranslationId=8, language=pl-PL, translatedContent=endomorficzny)], description=endomorficzny)], sexListOfSelectives=[Sex(sexId=1, sexTranslations=[SexTranslation(sexTranslationId=1, language=en-GB, translatedContent=none), SexTranslation(sexTranslationId=4, language=pl-PL, translatedContent=nieokreślono)], description=nieokreślono), Sex(sexId=2, sexTranslations=[SexTranslation(sexTranslationId=2, language=en-GB, translatedContent=male), SexTranslation(sexTranslationId=5, language=pl-PL, translatedContent=mężczyzna)], description=mężczyzna), Sex(sexId=3, sexTranslations=[SexTranslation(sexTranslationId=3, language=en-GB, translatedContent=female), SexTranslation(sexTranslationId=6, language=pl-PL, translatedContent=kobieta)], description=kobieta)]}
 2019-03-03 18:08:05,237 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-10] Got 5 last entities starting from row 0
-2019-03-03 18:08:31,329 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-2] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>xgsg</p>)
+2019-03-03 18:08:31,329 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-2] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>xgsg</p>)
 2019-03-03 18:08:31,339 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-2] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:08:34,997 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-8] Got 5 last entities starting from row 1
 2019-03-03 18:19:17,764 INFO org.springframework.boot.StartupInfoLogger [main] Starting Main on dell-Komputer with PID 11372 (C:\Workspace\strength-and-honor\target\classes started by dell in C:\Workspace\strength-and-honor)
@@ -3624,12 +3624,12 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 Not Found
 2019-03-03 18:19:28,692 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:19:28,715 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 21 ms
 2019-03-03 18:19:29,449 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [642] milliseconds.
-2019-03-03 18:20:03,675 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>sgsgsdgshs</p>)
+2019-03-03 18:20:03,675 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>sgsgsdgshs</p>)
 2019-03-03 18:20:03,937 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:20:05,189 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-5] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 18:20:05,380 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-5] Got 5 last entities starting from row 2
 2019-03-03 18:22:17,139 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-2] Got 5 last entities starting from row 2
-2019-03-03 18:23:03,736 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-7] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>hmmm</p>)
+2019-03-03 18:23:03,736 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-7] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>hmmm</p>)
 2019-03-03 18:23:05,590 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-7] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:24:23,907 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 5 last entities starting from row 3
 2019-03-03 18:25:57,567 INFO org.springframework.boot.StartupInfoLogger [main] Starting Main on dell-Komputer with PID 2840 (C:\Workspace\strength-and-honor\target\classes started by dell in C:\Workspace\strength-and-honor)
@@ -3681,7 +3681,7 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 Not Found
 2019-03-03 18:26:11,386 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:26:11,402 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 14 ms
 2019-03-03 18:26:12,131 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [665] milliseconds.
-2019-03-03 18:26:21,328 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>fghdfjfdj</p>)
+2019-03-03 18:26:21,328 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>fghdfjfdj</p>)
 2019-03-03 18:26:21,552 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:26:21,613 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-6] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 18:26:21,746 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] Got 5 last entities starting from row 4
@@ -3849,7 +3849,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 	at org.springframework.ws.client.core.WebServiceTemplate.sendAndReceive(WebServiceTemplate.java:555)
 	... 119 common frames omitted
 2019-03-03 18:33:46,484 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-10] Got 5 last entities starting from row 4
-2019-03-03 18:33:53,268 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-3] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>afafa</p>)
+2019-03-03 18:33:53,268 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-3] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>afafa</p>)
 2019-03-03 18:33:53,268 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-3] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:33:53,297 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] Got 5 last entities starting from row 5
 2019-03-03 18:34:52,174 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(7)-127.0.0.1] Application shutdown requested.
@@ -3904,7 +3904,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2019-03-03 18:35:16,208 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:35:16,225 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 16 ms
 2019-03-03 18:35:17,055 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [760] milliseconds.
-2019-03-03 18:35:22,946 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-5] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>zzzz</p>)
+2019-03-03 18:35:22,946 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-5] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>zzzz</p>)
 2019-03-03 18:35:23,193 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-5] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:35:23,263 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-8] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 18:35:23,427 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-8] Got 5 last entities starting from row 6
@@ -3960,7 +3960,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2019-03-03 18:36:25,516 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:36:25,529 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 13 ms
 2019-03-03 18:36:26,119 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [536] milliseconds.
-2019-03-03 18:36:33,101 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>aaaaa</p>)
+2019-03-03 18:36:33,101 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>aaaaa</p>)
 2019-03-03 18:36:33,332 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:37:40,043 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(3)-127.0.0.1] Application shutdown requested.
 2019-03-03 18:37:40,064 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(3)-127.0.0.1] HikariPool-1 - Shutdown initiated...
@@ -4014,12 +4014,12 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2019-03-03 18:37:57,421 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:37:57,436 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 14 ms
 2019-03-03 18:37:58,111 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [610] milliseconds.
-2019-03-03 18:38:04,501 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>sssss</p>)
+2019-03-03 18:38:04,501 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>sssss</p>)
 2019-03-03 18:38:04,740 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:38:36,946 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-9] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 18:38:37,131 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] Got 5 last entities starting from row 8
 2019-03-03 18:38:41,732 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-9] Got 5 last entities starting from row 8
-2019-03-03 18:38:50,741 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-10] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>sdsdassf</p>)
+2019-03-03 18:38:50,741 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-10] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>sdsdassf</p>)
 2019-03-03 18:38:50,748 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-10] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:38:55,688 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 5 last entities starting from row 9
 2019-03-03 18:51:31,055 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(3)-127.0.0.1] Application shutdown requested.
@@ -4077,7 +4077,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2019-03-03 18:51:50,033 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 5 last entities starting from row 9
 2019-03-03 18:51:55,959 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [712] milliseconds.
 2019-03-03 18:51:58,054 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 5 last entities starting from row 9
-2019-03-03 18:52:14,368 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>xxxxx</p>)
+2019-03-03 18:52:14,368 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>xxxxx</p>)
 2019-03-03 18:52:14,440 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:52:14,460 ERROR org.thymeleaf.TemplateEngine [http-nio-8080-exec-4] [THYMELEAF][http-nio-8080-exec-4] Exception processing template "post": An error happened during template parsing (template: "class path resource [templates/post.html]")
 org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/post.html]")
@@ -4368,7 +4368,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 18:55:30,307 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 18:55:30,323 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 15 ms
 2019-03-03 18:55:31,097 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [707] milliseconds.
-2019-03-03 18:55:38,537 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>qqq</p>)
+2019-03-03 18:55:38,537 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>qqq</p>)
 2019-03-03 18:55:38,778 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] com.gladigator.Entities.Post entity has been saved
 2019-03-03 18:55:38,808 ERROR org.thymeleaf.TemplateEngine [http-nio-8080-exec-6] [THYMELEAF][http-nio-8080-exec-6] Exception processing template "post": An error happened during template parsing (template: "class path resource [templates/post.html]")
 org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/post.html]")
@@ -4707,7 +4707,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 18:57:09,690 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 5 last entities starting from row 11
 2019-03-03 18:57:19,868 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [772] milliseconds.
 2019-03-03 18:57:25,307 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-1] Got 5 last entities starting from row 11
-2019-03-03 18:57:43,139 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>iiii</p>)
+2019-03-03 18:57:43,139 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>iiii</p>)
 2019-03-03 18:57:43,224 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] com.gladigator.Entities.Post entity has been saved
 2019-03-03 19:02:12,184 INFO org.springframework.boot.StartupInfoLogger [main] Starting Main on dell-Komputer with PID 7332 (C:\Workspace\strength-and-honor\target\classes started by dell in C:\Workspace\strength-and-honor)
 2019-03-03 19:02:12,190 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.2.RELEASE, Spring v5.1.2.RELEASE
@@ -4759,7 +4759,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 19:02:31,176 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 10 ms
 2019-03-03 19:02:31,907 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [700] milliseconds.
 2019-03-03 19:02:31,947 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
-2019-03-03 19:02:45,618 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>klklklkl</p>)
+2019-03-03 19:02:45,618 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-6] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>klklklkl</p>)
 2019-03-03 19:02:45,849 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-6] com.gladigator.Entities.Post entity has been saved
 2019-03-03 19:05:57,780 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(2)-127.0.0.1] Application shutdown requested.
 2019-03-03 19:05:57,801 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-1 - Shutdown initiated...
@@ -4813,7 +4813,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 19:06:15,152 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 19:06:15,168 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 15 ms
 2019-03-03 19:06:15,941 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [703] milliseconds.
-2019-03-03 19:06:25,725 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-5] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>popopop</p>)
+2019-03-03 19:06:25,725 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-5] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>popopop</p>)
 2019-03-03 19:06:25,956 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-5] com.gladigator.Entities.Post entity has been saved
 2019-03-03 19:15:08,535 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(3)-127.0.0.1] Application shutdown requested.
 2019-03-03 19:15:08,535 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(4)-127.0.0.1] Application shutdown requested.
@@ -4868,7 +4868,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 19:15:26,768 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 19:15:26,789 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 20 ms
 2019-03-03 19:15:27,506 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [637] milliseconds.
-2019-03-03 19:15:35,115 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-3] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>hhhhhhh</p>)
+2019-03-03 19:15:35,115 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-3] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>hhhhhhh</p>)
 2019-03-03 19:15:35,355 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-3] com.gladigator.Entities.Post entity has been saved
 2019-03-03 19:17:45,905 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(4)-127.0.0.1] Application shutdown requested.
 2019-03-03 19:17:45,925 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(4)-127.0.0.1] HikariPool-1 - Shutdown initiated...
@@ -4922,7 +4922,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 19:18:51,855 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 19:18:51,869 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 13 ms
 2019-03-03 19:18:52,484 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [543] milliseconds.
-2019-03-03 19:18:58,274 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-5] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>fffff</p>)
+2019-03-03 19:18:58,274 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-5] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>fffff</p>)
 2019-03-03 19:18:58,508 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-5] com.gladigator.Entities.Post entity has been saved
 2019-03-03 19:20:32,129 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(2)-127.0.0.1] Application shutdown requested.
 2019-03-03 19:20:32,139 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-1 - Shutdown initiated...
@@ -5077,7 +5077,7 @@ java.io.FileNotFoundException: class path resource [templates/post.html] cannot 
 2019-03-03 19:23:42,836 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2019-03-03 19:23:42,853 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 16 ms
 2019-03-03 19:23:43,630 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [683] milliseconds.
-2019-03-03 19:23:50,982 DEBUG com.gladigator.Controllers.Utils.HomeUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>oioioioio</p>)
+2019-03-03 19:23:50,982 DEBUG com.gladigator.Controllers.Utils.PostUtils [http-nio-8080-exec-4] Prepared post entity = Post(postId=null, language=pl-PL, translatedContent=<p>oioioioio</p>)
 2019-03-03 19:23:51,269 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-4] com.gladigator.Entities.Post entity has been saved
 2019-03-03 19:23:51,384 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [http-nio-8080-exec-3] HHH000397: Using ASTQueryTranslatorFactory
 2019-03-03 19:23:51,594 INFO com.gladigator.Daos.PostDaoImpl [http-nio-8080-exec-3] Got 5 last entities starting from row 17

@@ -5,7 +5,15 @@
 5. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
 
-Edycja napisanych juz postów
+dodać cancel w trakcie pisania posta, patrz  ->  pell.js - cancel
+
+refactor pod katem clean code
+
+zamiast Locale w kazdej metodzie Controllera zaczac bazowac na LocaleContextHolder
+
+porzadek w konfiguracji
+
+refactor testow
 
 *EXTRA* Kopiowany obraz w poscie powinien sie zapisywac gdzies na serwerze, a pozniej
 byc z tego miejsca pobierany (obecnie obrazy pobierane sa z zew. zrodel. W momencie
