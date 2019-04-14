@@ -22,3 +22,6 @@ kiedy zrodlo nie bedzie dostepne obraz nie bedzie wyswietlany)
 Umożliwienie dodawania komentarzy do postów przez zalogowanych uzytkownikow
 
 zaimplementować chat dla uzytkownikow
+
+googleTranslate API: https://script.google.com/macros/s/AKfycbyLc7Dh2LoT1vbCr5c7Fa-TKaDqEDnND7o_PGITHMUwEDFXJU4/exec
+https://stackoverflow.com/questions/8147284/how-to-use-google-translate-api-in-my-java-application
