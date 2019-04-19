@@ -36,14 +36,6 @@ public class PostUtils {
         for (Post post : posts) {
             postDtos.add(prepareLanguageSpecificPostDto(post, currentLocale));
         }
-        //TODO probably to delete
-//        List<PostDto> postsDtos = posts.stream()
-//                .map(post -> PostDto.builder()
-//                        .postId(post.getPostId())
-//                        .content(prepareContentForDto(post.getTranslations(), currentLocale))
-//                        .latestUpdate(post.getLatestUpdate().toString())
-//                        .owner(post.getOwner())
-//                        .build()).collect(Collectors.toList());
         postDtos = removeDtosWithNullContent(postDtos);
         return postDtos;
     }

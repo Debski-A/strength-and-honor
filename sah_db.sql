@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `sah_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE  IF NOT EXISTS `sah_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci */;
 USE `sah_db`;
--- MySQL dump 10.13  Distrib 5.7.20, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
 --
--- Host: localhost    Database: sah_db
+-- Host: 127.0.0.1    Database: sah_db
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.25-0ubuntu0.18.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,7 @@ CREATE TABLE `body_type` (
 
 LOCK TABLES `body_type` WRITE;
 /*!40000 ALTER TABLE `body_type` DISABLE KEYS */;
-INSERT INTO `body_type` (`id_bt`) VALUES (1),(2),(3),(4);
+INSERT INTO `body_type` VALUES (1),(2),(3),(4);
 /*!40000 ALTER TABLE `body_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `body_type_translations` (
 
 LOCK TABLES `body_type_translations` WRITE;
 /*!40000 ALTER TABLE `body_type_translations` DISABLE KEYS */;
-INSERT INTO `body_type_translations` (`id_bt_translations`, `language`, `description`, `id_bt`) VALUES (1,'en-GB','none',1),(2,'en-GB','ectomorph',2),(3,'en-GB','mesomorph',3),(4,'en-GB','endomorph',4),(5,'pl-PL','nieokreślono',1),(6,'pl-PL','ektomorficzny',2),(7,'pl-PL','mezomorficzny',3),(8,'pl-PL','endomorficzny',4);
+INSERT INTO `body_type_translations` VALUES (1,'en-GB','none',1),(2,'en-GB','ectomorph',2),(3,'en-GB','mesomorph',3),(4,'en-GB','endomorph',4),(5,'pl-PL','nieokreślono',1),(6,'pl-PL','ektomorficzny',2),(7,'pl-PL','mezomorficzny',3),(8,'pl-PL','endomorficzny',4);
 /*!40000 ALTER TABLE `body_type_translations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +88,7 @@ CREATE TABLE `frequency_of_activity` (
 
 LOCK TABLES `frequency_of_activity` WRITE;
 /*!40000 ALTER TABLE `frequency_of_activity` DISABLE KEYS */;
-INSERT INTO `frequency_of_activity` (`id_foa`) VALUES (1),(2),(3),(4),(5),(6);
+INSERT INTO `frequency_of_activity` VALUES (1),(2),(3),(4),(5),(6);
 /*!40000 ALTER TABLE `frequency_of_activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,8 +116,35 @@ CREATE TABLE `frequency_of_activity_translations` (
 
 LOCK TABLES `frequency_of_activity_translations` WRITE;
 /*!40000 ALTER TABLE `frequency_of_activity_translations` DISABLE KEYS */;
-INSERT INTO `frequency_of_activity_translations` (`id_foa_translations`, `language`, `description`, `id_foa`) VALUES (1,'en-GB','none',1),(2,'en-GB','very low',2),(3,'en-GB','low',3),(4,'en-GB','medium',4),(5,'en-GB','high',5),(6,'en-GB','very high',6),(7,'pl-PL','nieokreślono',1),(8,'pl-PL','bardzo mała',2),(9,'pl-PL','mała',3),(10,'pl-PL','średnia',4),(11,'pl-PL','duża',5),(12,'pl-PL','bardzo duża',6);
+INSERT INTO `frequency_of_activity_translations` VALUES (1,'en-GB','none',1),(2,'en-GB','very low',2),(3,'en-GB','low',3),(4,'en-GB','medium',4),(5,'en-GB','high',5),(6,'en-GB','very high',6),(7,'pl-PL','nieokreślono',1),(8,'pl-PL','bardzo mała',2),(9,'pl-PL','mała',3),(10,'pl-PL','średnia',4),(11,'pl-PL','duża',5),(12,'pl-PL','bardzo duża',6);
 /*!40000 ALTER TABLE `frequency_of_activity_translations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `post_translations`
+--
+
+DROP TABLE IF EXISTS `post_translations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post_translations` (
+  `id_post_translation` int(11) NOT NULL AUTO_INCREMENT,
+  `language` varchar(45) COLLATE utf8mb4_polish_ci NOT NULL,
+  `content` mediumtext COLLATE utf8mb4_polish_ci NOT NULL,
+  `id_post` int(11) NOT NULL,
+  PRIMARY KEY (`id_post_translation`),
+  KEY `id_post_idx` (`id_post`),
+  CONSTRAINT `id_post` FOREIGN KEY (`id_post`) REFERENCES `posts` (`id_post`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post_translations`
+--
+
+LOCK TABLES `post_translations` WRITE;
+/*!40000 ALTER TABLE `post_translations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_translations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -129,12 +156,10 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
   `id_post` int(11) NOT NULL AUTO_INCREMENT,
-  `language` varchar(45) NOT NULL,
-  `content` mediumtext NOT NULL,
   `latest_update` date NOT NULL,
   `owner` varchar(45) NOT NULL,
   PRIMARY KEY (`id_post`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +168,6 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` (`id_post`, `language`, `content`, `latest_update`, `owner`) VALUES (18,'pl-PL','<h1 style=\"text-align: center;\"><b><i><u>Drogi pamiętniczku...</u></i></b></h1><p>&nbsp; &nbsp;&nbsp;<img src=\"https://img.memecdn.com/no-title_o_444562.jpg\" alt=\"Znalezione obrazy dla zapytania java meme\"></p>','2019-03-09','admin'),(20,'pl-PL','<p>2</p>','2019-03-22','admin'),(21,'pl-PL','<p>3</p>','2019-03-22','admin'),(22,'pl-PL','<p>4</p>','2019-03-22','admin'),(23,'pl-PL','<p>hmmmmm</p>','2019-03-28','admin'),(24,'pl-PL','<p>hmm</p>','2019-03-28','admin');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +191,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (`id_role`, `role`) VALUES (1,'ROLE_USER'),(2,'ROLE_ADMIN');
+INSERT INTO `roles` VALUES (1,'ROLE_USER'),(2,'ROLE_ADMIN');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +214,7 @@ CREATE TABLE `sex` (
 
 LOCK TABLES `sex` WRITE;
 /*!40000 ALTER TABLE `sex` DISABLE KEYS */;
-INSERT INTO `sex` (`id_sex`) VALUES (1),(2),(3);
+INSERT INTO `sex` VALUES (1),(2),(3);
 /*!40000 ALTER TABLE `sex` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +242,7 @@ CREATE TABLE `sex_translations` (
 
 LOCK TABLES `sex_translations` WRITE;
 /*!40000 ALTER TABLE `sex_translations` DISABLE KEYS */;
-INSERT INTO `sex_translations` (`id_sex_translations`, `language`, `description`, `id_sex`) VALUES (1,'en-GB','none',1),(2,'en-GB','male',2),(3,'en-GB','female',3),(4,'pl-PL','nieokreślono',1),(5,'pl-PL','mężczyzna',2),(6,'pl-PL','kobieta',3);
+INSERT INTO `sex_translations` VALUES (1,'en-GB','none',1),(2,'en-GB','male',2),(3,'en-GB','female',3),(4,'pl-PL','nieokreślono',1),(5,'pl-PL','mężczyzna',2),(6,'pl-PL','kobieta',3);
 /*!40000 ALTER TABLE `sex_translations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +272,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `enabled`, `confirmation_token`) VALUES (55,'admin','$2a$10$HuufP/.UKfz.u8zPKkYJFO/b8NFhdO4tViauqAmPCXfAQajETUAFW','inzo666@gmail.com',1,NULL),(57,'user','$2a$10$fQvSssA1bMXictRUpWnFA.cnAf4Tf1st4aqaXxnWidApB8rR49eRe','adamdebski33@gmail.com',1,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +309,6 @@ CREATE TABLE `users_details` (
 
 LOCK TABLES `users_details` WRITE;
 /*!40000 ALTER TABLE `users_details` DISABLE KEYS */;
-INSERT INTO `users_details` (`id_user`, `age`, `height`, `weight`, `id_foa`, `id_sex`, `id_bt`, `BMI`, `BMR`) VALUES (55,29,193,121,6,2,2,28.19,NULL);
 /*!40000 ALTER TABLE `users_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +336,6 @@ CREATE TABLE `users_has_roles` (
 
 LOCK TABLES `users_has_roles` WRITE;
 /*!40000 ALTER TABLE `users_has_roles` DISABLE KEYS */;
-INSERT INTO `users_has_roles` (`id_user`, `id_role`) VALUES (57,1),(55,2);
 /*!40000 ALTER TABLE `users_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -327,4 +348,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-06 21:17:55
+-- Dump completed on 2019-04-19  9:01:24

@@ -50,18 +50,15 @@ public class RegisterController {
 	public String processRegistrationForm(Model model, @Valid User user, BindingResult bindingResult,
 			HttpServletRequest request, Locale locale) {
 
-		//Jesli User juz istnieje
 		if (userService.checkIfUsernameOrEmailAreTaken(user.getUsername(), user.getEmail())) {
 			String message = messageSource.getMessage("registerpage.emailOrUsernameAlreadyTaken", null, locale);
 			model.addAttribute("errorMessage", message);
 			bindingResult.reject("email");
 		}
 
-		//Jesli wprowadzone dane w formularzu byly niezgodne z ograniczeniami
 		if (bindingResult.hasErrors()) {
 			LOG.debug("Binding result error occured");
-		//Jesli wszystko bylo ok - wysyla email
-		} else { 
+		} else {
 			user.setEnabled(false);
 			
 			String token = registerUtils.generateToken();

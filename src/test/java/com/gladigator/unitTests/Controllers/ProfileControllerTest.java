@@ -65,13 +65,14 @@ public class ProfileControllerTest {
 	@Before
 	public void before() {
 		userDetails = new UserDetails();
-		when(profileUtils.obtainUserDetails(principal)).thenReturn(userDetails);
+		when(profileUtils.obtainUserDetails(principal.getName())).thenReturn(userDetails);
 		locale = Locale.forLanguageTag("pl-PL");
 	}
 
 	@Test
 	public void whenShowProfilePage_ThenAddUserDetailsToModel_AndReturnProfilepage() throws Exception {
 		// Given
+		when(profileUtils.sessionAttributesAreNotFilled(model)).thenReturn(true);
 		// When Then
 		assertThat(controller.showProfile(model, principal, locale), equalTo("profilepage"));
 		verify(model).addAttribute("userDetails", userDetails);
@@ -79,8 +80,11 @@ public class ProfileControllerTest {
 
 	@Test
 	public void whenShowProfilePage_ThenAddUserDetailsToModel() throws Exception {
+		// Given
+		when(profileUtils.sessionAttributesAreNotFilled(model)).thenReturn(true);
+		// when
 		controller.showProfile(model, principal, locale);
-
+		// then
 		verify(model).addAttribute("userDetails", userDetails);
 	}
 
