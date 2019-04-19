@@ -14,10 +14,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Parameter;
 
@@ -63,6 +60,8 @@ public class UserDetails {
 
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	private User user;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })

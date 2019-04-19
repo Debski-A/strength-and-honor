@@ -45,7 +45,7 @@ tzn. users_details wykorzystuje klucz główny tabeli users (zatem encja users_d
   <li>Aplikacja korzysta z H2 in-memory database do przeprowadzania testów integracyjnych warstwy Dao. Buduje bazę danych na podstawie adnotacji w klasach encji i następnie wykonuje skrypt import.sql, który wypełnia bazę podstawowymi danymi.</li>
 </ul>
 
-<h2>Lista TODO:</h2>
+<h2>Lista:</h2>
 <strong>
   <ul>
     <li>Lepszym rozwiązaniem byłoby korzystanie z czystego JPA API (EntityManager). Dałoby to niezależność od biblioteki Hibernate. Jednakże dla celów poznawczych postanowiłem "pobawić się" API Hibetnate'a.

@@ -1,5 +1,6 @@
 package com.gladigator.Services;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -24,10 +25,10 @@ public class PostServiceImpl implements PostService {
 	
 	private PostDao postDao;
 	private PostUtils utils;
-	
+
 	@Override
-	public Integer countNumberOfLanguageSpecificPosts(Locale locale) {
-		return postDao.getAllPostsAccordingToLocale(LocaleContextHolder.getLocale()).size();
+	public Integer countNumberOfPosts() {
+		return postDao.findAll().size();
 	}
 
 	public PostServiceImpl(PostDao postDao, PostUtils utils) {
@@ -36,13 +37,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getFivePostsAccordingToGivenPageNumber(String pageNumber) {
-		Locale currentLocale = LocaleContextHolder.getLocale();
-		List<Post> allPosts = postDao.getAllPostsAccordingToLocale(currentLocale);
-		LOG.debug("All post for {} locale = {}", currentLocale.toLanguageTag(), allPosts);
+	public List<PostDto> getFivePostDtosAccordingToGivenPageNumber(String pageNumber, Locale currentLocale) {
+		List<Post> allPosts = postDao.findAll();
 		List<Post> fivePosts = getFivePostsAccordingToGivenPageNumber(allPosts, pageNumber);
 		LOG.debug("Five posts according to page number {} = {}", pageNumber, fivePosts);
-		List<PostDto> fivePostDtos = utils.preparePostsDtos(fivePosts);
+		List<PostDto> fivePostDtos = utils.prepareLanguageSpecificPostDtos(fivePosts, currentLocale);
 		return fivePostDtos;
 	}
 
@@ -60,8 +59,23 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void saveOrUpdate(PostDto postDto) {
-		Post post = utils.prepareLanguageSpecificPostEntity(postDto, LocaleContextHolder.getLocale());
+	public void saveOrUpdate(PostDto postDto, Locale currentLocale) {
+		if (postDto.getPostId() == null) {
+			saveNewPost(postDto, currentLocale);
+		} else {
+			updatePost(postDto, currentLocale);
+		}
+	}
+
+	private void saveNewPost(PostDto postDto, Locale currentLocale) {
+		Post post = utils.prepareLanguageSpecificPostEntity(postDto, currentLocale);
+		saveOrUpdate(post);
+	}
+
+	private void updatePost(PostDto postDto, Locale locale) {
+		Post post = postDao.findById(postDto.getPostId());
+		post.setLatestUpdate(LocalDate.parse(postDto.getLatestUpdate()));
+		utils.updatePostTranslations(post, postDto.getContent(), locale);
 		saveOrUpdate(post);
 	}
 

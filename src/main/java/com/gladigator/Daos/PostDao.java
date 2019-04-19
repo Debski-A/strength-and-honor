@@ -7,9 +7,8 @@ import com.gladigator.Entities.Post;
 
 public interface PostDao {
 
-	public void saveOrUpdate(Post post);
-	public void deleteById(Integer id);
-    List<Post> getAllPostsAccordingToLocale(Locale locale);
-
+	void saveOrUpdate(Post post);
+	void deleteById(Integer id);
+    List<Post> findAll();
     Post findById(Integer id);
 }

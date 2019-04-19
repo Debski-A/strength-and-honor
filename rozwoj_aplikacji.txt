@@ -5,23 +5,29 @@
 5. Zaimplementować frontend z użyciem Angulara lub Reacta lub jeszcze czegoś innego??
 6. Zaimplementować interfejs Androidowy, który łączy się z backendowym API
 
-dodać cancel w trakcie pisania posta, patrz  ->  pell.js - cancel
-
 refactor pod katem clean code
 
-zamiast Locale w kazdej metodzie Controllera zaczac bazowac na LocaleContextHolder
+PostTranslations jako Mapa gdzie kluczem jest languageTag (teraz jest ArrayList)
+
+oppositeLocale nie jest generyczne. Co jesli chcialbym dodac inne jezyki na stronie?
 
 porzadek w konfiguracji
 
 refactor testow
 
+refactor nazewnictwa w bazie
+
 *EXTRA* Kopiowany obraz w poscie powinien sie zapisywac gdzies na serwerze, a pozniej
 byc z tego miejsca pobierany (obecnie obrazy pobierane sa z zew. zrodel. W momencie
 kiedy zrodlo nie bedzie dostepne obraz nie bedzie wyswietlany)
+
+*EXTRA* dodać cancel w trakcie pisania posta, patrz  ->  pell.js - cancel
 
 Umożliwienie dodawania komentarzy do postów przez zalogowanych uzytkownikow
 
 zaimplementować chat dla uzytkownikow
 
 googleTranslate API: https://script.google.com/macros/s/AKfycbyLc7Dh2LoT1vbCr5c7Fa-TKaDqEDnND7o_PGITHMUwEDFXJU4/exec
+
+wyjaśnienie googleTranslate API:
 https://stackoverflow.com/questions/8147284/how-to-use-google-translate-api-in-my-java-application

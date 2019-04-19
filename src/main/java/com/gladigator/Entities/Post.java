@@ -1,42 +1,63 @@
 package com.gladigator.Entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Builder
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "posts")
-public class Post {
-	
+public class Post implements Translationable {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_post")
+	@Getter
+	@Setter
 	private Integer postId;
-	
-	@Column(name="language")
-	private String language;
-	
-	@Column(name="content")
-	private String translatedContent;
-	
+
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "post", orphanRemoval = true, fetch = FetchType.EAGER)
+	@Setter
+	private List<PostTranslation> postTranslations;
+
+	@Transient
+	@Getter
+	private String content;
+
 	@Column(name="latest_update")
+	@Getter
+	@Setter
 	private LocalDate latestUpdate;
-	
+
 	@Column(name="owner")
+	@Getter
+	@Setter
 	private String owner;
 
+	@Override
+	public List<PostTranslation> getTranslations() {
+		return postTranslations;
+	}
+
+	@Override
+	public void setTranslatedContent(String content) {
+		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("postId", postId)
+				.append("content", content)
+				.append("latestUpdate", latestUpdate)
+				.append("owner", owner)
+				.toString();
+	}
 }

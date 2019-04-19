@@ -3,13 +3,14 @@ package com.gladigator.unitTests.Services;
 import com.gladigator.Controllers.Utils.PostUtils;
 import com.gladigator.Daos.PostDao;
 import com.gladigator.Entities.Post;
+import com.gladigator.Entities.PostTranslation;
 import com.gladigator.Models.PostDto;
 import com.gladigator.Services.PostService;
 import com.gladigator.Services.PostServiceImpl;
+import com.gladigator.Services.TranslationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,28 +24,33 @@ import static org.junit.Assert.assertTrue;
 public class PostServiceTest {
 
     private PostDao daoMock = Mockito.mock(PostDao.class);
-    private PostService postService = new PostServiceImpl(daoMock, new PostUtils());
+    private TranslationService translationMock  = Mockito.mock(TranslationService.class);
+    private PostService postService = new PostServiceImpl(daoMock, new PostUtils(translationMock));
+    private PostTranslation ptPL1;
+    private PostTranslation ptEN1;
+    private Locale locale;
 
     @Before
     public void setUp() {
+        ptPL1 = PostTranslation.builder().language("pl-PL").translatedContent("Post po polsku").build();
+        ptEN1 = PostTranslation.builder().language("en-GB").translatedContent("Post in english").build();
         prepare12PostsForMockReturn();
-        LocaleContextHolder.setLocale(Locale.forLanguageTag("pl-PL"));
+        //LocaleContextHolder.setLocale(Locale.forLanguageTag("pl-PL"));
+        locale = Locale.forLanguageTag("pl-PL");
     }
 
     private void prepare12PostsForMockReturn() {
         List<Post> posts = new ArrayList<>();
         for (int i = 1; i < 13; i++) {
-            posts.add(Post.builder().postId(i).language("pl-PL").latestUpdate(LocalDate.now()).build());
+            posts.add(Post.builder().postId(i).postTranslations(new ArrayList<>() {{add(ptPL1); add(ptEN1);}}).latestUpdate(LocalDate.now()).build());
         }
-        Locale pl = Locale.forLanguageTag("pl-PL");
-
-        Mockito.when(daoMock.getAllPostsAccordingToLocale(pl)).thenReturn(posts);
+        Mockito.when(daoMock.findAll()).thenReturn(posts);
     }
 
     @Test
     public void shouldReturnPostsFrom7To12ForPageNumber1() {
         //when
-        List<PostDto> postsFrom7to12 = postService.getFivePostsAccordingToGivenPageNumber("1");
+        List<PostDto> postsFrom7to12 = postService.getFivePostDtosAccordingToGivenPageNumber("1", locale);
 
         // then
         assertThat(postsFrom7to12.size(), equalTo(5));
@@ -57,7 +63,7 @@ public class PostServiceTest {
     @Test
     public void shouldReturnPostsFrom3To7ForPageNumber2() {
         //when
-        List<PostDto> postsFrom3to7 = postService.getFivePostsAccordingToGivenPageNumber("2");
+        List<PostDto> postsFrom3to7 = postService.getFivePostDtosAccordingToGivenPageNumber("2", locale);
 
         // then
         assertThat(postsFrom3to7.size(), equalTo(5));
@@ -70,7 +76,7 @@ public class PostServiceTest {
     @Test
     public void shouldReturnPostsFrom1To2ForPageNumber3() {
         //when
-        List<PostDto> postsFrom1To2 = postService.getFivePostsAccordingToGivenPageNumber("3");
+        List<PostDto> postsFrom1To2 = postService.getFivePostDtosAccordingToGivenPageNumber("3", locale);
 
         // then
         assertThat(postsFrom1To2.size(), equalTo(2));
