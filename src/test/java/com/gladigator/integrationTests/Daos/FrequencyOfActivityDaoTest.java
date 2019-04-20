@@ -21,8 +21,8 @@ public class FrequencyOfActivityDaoTest extends GenericDaoTestUtils<FrequencyOfA
 	@Test
 	public void whenFindById5_ThenReturnHighFrequency() throws Exception {
 		FrequencyOfActivity high = new FrequencyOfActivity();
-		FrequencyOfActivityTranslation highEngTranslation = new FrequencyOfActivityTranslation(5, "en-UK", true, "high");
-		FrequencyOfActivityTranslation highPlTranslation = new FrequencyOfActivityTranslation(11, "pl-PL", false, "duża");
+		FrequencyOfActivityTranslation highEngTranslation = new FrequencyOfActivityTranslation(5, "en-GB", "high");
+		FrequencyOfActivityTranslation highPlTranslation = new FrequencyOfActivityTranslation(11, "pl-PL", "duża");
 		high.setFrequencyOfActivityId(5);
 		high.setFoaTranslations(Arrays.asList(highEngTranslation, highPlTranslation));;
 		

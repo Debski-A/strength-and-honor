@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head (pageTitle=#{homepage.title})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery-3.2.1.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+<link href="../static/css/custom.css" rel="stylesheet"/>
+
+<title>Page title</title>
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		th:replace="fragments/header :: navbar"></nav>
+		
+	<div class="container">
+		<label for="inputCity" class="sr-only">Input city</label> <input
+			type="text" class="form-control" id="inputCity" name="inputCity"
+			th:placeholder="#{weatherpage.city}">
+		<button type="button" class="btn btn-primary mb-2"
+			th:text="#{weatherpage.submit}" onclick="getWeatherJson()">Check
+			it!</button>
+	</div>
+
+
+	<div class="container">
+		<img id="weatherImage" />
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.date}"></div>
+						<div id="date"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.cityLabel}"></div>
+						<div id="city"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.country}"></div>
+						<div id="country"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.temperature}"></div>
+						<div id="temp"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.description}"></div>
+						<div id="description"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.sunrise}"
+						data-toggle="tooltip" data-placement="right" th:title="#{weatherpage.timeTooltip}"></div>
+						<div id="sunrise"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div th:text="#{weatherpage.sunset}"
+						data-toggle="tooltip" data-placement="right" th:title="#{weatherpage.timeTooltip}"></div>
+						<div id="sunset"></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<footer class="footer" th:replace="fragments/footer :: footer">
+		<div class="container-fluid">
+			<span class="text-muted">Place sticky footer content here.</span>
+		</div>
+	</footer>
+
+<script src="../static/js/weatherpage.js"
+	th:src="@{/static/js/weatherpage.js}"></script>
+</body>
+</html>

@@ -31,7 +31,7 @@ import com.gladigator.Services.UserService;
 @WebAppConfiguration
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/sah-servlet.xml",
+@ContextConfiguration(locations = { "classpath:com/gladigator/Configs/sah-servlet.xml",
 	"classpath:com/gladigator/Configs/test-dao-context.xml",
 	"classpath:com/gladigator/Configs/security-context.xml",
 	"classpath:com/gladigator/Configs/service-context.xml" })
@@ -83,19 +83,6 @@ public class ProfileControllerTest {
 		.andExpect(model().attribute("userDetails", userDetails));
 
     }
-
-    // mvn test robi failure na tym tescie TODO
-    // @Transactional
-    // @Test
-    // public void whenProcessProfilePage_ThenReturnProfilepage() throws Exception {
-    // addUserToDB();
-    // //musialem dodac CSRF ze wzgledu na to, ze kazdy formularz post wymaga tokenu
-    // CSRF. Ponadto gdy metoda robi redirect to zwraca status 302
-    // mockMvc.perform(post("/profile").sessionAttr("userDetails",
-    // userDetails).with(user("adam")).with(csrf())).andDo(print())
-    // .andExpect(status().isOk())
-    // .andExpect(view().name("profilepage"));
-    // }
 
     private void addUserToDB() throws Exception {
 	userDetails = new UserDetails();

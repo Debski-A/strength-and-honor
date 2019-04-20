@@ -6,8 +6,8 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -34,7 +34,7 @@ import com.gladigator.Services.UserService;
 @SessionAttributes({ "userDetails", "bodyTypeListOfSelectives", "sexListOfSelectives", "frequenciesListOfSelectives" })
 public class ProfileController {
 
-	private static final Logger LOG = LogManager.getLogger(ProfileController.class);
+	private static final Logger LOG =  LoggerFactory.getLogger(ProfileController.class);
 
 	@Autowired
 	private UserService userService;
@@ -49,21 +49,18 @@ public class ProfileController {
 
 	@GetMapping("/profile")
 	public String showProfile(Model model, Principal principal, Locale currentLocale) {
-		// Jesli SessionAttributes sa puste
-		if (!profileUtils.containsAllSessionAttributes(model)) {
+		if (profileUtils.sessionAttributesAreNotFilled(model)) {
 			locale = currentLocale;
 			obtainSessionAttributes(model, principal, locale);
-		// Jesli zmieniono jezyk
 		} else if (locale != currentLocale) {
 			locale = currentLocale;
 			profileUtils.setTranslations(model, locale);
 		}
-
 		return "profilepage";
 	}
 	
 	private void obtainSessionAttributes(Model model, Principal principal, Locale locale) {
-		UserDetails userDetails = profileUtils.obtainUserDetails(principal);
+		UserDetails userDetails = profileUtils.obtainUserDetails(principal.getName());
 		profileUtils.addListsOfAttributesToModel(model, locale);
 		model.addAttribute("userDetails", userDetails);
 	}
@@ -89,8 +86,6 @@ public class ProfileController {
 	public String calculateBmi(@Valid @ModelAttribute UserDetails userDetails, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Locale locale) {
 
-		// ponizsze linijki umozliwiaja wyswietlanie errorow z bindingResult po
-		// zrobieniu redirect
 		redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDetails", bindingResult);
 		redirectAttributes.addFlashAttribute("userDetails", userDetails);
 
@@ -118,8 +113,6 @@ public class ProfileController {
 	public String calculateBmr(@Valid @ModelAttribute UserDetails userDetails, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Locale locale) {
 
-		// ponizsze linijki umozliwiaja wyswietlanie errorow z bindingResult po
-		// zrobieniu redirect
 		redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDetails", bindingResult);
 		redirectAttributes.addFlashAttribute("userDetails", userDetails);
 

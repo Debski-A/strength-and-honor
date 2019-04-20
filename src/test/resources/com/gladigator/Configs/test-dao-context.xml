@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
@@ -9,43 +11,46 @@
 
 
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="com.gladigator.Daos">
+	<context:component-scan
+		base-package="com.gladigator.Daos">
 	</context:component-scan>
 
-	<beans profile="test"> <!-- W SUMIE TEN PROFIL NIE JEST POTRZEBNY BO I TAK PODCZAS TESTOW DAO TEN KONTEKST LADOWANY JEST JAKO JEDYNY. ZOSTAWIAM NA PRZYSZLOSC -->
 
-		<context:property-placeholder
-			location="classpath:com/gladigator/Configs/test-dao-datasource.properties" />
+	<context:property-placeholder
+		location="classpath:com/gladigator/Configs/test-dao-datasource.properties" />
 
-		<bean id="dataSource"
-			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
-			<property name="driverClassName" value="${jdbc.driver}"></property>
-			<property name="url" value="${jdbc.url}"></property>
-		</bean>
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+	</bean>
 
-		<bean id="sessionFactory"
-			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-			<property name="dataSource" ref="dataSource" />
-			<property name="packagesToScan" value="com.gladigator.Entities" />
-			<property name="hibernateProperties">
-				<props>
-					<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
-					<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- TWORZY NOWY SCHEMAT DB (NA PODSTAWIE ADNOTACJI W KLASACH ENCJI) PODCZAS TWORZENIA SESSION FACTORY-->
-						
-						<!-- HIBERNATE PO STWORZENIU SCHEMATU DB (NA PODSTAWIE ADNOTACJI W KLASACH ENCJI) WYKONUJE SKRYPT Z PLIKU import.sql ZNAJDUJACEGO SIE NA SCIEZCE DLA KLAS-->
-					<prop key="hibernate.show_sql">false</prop>
-					<prop key="hibernate.format_sql">false</prop>
-				</props>
-			</property>
-		</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan"
+			value="com.gladigator.Entities" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- TWORZY NOWY SCHEMAT DB (NA PODSTAWIE ADNOTACJI W KLASACH ENCJI) PODCZAS 
+					TWORZENIA SESSION FACTORY -->
 
-		<bean id="transactionManager"
-			class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-			<property name="sessionFactory" ref="sessionFactory" />
-		</bean>
+				<!-- HIBERNATE PO STWORZENIU SCHEMATU DB (NA PODSTAWIE ADNOTACJI W KLASACH 
+					ENCJI) WYKONUJE SKRYPT Z PLIKU import.sql ZNAJDUJACEGO SIE NA SCIEZCE DLA 
+					KLAS -->
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+			</props>
+		</property>
+	</bean>
 
-		<tx:annotation-driven />
-	</beans>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven />
 
 </beans>

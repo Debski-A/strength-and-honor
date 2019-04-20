@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import com.gladigator.Exceptions.ServiceException;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
+	
+	private static final Logger LOG = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 	
 	@Autowired
 	private BodyTypeDao bodyTypeDao;
@@ -41,30 +45,25 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			setTranslationAccordingToLocale((List<? extends Translationable<Translation>>) sList, locale);
 			List<?> foaList = (List<?>) foaDao.getAll();
 			setTranslationAccordingToLocale((List<? extends Translationable<Translation>>) foaList, locale);
-			
 			listOfSelectives.put("bodyTypeListOfSelectives", btList);
 			listOfSelectives.put("sexListOfSelectives", sList);
 			listOfSelectives.put("frequenciesListOfSelectives", foaList);
+			LOG.debug("listOfSelectives = {}", listOfSelectives);
 		} catch (Exception ex) {
 			throw new ServiceException("An Exception occurred", ex);
 		}
-		
 		return listOfSelectives;
 	}
 	
 	@Override
 	public void setTranslationAccordingToLocale(List<? extends Translationable<Translation>> list, Locale locale) {
 		for (Translationable<Translation> entity : list) {
-			entity.setDescription(entity.getTranslations()
+			entity.setTranslatedContent(entity.getTranslations()
 					.stream()
 					.filter(e -> locale.toLanguageTag().equals(e.getLanguage()))
 					.findFirst()
-					.orElse(entity.getTranslations()
-							.stream()
-							.filter(e -> e.getIsDefault())
-							.findFirst()
-							.get())
-					.getTranslatedDescription());
+					.get()
+					.getTranslatedContent());
 		}
 	}
 }

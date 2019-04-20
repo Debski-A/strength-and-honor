@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../static/js/jquery-3.2.1.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<link href="../../static/css/custom.css" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			th:fragment="navbar">
+			<div class="container">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                	<span class="sr-only">Toggle navigation</span>
+               	 	<span class="icon-bar"></span>
+               		<span class="icon-bar"></span>
+               	 	<span class="icon-bar"></span>
+            	</button>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="#" th:href="@{/}"
+							th:text="#{navbar.homepageLink}">Homepage</a></li>
+						<li><a href="#" th:href="@{/weather}"
+							th:text="#{navbar.weatherLink}">Check weather for today</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/post}"
+							th:text="#{navbar.postLink}">Post</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" th:href="@{/profile}"><span class="glyphicon glyphicon-user"></span>
+								<span th:text="#{loginpage.profileLink}">Profile</span> </a></li>
+	
+						<li sec:authorize="!isAuthenticated()"><a href="#"
+							th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span>
+								<span th:text="#{loginpage.loginLink}">Login</span></a></li>
+						<li sec:authorize="isAuthenticated()">
+							<form th:action="@{/logout}" id="logout" method="post">
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form> <a href="#" onclick="document.getElementById('logout').submit();">
+								<span class="glyphicon glyphicon-log-out"></span> <span
+								th:text="#{loginpage.logoutLink}">Logout</span>
+						</a>
+						</li>
+						<li><a href="?lang=pl_PL"><span class="flag flag-pl"></span></a></li>
+						<li><a href="?lang=en_GB"><span class="flag flag-uk"></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+</body>
+</html>

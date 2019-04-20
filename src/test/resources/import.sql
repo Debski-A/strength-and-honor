@@ -6,14 +6,14 @@ INSERT INTO body_type (id_bt) VALUES (2);
 INSERT INTO body_type (id_bt) VALUES (3);
 INSERT INTO body_type (id_bt) VALUES (4);
 
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (1,'en-UK',1,'none',1);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (2,'en-UK',1,'ectomorph',2);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (3,'en-UK',1,'mesomorph',3);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (4,'en-UK',1,'endomorph',4);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (5,'pl-PL',0,'nieokreslono',1);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (6,'pl-PL',0,'ektomorficzny',2);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (7,'pl-PL',0,'mezomorficzny',3);
-INSERT INTO body_type_translations (id_bt_translations,language,is_default,description,id_bt) VALUES (8,'pl-PL',0,'endomorficzny',4);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (1,'en-GB','none',1);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (2,'en-GB','ectomorph',2);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (3,'en-GB','mesomorph',3);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (4,'en-GB','endomorph',4);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (5,'pl-PL','nieokreslono',1);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (6,'pl-PL','ektomorficzny',2);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (7,'pl-PL','mezomorficzny',3);
+INSERT INTO body_type_translations (id_bt_translations,language,description,id_bt) VALUES (8,'pl-PL','endomorficzny',4);
 
 INSERT INTO frequency_of_activity (id_foa) VALUES (1);
 INSERT INTO frequency_of_activity (id_foa) VALUES (2);
@@ -22,26 +22,26 @@ INSERT INTO frequency_of_activity (id_foa) VALUES (4);
 INSERT INTO frequency_of_activity (id_foa) VALUES (5);
 INSERT INTO frequency_of_activity (id_foa) VALUES (6);
 
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (1,'en-UK',1,'none',1);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (2,'en-UK',1,'very low',2);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (3,'en-UK',1,'low',3);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (4,'en-UK',1,'medium',4);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (5,'en-UK',1,'high',5);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (6,'en-UK',1,'very high',6);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (7,'pl-PL',0,'nieokreślono',1);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (8,'pl-PL',0,'bardzo mała',2);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (9,'pl-PL',0,'mała',3);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (10,'pl-PL',0,'średnia',4);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (11,'pl-PL',0,'duża',5);
-INSERT INTO frequency_of_activity_translations (id_foa_translations,language,is_default,description,id_foa) VALUES (12,'pl-PL',0,'bardzo duża',6);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (1,'en-GB','none',1);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (2,'en-GB','very low',2);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (3,'en-GB','low',3);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (4,'en-GB','medium',4);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (5,'en-GB','high',5);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (6,'en-GB','very high',6);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (7,'pl-PL','nieokreślono',1);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (8,'pl-PL','bardzo mała',2);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (9,'pl-PL','mała',3);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (10,'pl-PL','średnia',4);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (11,'pl-PL','duża',5);
+INSERT INTO frequency_of_activity_translations (id_foa_translations,language,description,id_foa) VALUES (12,'pl-PL','bardzo duża',6);
 
 INSERT INTO sex (id_sex) VALUES (1);
 INSERT INTO sex (id_sex) VALUES (2);
 
-INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (1, 'en-UK', 1, 'male', 1);
-INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (2, 'en-UK', 1, 'female', 2);
-INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (3, 'pl-PL', 0, 'mężczyzna', 1);
-INSERT INTO sex_translations (id_sex_translations, language, is_default, description, id_sex) VALUES (4, 'pl-PL', 0, 'kobieta', 2);
+INSERT INTO sex_translations (id_sex_translations, language, description, id_sex) VALUES (1, 'en-GB', 'male', 1);
+INSERT INTO sex_translations (id_sex_translations, language, description, id_sex) VALUES (2, 'en-GB', 'female', 2);
+INSERT INTO sex_translations (id_sex_translations, language, description, id_sex) VALUES (3, 'pl-PL', 'mężczyzna', 1);
+INSERT INTO sex_translations (id_sex_translations, language, description, id_sex) VALUES (4, 'pl-PL', 'kobieta', 2);
 
 
 --User Adam

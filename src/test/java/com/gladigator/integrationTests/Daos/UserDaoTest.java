@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,15 +20,9 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.UUID;
 
-@ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
- //@DirtiesContext(classMode = ClassMode.BEFORE_CLASS) // koteksty sa tworzone na nowo i dataSource jest reinicjalizowane 
-//dla tej klasy testowej z uwagi na mozliwa ingerencje na baze danych w innych testach integ. Przy ladowaniu kontekstow na nowo - baza danych
-//tworzy sie od nowa z powodu <prop key="hibernate.hbm2ddl.auto">create</prop> w test-dao-context.xml
 @Transactional
-@Rollback(true) //NIE TRZEBA UMIESZCZAC TEJ ADNOTACJI. DEFAULTOWO ROLLBACK USTAWIONY JEST NA TRUE
-//Usuwa "smieci" z DB po kazdym tescie. Niestety nie dziala na resetowanie ID i trzeba to zrobic "recznie" przy pomocy query(patrz before())
 public class UserDaoTest {
 
 	@Autowired
@@ -78,25 +70,7 @@ public class UserDaoTest {
 		userDao.saveOrUpdate(newUser);
 	}
 
-// mvn test robi failure na tym teście TODO
-//	@Test
-//	public void givenUserWithNullForbiddenField_WhenSaveOrUpdate_ThenThrowRepositoryException() throws Exception {
-//		newUser.setUsername(null);
-//		exception.expect(RepositoryException.class);
-//		exception.expectMessage("An Exception occurred");
-//		userDao.saveOrUpdate(newUser);
-//	}
-
 	////////////// getUserById(Integer id)
-	@Test
-	public void givenUser_WhenGetUserById_ThenReturnUserFromDB() throws Exception {
-		userDao.saveOrUpdate(newUser);
-		sessionFactory.getCurrentSession().detach(newUser); // czemu detach? Patrz na podobna metode testowa w
-															// UserDetailsDaoTest
-		User userFromDB = userDao.findById(1);
-		assertThat(userFromDB, equalTo(newUser));
-	}
-
 	@Test
 	public void whenGetUserById_AndNoUserInDB_ThenThrowRepositoryException() throws Exception {
 		Integer id = 1;

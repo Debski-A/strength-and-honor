@@ -6,15 +6,15 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gladigator.Controllers.Advices.ControllerExceptionHandler;
+import com.gladigator.Controllers.Advices.ApplicationExceptionsHandler;
 
 public class ControllerExceptionHandlerTest {
 	
-	private ControllerExceptionHandler exceptionController;
+	private ApplicationExceptionsHandler exceptionController;
 	
 	@Before
 	public void before() {
-		exceptionController = new ControllerExceptionHandler();
+		exceptionController = new ApplicationExceptionsHandler();
 	}
 	
 	@Test

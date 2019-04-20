@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head (pageTitle=#{homepage.title})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="../static/js/jquery-3.2.1.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="../static/js/custom.js"></script>
+	
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<link href="../static/css/custom.css" rel="stylesheet" />
+
+<title>Page title</title>
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		th:replace="fragments/header :: navbar"></nav>
+
+	<div class="container-fluid">
+		<div class="div-colored-grey">
+			<img src="../static/images/horde.png"
+				th:src="@{/static/images/horde.png}"
+				class="img-rounded center-block" alt="Cinque Terre" width="304"
+				height="236" />
+		</div>
+
+		<div class="col-lg-offset-4 col-lg-4">
+			<h2 class="form-signin-heading text-center"
+				th:text="#{profilepage.heading}">Welcome in Your profile!</h2>
+			<div th:if="${success}" class="alert alert-success"
+				th:text=${success}></div>
+		</div>
+
+		<form class="form-signin" name="f" th:action='@{/profile}'
+			th:object="${userDetails}" method="POST">
+			<div class="col-lg-6">
+
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" />
+
+				<h3>
+					<label for="inputUsername" class="label label-primary"
+						th:text="#{profilepage.username}">Username</label>
+				</h3>
+				<input type="text" id="inputUsername" name="username"
+					class="form-control" readonly th:field="*{user.username}">
+
+				<h3>
+					<label for="inputEmail" class="label label-primary"
+						th:text="#{profilepage.email}">Email</label>
+				</h3>
+				<input type="text" id="inputEmail" name="email" class="form-control"
+					readonly th:field="*{user.email}">
+
+				<h3>
+					<label for="inputAge" class="label label-primary"
+						th:text="#{profilepage.age}">Age</label>
+				</h3>
+				<input type="text" id="inputAge" name="age" class="form-control"
+					th:field="*{age}">
+				<div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"
+					class="alert alert-danger"></div>
+
+				<h3>
+					<label for="inputHeight" class="label label-primary"
+						th:text="#{profilepage.height}">Height</label>
+				</h3>
+				<input type="text" id="inputHeight" name="height"
+					class="form-control" th:field="*{height}">
+				<div th:if="${#fields.hasErrors('height')}" th:errors="*{height}"
+					class="alert alert-danger"></div>
+
+				<h3>
+					<label for="inputWeight" class="label label-primary"
+						th:text="#{profilepage.weight}">Weight</label>
+				</h3>
+				<input type="text" id="inputWeight" name="weight"
+					class="form-control" th:field="*{weight}">
+				<div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
+					class="alert alert-danger"></div>
+
+			</div>
+			<div class="col-lg-6">
+				<h3>
+					<label for="inputSex" class="label label-primary"
+						th:text="#{profilepage.sex}">Sex</label>
+				</h3>
+				<select th:field="*{sex.sexId}" id="inputSex" name="sex"
+					class="form-control">
+					<option th:each="sexType : ${sexListOfSelectives}"
+						th:value="${sexType.sexId}" th:text="${sexType.description}">
+				</select>
+
+				<h3>
+					<label for="inputBodyType" class="label label-primary"
+						th:text="#{profilepage.bodyType}">Body Type</label>
+				</h3>
+				<select th:field="*{bodyType.bodyTypeId}" id="inputBodyType"
+					name="bodyType" class="form-control">
+					<option th:each="bodyType : ${bodyTypeListOfSelectives}"
+						th:value="${bodyType.bodyTypeId}"
+						th:text="${bodyType.description}">
+				</select>
+
+				<h3>
+					<label for="inputFoa" class="label label-primary"
+						th:text="#{profilepage.frequencyOfActivity}">Frequency of
+						Activity</label>
+				</h3>
+				<select th:field="*{frequencyOfActivity.frequencyOfActivityId}"
+					id="inputFoa" name="foa" class="form-control">
+					<option th:each="frequency : ${frequenciesListOfSelectives}"
+						th:value="${frequency.frequencyOfActivityId}"
+						th:text="${frequency.description}">
+				</select>
+
+				<h3>
+					<label for="inputBMI" class="label label-primary">BMI</label>
+				</h3>
+				<input type="text" id="inputBMI" name="BMI" class="form-control"
+					readonly th:field="*{bmi}">
+				<button class="btn btn-md btn-primary custom-btn" name="submitBMI"
+					type="button" onclick="submitBmiForm()" th:text="#{profilepage.submitBMI}" form="bmiForm"
+					data-toggle="tooltip" data-placement="right" th:title="#{profilepage.BMITooltip}">Calculate
+					BMI</button>
+				<div th:if="${#fields.hasErrors('bmi')}" th:errors="*{bmi}"
+					class="alert alert-danger"></div>
+
+				<h3>
+					<label for="inputBMR" class="label label-primary">BMR</label>
+				</h3>
+				<input type="text" id="inputBMR" name="BMR" class="form-control "
+					readonly th:field="*{bmr}">
+				<button class="btn btn-md btn-primary custom-btn" name="submitBMR"
+					onclick="submitBmrForm()" type="button"
+					th:text="#{profilepage.submitBMR}" form="bmrForm" data-toggle="tooltip" 
+					data-placement="right" th:title="#{profilepage.BMRTooltip}">Calculate
+					BMR</button>
+				<div th:if="${#fields.hasErrors('bmr')}" th:errors="*{bmr}"
+					class="alert alert-danger"></div>
+
+				<h3></h3>
+				<button class="btn btn-lg btn-primary btn-block"
+					name="submitProfile" type="submit" th:text="#{profilepage.submit}">Update
+					Profile</button>
+
+			</div>
+		</form>
+
+		<form th:action='@{/calculateBmi}' th:object="${userDetails}"
+			method="POST" name="bmiForm" id="bmiForm" hidden="true"></form>
+
+		<form th:action='@{/calculateBmr}' th:object="${userDetails}"
+			method="POST" name="bmrForm" id="bmrForm" hidden="true"></form>
+	</div>
+	<!-- /container -->
+	<!-- footer -->
+	<footer class="footer" th:replace="fragments/footer :: footer">
+		<div class="container-fluid">
+			<span class="text-muted">Place sticky footer content here.</span>
+		</div>
+	</footer>
+
+<script src="../static/js/profilepage.js"
+	th:src="@{/static/js/profilepage.js}"></script>
+</body>
+</html>

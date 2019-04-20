@@ -22,7 +22,9 @@
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/"
 			access="permitAll" />
-		<security:intercept-url pattern="/resources/**"
+		<security:intercept-url pattern="/static/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/templates/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/login"
 			access="permitAll" />
@@ -46,6 +48,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/calculateBmi"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/post"
+			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**"
 			access="denyAll" />
 		<security:form-login login-page="/login"

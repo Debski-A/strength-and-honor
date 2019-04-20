@@ -44,7 +44,7 @@ import com.gladigator.Services.UserService;
 public class ProfileUtilsTest {
 	
 	@InjectMocks
-	private ProfileUtils profileUtils = new ProfileUtils();
+	private ProfileUtils profileUtils;
 	@Mock
 	private UserDetailsService userDetailsService;
 	@Mock
@@ -132,7 +132,7 @@ public class ProfileUtilsTest {
 	public void whenObtainUserDetails_AndUserHasUserDetails_ThenGetUserDetailsFromUserAndReturnIt() throws Exception {
 		when(user.getUserDetails()).thenReturn(userDetails);
 		
-		assertThat(profileUtils.obtainUserDetails(principal), equalTo(userDetails));
+		assertThat(profileUtils.obtainUserDetails(principal.getName()), equalTo(userDetails));
 		
 		verify(user, times(3)).getUserDetails();
 	}
@@ -140,7 +140,7 @@ public class ProfileUtilsTest {
 	@Test
 	public void whenObtainUserDetails_AndUserDoesNotHaveUserDetails_ThenReturnUserDetails() throws Exception {
 		
-		assertThat(profileUtils.obtainUserDetails(principal), any(UserDetails.class));
+		assertThat(profileUtils.obtainUserDetails(principal.getName()), any(UserDetails.class));
 		
 		verify(user, times(1)).getUserDetails();
 	}
@@ -148,7 +148,7 @@ public class ProfileUtilsTest {
 	@Test
 	public void whenObtainUserDetails_ThenInvokdeGetUserByUsername() throws Exception {
 		
-		profileUtils.obtainUserDetails(principal);
+		profileUtils.obtainUserDetails(principal.getName());
 		
 		verify(userService).getUserByUsername("some username");
 	}

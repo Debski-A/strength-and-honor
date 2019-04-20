@@ -1,8 +1,8 @@
 package com.gladigator.Daos;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +12,7 @@ import com.gladigator.Exceptions.RepositoryException;
 @Repository
 public class RoleDaoImpl implements RoleDao{
 	
-	private static final Logger LOG = LogManager.getLogger(RoleDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RoleDaoImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;

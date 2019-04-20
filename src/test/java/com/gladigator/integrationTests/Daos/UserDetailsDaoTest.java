@@ -14,9 +14,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gladigator.Daos.UserDetailsDao;
@@ -24,9 +23,8 @@ import com.gladigator.Entities.User;
 import com.gladigator.Entities.UserDetails;
 import com.gladigator.Exceptions.RepositoryException;
 
-@ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath:com/gladigator/Configs/test-dao-context.xml" )
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @Transactional
 public class UserDetailsDaoTest {
 
@@ -46,13 +44,7 @@ public class UserDetailsDaoTest {
 		sessionFactory.getCurrentSession().createNativeQuery("ALTER TABLE users ALTER COLUMN id_user RESTART WITH 1").executeUpdate(); //RESETUJE ID AUTOINCREMENT
 		String token = UUID.randomUUID().toString();
 		User user = new User("Roger", "rogeiro", "roger@gmail.com", token, true);
-		userDetails = new UserDetails.UserDetailsBuilder()
-				.setAge(27)
-				.setHeight(193)
-				.setWeight(97)
-				.setBmi(333D)
-				.setBmr(444D)
-				.build();
+		userDetails = UserDetails.builder().age(27).height(193).weight(97).bmr(333D).bmr(444D).build();
 		userDetails.setUser(user); // musze dodac zaleznosc od User poniewaz ID w UserDetails pobierane jest z pola User. Jesli ustawie id recznie to saveOrUpdate bedzie zawsze wywolywac update
 	}
 
@@ -60,7 +52,7 @@ public class UserDetailsDaoTest {
 	@Test
 	public void givenUserDetails_WhenSaveOrUpdateUserDetails_ThenUserDetailsArePersisted() throws Exception {
 		userDetailsDao.saveOrUpdate(userDetails);
-		sessionFactory.getCurrentSession().flush(); //flush aby zapelnic tabele danymi. Bez tego INSERT bedzie tylko w tabeli users. NIE WIEM CZEMU TAK JEST TODO
+		sessionFactory.getCurrentSession().flush(); //flush aby zapelnic tabele danymi. Bez tego INSERT bedzie tylko w tabeli users. 
 		sessionFactory.getCurrentSession().detach(userDetails); //detach aby "odlaczyc" userDetails od Persistence context. clear odlacza wszystkie encje bedace w kontekscie
 		UserDetails userDetailsFromDB = userDetailsDao.findById(1); //BEZ DETACH usersDetails wciaz jest w cache i przez to nie jest wykonywany SELECT w bazie danych. getUserDetailsById po prostu przypisuje referencje z cache do zmiennej userDetailsFromDB
 		assertThat(userDetailsFromDB, equalTo(userDetails));

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head (pageTitle=#{homepage.title})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery-3.2.1.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<link href="../static/css/custom.css" rel="stylesheet" />
+
+<title>Register</title>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		th:replace="fragments/header :: navbar"></nav>
+
+	<div class="container">
+		<form class="form-signin" name="f" action="#"
+			th:action='@{/createUser}' method="POST" th:object="${user}">
+			
+			<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+
+			<div th:if="${confirmationMessage}" class="alert alert-success"
+				 th:text=${confirmationMessage}></div>
+
+			<div th:if="${errorMessage}" class="alert alert-danger" 
+				th:text="${errorMessage}"></div>
+
+
+			<div th:if="${#fields.hasErrors('username')}"
+				th:errors="*{username}"
+				class="alert alert-danger"></div>
+
+			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+				class="alert alert-danger" ></div>
+
+
+			<h2 class="form-signin-heading" th:text="#{registerpage.heading}">Hello
+				my Friend!</h2>
+			<label for="inputUsername" class="sr-only"
+				th:text="#{registerpage.username}">Username</label> 
+			<input
+				type="text" id="inputUsername" name="username" class="form-control"
+				th:placeholder="#{registerpage.username}" required autofocus th:field="*{username}">
+			<label for="inputEmail" class="sr-only"
+				th:text="Email">Email</label>
+			<input
+				type="text" id="inputEmail" name="email"
+				class="form-control" th:placeholder="Email"
+				required>
+			<button class="btn btn-lg btn-primary btn-block" name="submit"
+				type="submit" th:text="#{registerpage.submit}">Sign in</button>
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+		</form>
+
+	</div>
+	<!-- /container -->
+	<!-- footer -->
+	<footer class="footer" th:replace="fragments/footer :: footer">
+		<div class="container-fluid">
+			<span class="text-muted">Place sticky footer content here.</span>
+		</div>
+	</footer>
+
+</body>
+</html>
