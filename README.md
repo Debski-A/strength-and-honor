@@ -13,7 +13,7 @@ Stack technologiczny:
 
 <h2>Opis projektu</h2>
 <p>Aplikacja webowa umożliwiająca prowadzenie konta i pisanie postów. Po napisaniu posta jego treść jest automatycznie tłuamczona na inne języki.
-Obecnie osługiwane są dwa języki. Pokrycie kodu testami wynosi ponad 80%.</p><br/>
+Obecnie osługiwane są dwa języki.</p><br/>
 
 Użytkownik może:
 <ol>
