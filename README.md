@@ -7,7 +7,7 @@ Stack technologiczny:
     <li>Hibernate</li>
     <li>MySQL</li>
     <li>Thymeleaf</li>
-    <li>Bootstrap</li>
+    <li>Bootstrap, jQuery</li>
     <li>JUnit, Mockito</li>
 </ul>
 
